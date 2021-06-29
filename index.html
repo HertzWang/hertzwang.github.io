@@ -210,10 +210,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-06-22 16:17:36 / 修改时间：16:23:34" itemprop="dateCreated datePublished" datetime="2021-06-22T16:17:36+08:00">2021-06-22</time>
+              <time title="创建时间：2021-06-22 16:17:36" itemprop="dateCreated datePublished" datetime="2021-06-22T16:17:36+08:00">2021-06-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-06-29 10:01:14" itemprop="dateModified" datetime="2021-06-29T10:01:14+08:00">2021-06-29</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -236,22 +242,27 @@
 
       
           <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
-<blockquote>
-<p>源于 <a target="_blank" rel="noopener" href="https://github.com/tencentyun/qcloud-sdk-ios">https://github.com/tencentyun/qcloud-sdk-ios</a> 上的代码块描述</p>
-</blockquote>
-<h2 id="文件内容"><a href="#文件内容" class="headerlink" title="文件内容"></a>文件内容</h2><p>文件以.codesnippet结尾、内容是plist格式，完整示例如下：</p>
+<p> 源于 <a target="_blank" rel="noopener" href="https://github.com/tencentyun/qcloud-sdk-ios">qcloud-sdk-ios</a> 上的代码块描述，应用实例 <a target="_blank" rel="noopener" href="https://github.com/HertzWang/FastCode">Fast Code</a></p>
+<h2 id="文件内容"><a href="#文件内容" class="headerlink" title="文件内容"></a>文件内容</h2><p>.codesnippet结尾的xml文件，存放在<code>~/Library/Developer/Xcode/UserData/CodeSnippets</code>文件夹，完整示例如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;</span><br><span class="line">&lt;plist version=&quot;1.0&quot;&gt;</span><br><span class="line">&lt;dict&gt;</span><br><span class="line">	&lt;key&gt;IDECodeSnippetCompletionPrefix&lt;/key&gt;</span><br><span class="line">	&lt;string&gt;代码块前缀&lt;/string&gt;</span><br><span class="line">	&lt;key&gt;IDECodeSnippetCompletionScopes&lt;/key&gt;</span><br><span class="line">	&lt;array&gt;</span><br><span class="line">		&lt;string&gt;代码块作用域&lt;/string&gt;</span><br><span class="line">	&lt;/array&gt;</span><br><span class="line">	&lt;key&gt;IDECodeSnippetContents&lt;/key&gt;</span><br><span class="line">	&lt;string&gt;代码块内容&lt;/string&gt;</span><br><span class="line">	&lt;key&gt;IDECodeSnippetIdentifier&lt;/key&gt;</span><br><span class="line">	&lt;string&gt;代码块唯一标识符&lt;/string&gt;</span><br><span class="line">	&lt;key&gt;IDECodeSnippetLanguage&lt;/key&gt;</span><br><span class="line">	&lt;string&gt;Xcode.SourceCodeLanguage.Objective-C&lt;/string&gt;</span><br><span class="line">	&lt;key&gt;IDECodeSnippetSummary&lt;/key&gt;</span><br><span class="line">	&lt;string&gt;代码块概要&lt;/string&gt;</span><br><span class="line">	&lt;key&gt;IDECodeSnippetTitle&lt;/key&gt;</span><br><span class="line">	&lt;string&gt;代码块标题&lt;/string&gt;</span><br><span class="line">	&lt;key&gt;IDECodeSnippetUserSnippet&lt;/key&gt;</span><br><span class="line">	&lt;true/&gt;</span><br><span class="line">	&lt;key&gt;IDECodeSnippetVersion&lt;/key&gt;</span><br><span class="line">	&lt;integer&gt;2&lt;/integer&gt;</span><br><span class="line">&lt;/dict&gt;</span><br><span class="line">&lt;/plist&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>下载后文件与Xcode生成的文件做对比差异如下：</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Xcode中可修改条目有七项，分别是Title、Summary、Content、Language、Platform、Completion和Availability，下载后文件与Xcode生成的文件做对比差异如下：</p>
 <ol>
 <li>代码块前缀 IDECodeSnippetCompletionPrefix 对应的 string</li>
 <li>代码块作用域 IDECodeSnippetCompletionScopes 对应的 array<string>，目前已知有 All、CodeBlock</li>
 <li>代码块内容 IDECodeSnippetContents 对应的 string，其中填充部份以 &lt;#  开头并以 #&gt; 结尾，Xcode中是 &lt;#填充部分#&gt;</li>
 <li>代码块唯一标识符 IDECodeSnippetIdentifier 对应的 string，格式为 8位-4位-4位-4位-12位 的16进制，如：FF167DB4-0C2D-4F6D-9A2B-0C0785239FFB</li>
 <li>代码块概要 IDECodeSnippetSummary 对应的string，无内容可为空字符串</li>
-<li>代码块标题 IDECodeSnippetSummary 对应的 string</li>
+<li>代码块标题 IDECodeSnippetTitle 对应的 string</li>
 </ol>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/XcodeCodeSnippets.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
