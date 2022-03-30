@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hertz.wang","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="iOS developer from China.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hertz Wang Blog">
+<meta property="og:url" content="https://hertz.wang/page/5/index.html">
+<meta property="og:site_name" content="Hertz Wang Blog">
+<meta property="og:description" content="iOS developer from China.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Hertz Wang">
+<meta property="article:tag" content="HertzWang 王海舟 海舟 Hertz Wang">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://hertz.wang/page/5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Hertz Wang Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hertz Wang Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">https://hertz.wang</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/WorkoutLessonWXM02.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/WorkoutLessonWXM02.html" class="post-title-link" itemprop="url">健身私教日记-小明第二节</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-03-19 11:46:31" itemprop="dateCreated datePublished" datetime="2017-03-19T11:46:31+08:00">2017-03-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Life/" itemprop="url" rel="index"><span itemprop="name">Life</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<p>2017年02月27日下午8点，本次主要练腿</p>
+<p>时间之长，已记不太清具体，记录有过此事！</p>
+<ol>
+<li>躺着蹬腿</li>
+<li>健身球下蹲</li>
+<li>坐着夹腿</li>
+<li>坐着双腿张开</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/BuyAHouse.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/BuyAHouse.html" class="post-title-link" itemprop="url">异地公积金贷款购二手房</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-03-12 18:41:39" itemprop="dateCreated datePublished" datetime="2017-03-12T18:41:39+08:00">2017-03-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%94%9F%E6%B4%BB/" itemprop="url" rel="index"><span itemprop="name">生活</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<blockquote>
+<p>前言：羊毛出在羊身上，买房坑大水深！！！以下是我用异地公积金贷款买二手房的经历，有地区差异。</p>
+</blockquote>
+<h1 id="前期"><a href="#前期" class="headerlink" title="前期"></a>前期</h1><h2 id="找房源"><a href="#找房源" class="headerlink" title="找房源"></a>找房源</h2><p>自己在网上看，同时也委托同学（高中，地产中介上班）看</p>
+<h2 id="看房"><a href="#看房" class="headerlink" title="看房"></a>看房</h2><blockquote>
+<p>2017年3月份休了年假（周一到周五，加上两个周末共九天），周六收拾屋子，周日回的家，周二、三看了两天</p>
+</blockquote>
+<h3 id="第一天看房"><a href="#第一天看房" class="headerlink" title="第一天看房"></a>第一天看房</h3><p>第一天看了两套，第一套一眼就相中了，第二套交通不便就没在考虑，当前的问题是第一套超出预算4万，然后同学说他跟房东压价</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/BuyAHouse.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/WorkoutLessonWXM01.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/WorkoutLessonWXM01.html" class="post-title-link" itemprop="url">健身私教日记-小明第一节</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-02-25 17:57:28" itemprop="dateCreated datePublished" datetime="2017-02-25T17:57:28+08:00">2017-02-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Life/" itemprop="url" rel="index"><span itemprop="name">Life</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<p>2017年02月24日下午7点，本次课程共3个动作</p>
+<h2 id="动作一"><a href="#动作一" class="headerlink" title="动作一"></a>动作一</h2><h3 id="夹臂哑玲——肱二头肌"><a href="#夹臂哑玲——肱二头肌" class="headerlink" title="夹臂哑玲——肱二头肌"></a>夹臂哑玲——肱二头肌</h3><p>预备：双手持哑玲、掌心朝前，双脚分开同肩宽，上身挺直微前倾，双臂伸直微弯曲，大臂微夹，目视前方</p>
+<p>动作：以手肘为轴心，大臂不动手臂弯曲到极点，慢慢恢复，上呼下吸</p>
+<p>强度：2.5kg 20个 -&gt; 5kg 15个 -&gt; 7.5kg 7个 -&gt;  10kg 4个，两个循环</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/WorkoutLessonWXM01.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/WorkoutLessonWXM00.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/WorkoutLessonWXM00.html" class="post-title-link" itemprop="url">健身私教日记-小明预热</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-02-22 19:13:32" itemprop="dateCreated datePublished" datetime="2017-02-22T19:13:32+08:00">2017-02-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Life/" itemprop="url" rel="index"><span itemprop="name">Life</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<p>前言：换了私教…依然教练各有各的教学方法，第一次这么晚上课</p>
+<p>2017年02月21日下午8点，本次课程共6个动作</p>
+<h2 id="动作一"><a href="#动作一" class="headerlink" title="动作一"></a>动作一</h2><h3 id="坐着腿双曲上抬——练腿（股四头肌，膝盖上边）"><a href="#坐着腿双曲上抬——练腿（股四头肌，膝盖上边）" class="headerlink" title="坐着腿双曲上抬——练腿（股四头肌，膝盖上边）"></a>坐着腿双曲上抬——练腿（股四头肌，膝盖上边）</h3><p>预备：坐在机械上，膝盖间距与肩同宽、小腿自然下垂，上身向后依靠、下呗镂空，双臂自然下垂</p>
+<p>动作：保持上身不变，腿部法力使其尽可能伸直，伸直后保持2秒再慢慢收回，申呼收吸，动作要慢</p>
+<p>强度：15kg，20个 x 3次</p>
+<p>*注： 座椅前后距离可调节，距离越大发力点越靠上，注意适量！</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/WorkoutLessonWXM00.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/Workout201702.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Workout201702.html" class="post-title-link" itemprop="url">2017年02月份健身日志</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-02-17 08:50:28" itemprop="dateCreated datePublished" datetime="2017-02-17T08:50:28+08:00">2017-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Life/" itemprop="url" rel="index"><span itemprop="name">Life</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<p><strong>2017-02-27 周一</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://hertzwang.github.io/WorkoutLessonWXM02.html">健身私教日记-小明第二节</a></li>
+</ul>
+<p><strong>2017-02-24 周五</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://hertzwang.github.io/WorkoutLessonWXM01.html">健身私教日记-小明第一节</a></li>
+</ul>
+<p><strong>2017-02-21 周二</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://hertzwang.github.io/WorkoutLessonWXM00.html">健身私教日记-小明预热</a></li>
+</ul>
+<p><strong>2017-02-19 周日</strong></p>
+<ul>
+<li>跑步机<ul>
+<li>快走：时速6km、时长60min</li>
+</ul>
+</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Workout201702.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/DataBaseDesignTemplate.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/DataBaseDesignTemplate.html" class="post-title-link" itemprop="url">数据库设计文档模板</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-01-16 20:36:26" itemprop="dateCreated datePublished" datetime="2017-01-16T20:36:26+08:00">2017-01-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT/" itemprop="url" rel="index"><span itemprop="name">IT</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<h2 id="表"><a href="#表" class="headerlink" title="表"></a>表</h2><h3 id="中文表名1（English-Name）"><a href="#中文表名1（English-Name）" class="headerlink" title="中文表名1（English Name）"></a>中文表名1（English Name）</h3><table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>数据长度</th>
+<th>说明</th>
+<th>允许空</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>column_name</td>
+<td>Int</td>
+<td>11</td>
+<td>列名</td>
+<td>N</td>
+<td></td>
+</tr>
+<tr>
+<td>column_name</td>
+<td>Int</td>
+<td>11</td>
+<td>列名</td>
+<td>N</td>
+<td></td>
+</tr>
+<tr>
+<td>column_name</td>
+<td>Int</td>
+<td>11</td>
+<td>列名</td>
+<td>N</td>
+<td></td>
+</tr>
+</tbody></table>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/DataBaseDesignTemplate.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/APITemplate.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/APITemplate.html" class="post-title-link" itemprop="url">API文档模板</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-01-16 20:31:36" itemprop="dateCreated datePublished" datetime="2017-01-16T20:31:36+08:00">2017-01-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT/" itemprop="url" rel="index"><span itemprop="name">IT</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<h2 id="统一请求头参数"><a href="#统一请求头参数" class="headerlink" title="统一请求头参数"></a>统一请求头参数</h2><table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sessionId</td>
+<td>请求后必选参数，回话id</td>
+</tr>
+<tr>
+<td>account</td>
+<td>登录后必选参数，用户注册成功后生成的账号</td>
+</tr>
+<tr>
+<td>deviceId</td>
+<td>必选参数，设备号</td>
+</tr>
+<tr>
+<td>appVersion</td>
+<td>必选参数，应用版本号</td>
+</tr>
+<tr>
+<td>apiVersion</td>
+<td>请求后必选参数，接口版本号</td>
+</tr>
+</tbody></table>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/APITemplate.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/WorkoutLesson04.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/WorkoutLesson04.html" class="post-title-link" itemprop="url">健身私教日记-第四节</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-01-06 22:51:43" itemprop="dateCreated datePublished" datetime="2017-01-06T22:51:43+08:00">2017-01-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Life/" itemprop="url" rel="index"><span itemprop="name">Life</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<p>前言：之前的教练离职了，可惜了…教练各有各的教学方法</p>
+<p>2017年01月03日下午七点多，本次课程共4个动作</p>
+<h2 id="动作一"><a href="#动作一" class="headerlink" title="动作一"></a>动作一</h2><h3 id="半蹲——练腿"><a href="#半蹲——练腿" class="headerlink" title="半蹲——练腿"></a>半蹲——练腿</h3><p>预备：双腿分开比肩宽10cm、脚尖朝内，双手向前伸直抬与肩高，挺胸、臀部身后</p>
+<p>动作：躺下蹲，膝盖与脚尖在一条线上，从侧面看背部有弧度，慢慢恢复，下呼上吸</p>
+<p>强度：20个一组，一次4组，间歇1分钟</p>
+<h2 id="动作二"><a href="#动作二" class="headerlink" title="动作二"></a>动作二</h2><h3 id="原地箭步蹲——练腿"><a href="#原地箭步蹲——练腿" class="headerlink" title="原地箭步蹲——练腿"></a>原地箭步蹲——练腿</h3><p>预备：一条腿向前迈开约50cm，前腿弯曲90度、膝盖不超过脚尖，后退向后撤最大距离并脚掌着地，上身挺直，双臂自然下垂</p>
+<p>动作：后腿弯曲向下蹲，前腿膝盖不超过脚尖、后腿膝盖不碰与地面，慢慢恢复，下呼上吸</p>
+<p>强度：20个一组，一次4组，间歇1分钟</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/WorkoutLesson04.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/Workout201701.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Workout201701.html" class="post-title-link" itemprop="url">2017年01月份健身日志</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-01-03 22:43:28" itemprop="dateCreated datePublished" datetime="2017-01-03T22:43:28+08:00">2017-01-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Life/" itemprop="url" rel="index"><span itemprop="name">Life</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<p><strong>2017-01-16 周一</strong></p>
+<ul>
+<li>仰卧起坐4组（上下各50次）</li>
+</ul>
+<p><strong>2017-01-14 周六</strong></p>
+<ul>
+<li>仰卧起坐2组（上下各50次）</li>
+</ul>
+<p><strong>2017-01-09 周一</strong></p>
+<ul>
+<li><p>划船机练背（私教体验课）：</p>
+<ul>
+<li>20kg 四组</li>
+</ul>
+</li>
+<li><p>下拉练背（私教体验课）：</p>
+<ul>
+<li>20kg 四组 </li>
+</ul>
+</li>
+<li><p>跑步机</p>
+<ul>
+<li>慢跑：时速9km、时长10min</li>
+<li>快走：时速6km、时长11min</li>
+</ul>
+</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Workout201701.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/WorkoutLesson03.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/WorkoutLesson03.html" class="post-title-link" itemprop="url">健身私教日记-第三节</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-12-27 21:33:29" itemprop="dateCreated datePublished" datetime="2016-12-27T21:33:29+08:00">2016-12-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Life/" itemprop="url" rel="index"><span itemprop="name">Life</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<p>2016年12月25日下午四点，本次课程共6个动作</p>
+<h2 id="动作一"><a href="#动作一" class="headerlink" title="动作一"></a>动作一</h2><h3 id="练下背"><a href="#练下背" class="headerlink" title="练下背"></a>练下背</h3><p>器材：上边有挡板、下边脚可以踩</p>
+<p>运动前拉伸：双手扶器材，胳膊伸直与身体成直线，身体放松、翘臀，感觉背部得到拉伸保持10秒，身体左倾拉伸10秒、右倾拉伸10秒</p>
+<p>预备：站上器材向前趴，挡板顶在腹部（可调解），挺胸、收腹、夹肩、背部挺直，双手交叉贴在胸前</p>
+<p>动作：以腰为轴心向下趴，然后复原（上身与地面平行偏上一点），下呼上吸</p>
+<p>强度：15个一组，一次4组，间歇1分钟并拉伸一次</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/WorkoutLesson03.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Hertz Wang</p>
+  <div class="site-description" itemprop="description">iOS developer from China.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hertz Wang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

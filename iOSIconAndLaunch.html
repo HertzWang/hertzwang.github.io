@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hertz.wang","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="反馈请联系hertz@hertzwang.com,谢谢 Launch Screen 参考： 开发者官网  iPhone   设备 尺寸 对角线    iPhone 12 Pro Max 428x926 pt (1284x2778 px @3x) 6.7 英寸   iPhone 12 Pro&#x2F;12 390x844 pt (1170x2532 px @3x) 6.1 英寸   iPhone 12 mi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="App Icon 和 Launch Screen 尺寸">
+<meta property="og:url" content="https://hertz.wang/iOSIconAndLaunch.html">
+<meta property="og:site_name" content="Hertz Wang Blog">
+<meta property="og:description" content="反馈请联系hertz@hertzwang.com,谢谢 Launch Screen 参考： 开发者官网  iPhone   设备 尺寸 对角线    iPhone 12 Pro Max 428x926 pt (1284x2778 px @3x) 6.7 英寸   iPhone 12 Pro&#x2F;12 390x844 pt (1170x2532 px @3x) 6.1 英寸   iPhone 12 mi">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-11-08T10:24:20.000Z">
+<meta property="article:modified_time" content="2022-01-20T02:57:15.320Z">
+<meta property="article:author" content="Hertz Wang">
+<meta property="article:tag" content="iOS">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://hertz.wang/iOSIconAndLaunch.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>App Icon 和 Launch Screen 尺寸 | Hertz Wang Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hertz Wang Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">https://hertz.wang</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/iOSIconAndLaunch.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          App Icon 和 Launch Screen 尺寸
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-11-08 18:24:20" itemprop="dateCreated datePublished" datetime="2017-11-08T18:24:20+08:00">2017-11-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT/" itemprop="url" rel="index"><span itemprop="name">IT</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<h2 id="Launch-Screen"><a href="#Launch-Screen" class="headerlink" title="Launch Screen"></a>Launch Screen</h2><blockquote>
+<p>参考： <a target="_blank" rel="noopener" href="https://developer.apple.com/design/human-interface-guidelines/ios/visual-design/adaptivity-and-layout/">开发者官网</a></p>
+</blockquote>
+<h3 id="iPhone"><a href="#iPhone" class="headerlink" title="iPhone"></a>iPhone</h3><table>
+<thead>
+<tr>
+<th>设备</th>
+<th>尺寸</th>
+<th>对角线</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>iPhone 12 Pro Max</td>
+<td>428x926 pt (1284x2778 px @3x)</td>
+<td>6.7 英寸</td>
+</tr>
+<tr>
+<td>iPhone 12 Pro/12</td>
+<td>390x844 pt (1170x2532 px @3x)</td>
+<td>6.1 英寸</td>
+</tr>
+<tr>
+<td>iPhone 12 mini</td>
+<td>375x812 pt (1080x2340 px @3x)</td>
+<td>5.4 英寸</td>
+</tr>
+<tr>
+<td>iPhone 11 Pro Max/Xs Max</td>
+<td>414x896 pt (1242x2688 px @3x)</td>
+<td>6.5 英寸</td>
+</tr>
+<tr>
+<td>iPhone 11 Pro/Xs/X</td>
+<td>375x812 pt (1125x2436 px @3x)</td>
+<td>5.8 英寸</td>
+</tr>
+<tr>
+<td>iPhone 11/Xr</td>
+<td>414x896 pt (828x1792 px @2x)</td>
+<td>6.1 英寸</td>
+</tr>
+<tr>
+<td>iPhone 8 Plus/7 Plus/6s Plus/6 Plus</td>
+<td>414x736 pt (1080x1920 px @3x)</td>
+<td>5.5 英寸</td>
+</tr>
+<tr>
+<td>iPhone 8/7/6s/6/4.7” iPhone SE</td>
+<td>375x667 pt (750x1334 px @2x)</td>
+<td>4.7 英寸</td>
+</tr>
+<tr>
+<td>4” iPhone SE/5s/5</td>
+<td>320x568 pt (640x1136 px @2x)</td>
+<td>4 英寸</td>
+</tr>
+<tr>
+<td>iPhone 4s/4</td>
+<td>320x480 pt (640x960 px @2x)</td>
+<td>3.5 英寸</td>
+</tr>
+</tbody></table>
+<p>注：判断设备像素时使用 pt x 倍数，在5.4、5.5英寸的设备上宽度缩至1080px</p>
+<blockquote>
+<p>Assets LaunchImage</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>环境</th>
+<th>方向</th>
+<th>尺寸</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><center>iPhone X <br> iOS 11+ </center></td>
+<td>竖屏</td>
+<td>1125px × 2436px</td>
+</tr>
+<tr>
+<td><center>Retina HD 5.5 <br> iOS 8,9 </center></td>
+<td>竖屏</td>
+<td>1242px × 2208px</td>
+</tr>
+<tr>
+<td><center>Retina HD 4.7 <br> iOS 8,9 </center></td>
+<td>竖屏</td>
+<td>750px x 1334px</td>
+</tr>
+<tr>
+<td><center>1x iPhone <br> iOS 5,6 </center></td>
+<td>竖屏</td>
+<td>320px x 480px</td>
+</tr>
+<tr>
+<td><center>2x iPhone <br> iOS 5,6/7-9 </center></td>
+<td>竖屏</td>
+<td>640px x 960px</td>
+</tr>
+<tr>
+<td><center>Retina 4 iPhone <br> iOS 5,6/7-9 </center></td>
+<td>竖屏</td>
+<td>640px x 1136px</td>
+</tr>
+<tr>
+<td><center>iPhone X  <br> iOS 11+ </center></td>
+<td>横屏</td>
+<td>2436px × 1125px</td>
+</tr>
+<tr>
+<td><center>Retina HD 5.5 <br> iOS 8,9 </center></td>
+<td>横屏</td>
+<td>2208px x 1242px</td>
+</tr>
+</tbody></table>
+<h3 id="iPad"><a href="#iPad" class="headerlink" title="iPad"></a>iPad</h3><table>
+<thead>
+<tr>
+<th>设备</th>
+<th>竖屏</th>
+<th>横屏</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>12.9” iPad Pro</td>
+<td>2048px × 2732px</td>
+<td>2732px × 2048px</td>
+</tr>
+<tr>
+<td>10.5” iPad Pro</td>
+<td>1668px × 2224px</td>
+<td>2224px × 1668px</td>
+</tr>
+<tr>
+<td>9.7” iPad</td>
+<td>1536px × 2048px</td>
+<td>2048px × 1536px</td>
+</tr>
+<tr>
+<td>7.9” iPad mini 4</td>
+<td>1536px × 2048px</td>
+<td>2048px × 1536px</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Assets LaunchImage </p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>环境</th>
+<th>倍数</th>
+<th>方向</th>
+<th>尺寸</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><center>iPad <br> iOS 5,6/7-9 </center></td>
+<td>1x <br> 2x</td>
+<td>竖屏</td>
+<td>768px × 1024px <br> 1536px × 2048px</td>
+</tr>
+<tr>
+<td><center>iPad Without Status Bar <br> iOS 5,6 </center></td>
+<td>1x <br> 2x</td>
+<td>竖屏</td>
+<td>768px × 1004px <br> 1536px × 2008px</td>
+</tr>
+<tr>
+<td><center>iPad <br> iOS 5,6/7-9 </center></td>
+<td>1x <br> 2x</td>
+<td>横屏</td>
+<td>1024px × 768px <br> 2048px × 1536px</td>
+</tr>
+<tr>
+<td><center>iPad Without Status Bar <br> iOS 5,6 </center></td>
+<td>1x <br> 2x</td>
+<td>横屏</td>
+<td>1024px × 748px <br> 2048px × 1496px</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>环境</th>
+<th>方向</th>
+<th>尺寸</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><center>iPad <br> iOS 5,6/7-9 </center></td>
+<td>竖屏</td>
+<td>768px × 1024px (@1x)<br> 1536px × 2048px (@2x)</td>
+</tr>
+<tr>
+<td><center>iPad Without Status Bar <br> iOS 5,6 </center></td>
+<td>竖屏</td>
+<td>768px × 1004px (@1x) <br> 1536px × 2008px (@2x)</td>
+</tr>
+<tr>
+<td><center>iPad <br> iOS 5,6/7-9 </center></td>
+<td>横屏</td>
+<td>1024px × 768px (@1x) <br> 2048px × 1536px (@2x)</td>
+</tr>
+<tr>
+<td><center>iPad Without Status Bar <br> iOS 5,6 </center></td>
+<td>横屏</td>
+<td>1024px × 748px (@1x) <br> 2048px × 1496px (@2x)</td>
+</tr>
+</tbody></table>
+<h2 id="Icon"><a href="#Icon" class="headerlink" title="Icon"></a>Icon</h2><blockquote>
+<p>参考： <a target="_blank" rel="noopener" href="https://developer.apple.com/ios/human-interface-guidelines/icons-and-images/app-icon/">开发者官网</a>， <a href="./PythonImageSize.html">使用 Python 截取</a> </p>
+</blockquote>
+<ul>
+<li>iPhone </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>环境</th>
+<th>尺寸</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><center>iPhone Notifications <br> iOS 7-11 <br> 20pt</td>
+<td>40px x 40px (20pt x 20pt @2x) <br> 60px x 60px (20pt x 20pt @3x)</td>
+</tr>
+<tr>
+<td><center>iPhone <br> Spotlight - iOS 5,6 <br> Settings - iOS 5-11 <br> 29pt</td>
+<td>29px x 29px (29pt x 29pt @1x) <br> 58px x 58px (29pt x 29pt @2x) <br> 87px x 87px (29pt x 29pt @3x)</td>
+</tr>
+<tr>
+<td><center>iPhone Spotlight <br> iOS 7-11 <br> 40pt</td>
+<td>80px 80px (40pt x 40pt @2x) <br> 120px x 120px (40pt x 40pt @3x)</td>
+</tr>
+<tr>
+<td><center>iPhone App <br> iOS 7-11 <br> 60pt</td>
+<td>120px x 120px (60pt x 60pt @2x) <br> 180px x 180px (60pt x 60pt @3x)</td>
+</tr>
+</tbody></table>
+<span id="more"></span>
+
+<ul>
+<li>iPad</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>环境</th>
+<th>尺寸</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><center>iPad Notifications <br> iOS 7-11 <br> 20pt</td>
+<td>20px x 20px (20pt x 20pt @1x) <br> 40px x 40px (20pt x 20pt @2x)</td>
+</tr>
+<tr>
+<td><center>iPad Settings <br> iOS 5-11 <br> 29pt</td>
+<td>29px x 29px (29pt x 29pt @1x) <br> 58px x 58px (29pt x 29pt @2x)</td>
+</tr>
+<tr>
+<td><center>iPad Spotlight <br> iOS 7-11 <br> 40pt</td>
+<td>40px x 40px (40pt x 40pt @1x) <br> 80px x 80px (40pt x 40pt @2x)</td>
+</tr>
+<tr>
+<td><center>iPad App <br> iOS 7-11 <br> 76pt</td>
+<td>76px x 76px (76pt x 76pt @1x) <br> 152px x 152px (76pt x 76pt @2x)</td>
+</tr>
+<tr>
+<td><center>iPad Pro App <br> iOS 9-11 <br> 83.5pt</td>
+<td>167px x 167px (83.5pt x 83.5pt @2x)</td>
+</tr>
+<tr>
+<td><center>App Store <br> iOS <br> 1024pt</td>
+<td>1024px x 1024px (1024pt x 1024pt @1x)</td>
+</tr>
+</tbody></table>
+<h3 id="Icon-size"><a href="#Icon-size" class="headerlink" title="Icon size"></a>Icon size</h3><table>
+<thead>
+<tr>
+<th>设备/环境</th>
+<th>尺寸</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>iPhone</td>
+<td>180px × 180px (60pt × 60pt @3x) <br> 120px × 120px (60pt × 60pt @2x)</td>
+</tr>
+<tr>
+<td>iPad Pro</td>
+<td>167px × 167px (83.5pt × 83.5pt @2x)</td>
+</tr>
+<tr>
+<td>iPad, iPad mini</td>
+<td>152px × 152px (76pt × 76pt @2x)</td>
+</tr>
+<tr>
+<td>App Store</td>
+<td>1024px × 1024px (1024pt × 1024pt @1x)</td>
+</tr>
+</tbody></table>
+<h3 id="Spotlight-icon-size"><a href="#Spotlight-icon-size" class="headerlink" title="Spotlight icon size"></a>Spotlight icon size</h3><table>
+<thead>
+<tr>
+<th>设备</th>
+<th>尺寸</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>iPhone</td>
+<td>87px × 87px (29pt × 29pt @3x) <br> 58px × 58px (29pt × 29pt @2x)</td>
+</tr>
+<tr>
+<td>iPad Pro, iPad, iPad mini</td>
+<td>58px × 58px (29pt × 29pt @2x)</td>
+</tr>
+</tbody></table>
+<h3 id="Settings-icon-size"><a href="#Settings-icon-size" class="headerlink" title="Settings icon size"></a>Settings icon size</h3><table>
+<thead>
+<tr>
+<th>设备</th>
+<th>尺寸</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>iPhone</td>
+<td>87px × 87px (29pt × 29pt @3x) <br> 58px × 58px (29pt × 29pt @2x)</td>
+</tr>
+<tr>
+<td>iPad Pro, iPad, iPad mini</td>
+<td>58px × 58px (29pt × 29pt @2x)</td>
+</tr>
+</tbody></table>
+<h3 id="Notification-icon-size"><a href="#Notification-icon-size" class="headerlink" title="Notification icon size"></a>Notification icon size</h3><table>
+<thead>
+<tr>
+<th>设备</th>
+<th>尺寸</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>iPhone</td>
+<td>60px × 60px (20pt × 20pt @3x) <br> 40px × 40px (20pt × 20pt @2x)</td>
+</tr>
+<tr>
+<td>iPad Pro, iPad, iPad mini</td>
+<td>40px × 40px (20pt × 20pt @2x)</td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/iOSProjectRename.html" rel="prev" title="iOS项目重命名">
+      <i class="fa fa-chevron-left"></i> iOS项目重命名
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Hackintosh-EFI.html" rel="next" title="Hackintosh-EFI">
+      Hackintosh-EFI <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Launch-Screen"><span class="nav-number">1.</span> <span class="nav-text">Launch Screen</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#iPhone"><span class="nav-number">1.1.</span> <span class="nav-text">iPhone</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iPad"><span class="nav-number">1.2.</span> <span class="nav-text">iPad</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Icon"><span class="nav-number">2.</span> <span class="nav-text">Icon</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Icon-size"><span class="nav-number">2.1.</span> <span class="nav-text">Icon size</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spotlight-icon-size"><span class="nav-number">2.2.</span> <span class="nav-text">Spotlight icon size</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Settings-icon-size"><span class="nav-number">2.3.</span> <span class="nav-text">Settings icon size</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Notification-icon-size"><span class="nav-number">2.4.</span> <span class="nav-text">Notification icon size</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Hertz Wang</p>
+  <div class="site-description" itemprop="description">iOS developer from China.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hertz Wang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

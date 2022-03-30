@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hertz.wang","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="反馈请联系hertz@hertzwang.com,谢谢 安装Mac平台上MySQL支持dmg文件安装，打开下载界面 删除停止MySQL，然后终端执行： sudo rm &#x2F;usr&#x2F;local&#x2F;mysql sudo rm -rf &#x2F;usr&#x2F;local&#x2F;mysql* sudo rm -rf &#x2F;Library&#x2F;StartupItems&#x2F;MySQLCOM sudo rm -rf &#x2F;Library&#x2F;Prefe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mac平台MySQL基础">
+<meta property="og:url" content="https://hertz.wang/MySQLTour.html">
+<meta property="og:site_name" content="Hertz Wang Blog">
+<meta property="og:description" content="反馈请联系hertz@hertzwang.com,谢谢 安装Mac平台上MySQL支持dmg文件安装，打开下载界面 删除停止MySQL，然后终端执行： sudo rm &#x2F;usr&#x2F;local&#x2F;mysql sudo rm -rf &#x2F;usr&#x2F;local&#x2F;mysql* sudo rm -rf &#x2F;Library&#x2F;StartupItems&#x2F;MySQLCOM sudo rm -rf &#x2F;Library&#x2F;Prefe">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-07-09T05:07:34.000Z">
+<meta property="article:modified_time" content="2022-01-20T02:57:15.315Z">
+<meta property="article:author" content="Hertz Wang">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://hertz.wang/MySQLTour.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Mac平台MySQL基础 | Hertz Wang Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hertz Wang Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">https://hertz.wang</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/MySQLTour.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Mac平台MySQL基础
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-07-09 13:07:34" itemprop="dateCreated datePublished" datetime="2017-07-09T13:07:34+08:00">2017-07-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT/" itemprop="url" rel="index"><span itemprop="name">IT</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>Mac平台上MySQL支持<code>dmg</code>文件安装，打开<a target="_blank" rel="noopener" href="https://dev.mysql.com/downloads/mysql/">下载界面</a></p>
+<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><p>停止MySQL，然后终端执行：</p>
+<pre><code>sudo rm /usr/local/mysql
+sudo rm -rf /usr/local/mysql*
+sudo rm -rf /Library/StartupItems/MySQLCOM
+sudo rm -rf /Library/PreferencePanes/My*
+sudo rm -rf /Library/Receipts/mysql*
+rm -rf ~/Library/PreferencePanes/My*
+sudo rm -rf /Library/Receipts/MySQL*
+sudo rm -rf /var/db/receipts/com.mysql.*
+</code></pre>
+<p>编辑 <code>/etc/hostconfig</code> 文件，删除 <code>MYSQLCOM=-YES-</code></p>
+<h2 id="重置root用户密码"><a href="#重置root用户密码" class="headerlink" title="重置root用户密码"></a>重置root用户密码</h2><blockquote>
+<p>可参考<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/5.7/en/resetting-permissions.html">官方做法</a>，也可使用我这种<strong>不安全</strong>的做法</p>
+</blockquote>
+<span id="more"></span>
+
+<h3 id="停止MySQL服务"><a href="#停止MySQL服务" class="headerlink" title="停止MySQL服务"></a>停止MySQL服务</h3><p><code>$ sudo /usr/local/mysql/support-files/mysql.server stop</code></p>
+<p>如果报错<code>ERROR! MySQL server PID file could not be found!</code>，则需要打开<code>系统偏好设置</code>——<code>MySQL</code>点击<code>Stop MySQL Server</code></p>
+<p>注：</p>
+<ul>
+<li>使用 <code>mysql.server</code> 启动的，必须使用 <code>mysql.server</code> 停止</li>
+<li>使用 <code>MySQL面板（系统偏好设置中）</code> 启动的，必须使用 <code>MySQL面板</code> 停止</li>
+<li>两者都不能停止，可尝试<code>top</code>查看<code>PID</code>，然后使用<code>sudo kill PID</code>（<strong>慎用</strong>）</li>
+</ul>
+<h3 id="安全模式启动MySQL"><a href="#安全模式启动MySQL" class="headerlink" title="安全模式启动MySQL"></a>安全模式启动MySQL</h3><p><code>$ sudo /usr/local/mysql/bin/mysqld_safe --skip-grant-tables</code></p>
+<ul>
+<li>–skip-grant-tables 不校验用户密码，任何存在的账户都可免密码登录，<strong>极不安全</strong></li>
+</ul>
+<h3 id="root账户进入MySQL"><a href="#root账户进入MySQL" class="headerlink" title="root账户进入MySQL"></a>root账户进入MySQL</h3><p>打开一个新终端，提示输入密码时按<code>回车</code>继续：</p>
+<p><code>$ /usr/local/mysql/bin/mysql -u root -p</code></p>
+<p>用户信息存在 <code>mysql.user</code>表中，需要先选择 <code>mysql</code> 这个数据库</p>
+<pre><code>Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 46
+Server version: 5.7.18
+
+Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
+
+mysql&gt; use mysql;
+</code></pre>
+<h3 id="重置root密码"><a href="#重置root密码" class="headerlink" title="重置root密码"></a>重置root密码</h3><p>直接更新 <code>mysql.user</code> 表中 <code>root</code> 用户的密码：</p>
+<p><code>mysql&gt; UPDATE user SET authentication_string = PASSWORD(&#39;新密码&#39;) WHERE User=&#39;root&#39;;</code></p>
+<h3 id="刷新权限"><a href="#刷新权限" class="headerlink" title="刷新权限"></a>刷新权限</h3><p><code>mysql&gt; flush privileges;</code></p>
+<h3 id="重启MySQL"><a href="#重启MySQL" class="headerlink" title="重启MySQL"></a>重启MySQL</h3><p>先停止、再启动，结束<code>安全启动MySQL</code>的终端。</p>
+<h2 id="数据库管理工具"><a href="#数据库管理工具" class="headerlink" title="数据库管理工具"></a>数据库管理工具</h2><p>推荐使用 <a target="_blank" rel="noopener" href="https://www.navicat.com.cn/download">Navite for MySQL</a>，也可使用官方的<a target="_blank" rel="noopener" href="https://dev.mysql.com/downloads/workbench/">MySQL Workbench</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/PHPCITour.html" rel="prev" title="PHP CodeIngiter 初探">
+      <i class="fa fa-chevron-left"></i> PHP CodeIngiter 初探
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/iOSAPNsWithPHP.html" rel="next" title="使用 PHP 实现 APNs">
+      使用 PHP 实现 APNs <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4"><span class="nav-number">2.</span> <span class="nav-text">删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E7%BD%AEroot%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">重置root用户密码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%81%9C%E6%AD%A2MySQL%E6%9C%8D%E5%8A%A1"><span class="nav-number">3.1.</span> <span class="nav-text">停止MySQL服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E6%A8%A1%E5%BC%8F%E5%90%AF%E5%8A%A8MySQL"><span class="nav-number">3.2.</span> <span class="nav-text">安全模式启动MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#root%E8%B4%A6%E6%88%B7%E8%BF%9B%E5%85%A5MySQL"><span class="nav-number">3.3.</span> <span class="nav-text">root账户进入MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E7%BD%AEroot%E5%AF%86%E7%A0%81"><span class="nav-number">3.4.</span> <span class="nav-text">重置root密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%B7%E6%96%B0%E6%9D%83%E9%99%90"><span class="nav-number">3.5.</span> <span class="nav-text">刷新权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%90%AFMySQL"><span class="nav-number">3.6.</span> <span class="nav-text">重启MySQL</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7"><span class="nav-number">4.</span> <span class="nav-text">数据库管理工具</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Hertz Wang</p>
+  <div class="site-description" itemprop="description">iOS developer from China.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hertz Wang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

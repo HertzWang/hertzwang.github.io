@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hertz.wang","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="反馈请联系hertz@hertzwang.com,谢谢  参考  iOS开发中高精度数值(货币)计算 iOS 中的数据结构和算法（一）：浮点数   货币计算使用 @interface NSDecimalNumber : NSNumber 成员方法：  Adding 加法 Subtracting 减法 Multiplying 乘法 Dividing 除法 RaisingToPower 幂次方 Mul">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS高精度计算">
+<meta property="og:url" content="https://hertz.wang/iOSHighPrecisionComputation.html">
+<meta property="og:site_name" content="Hertz Wang Blog">
+<meta property="og:description" content="反馈请联系hertz@hertzwang.com,谢谢  参考  iOS开发中高精度数值(货币)计算 iOS 中的数据结构和算法（一）：浮点数   货币计算使用 @interface NSDecimalNumber : NSNumber 成员方法：  Adding 加法 Subtracting 减法 Multiplying 乘法 Dividing 除法 RaisingToPower 幂次方 Mul">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-06-20T06:02:58.000Z">
+<meta property="article:modified_time" content="2022-01-20T02:57:15.319Z">
+<meta property="article:author" content="Hertz Wang">
+<meta property="article:tag" content="iOS">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://hertz.wang/iOSHighPrecisionComputation.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>iOS高精度计算 | Hertz Wang Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hertz Wang Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">https://hertz.wang</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/iOSHighPrecisionComputation.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          iOS高精度计算
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-06-20 14:02:58" itemprop="dateCreated datePublished" datetime="2017-06-20T14:02:58+08:00">2017-06-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/IT/" itemprop="url" rel="index"><span itemprop="name">IT</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<blockquote>
+<p>参考 </p>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/tqwei00001/article/details/53219404">iOS开发中高精度数值(货币)计算</a></p>
+<p><a target="_blank" rel="noopener" href="http://chuansong.me/n/1560106">iOS 中的数据结构和算法（一）：浮点数</a> </p>
+</blockquote>
+<h2 id="货币计算"><a href="#货币计算" class="headerlink" title="货币计算"></a>货币计算</h2><p>使用 <code>@interface NSDecimalNumber : NSNumber</code></p>
+<p>成员方法：</p>
+<ul>
+<li>Adding 加法</li>
+<li>Subtracting 减法</li>
+<li>Multiplying 乘法</li>
+<li>Dividing 除法</li>
+<li>RaisingToPower 幂次方</li>
+<li>MultiplyingByPowerOf10 指数</li>
+</ul>
+<h2 id="高精度算法"><a href="#高精度算法" class="headerlink" title="高精度算法"></a>高精度算法</h2><span id="more"></span>
+
+<p>摘自唐巧的总结：</p>
+<ul>
+<li>浮点数在计算机内部并不是严格精确到每一位的。</li>
+<li>在判断两个浮点数相等时，不能使用 == 操作符，需要通过比较两个浮点数差的绝对值，是否小于一个极小数的方式来判断。</li>
+<li>如果你需要精确的浮点数计算，需要使用高精度算法。</li>
+</ul>
+<p>提示：</p>
+<ol>
+<li>用两个数组来分别存放浮点数的整数部分和小数部分，数组中的每一个元素代表浮点数某一位的值；</li>
+<li>在计算两个浮点数的加法时，两个数组分别进行相加求和；</li>
+<li>需要处理进位和对齐，整数部分按低位对齐，小数部分按高位对齐。</li>
+</ol>
+<p>算法代码，请指教：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 0.参与运算的数据</span></span><br><span class="line"><span class="type">NSString</span> <span class="operator">*</span>numberA <span class="operator">=</span> @<span class="string">&quot;555554.999999&quot;</span>; <span class="comment">// 数据A</span></span><br><span class="line"><span class="type">NSString</span> <span class="operator">*</span>numberB <span class="operator">=</span> @<span class="string">&quot;111111.666667&quot;</span>; <span class="comment">// 数据B</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">// 1.分离整数部分和小数部分</span></span><br><span class="line"><span class="comment">/// 1.1数据A</span></span><br><span class="line"><span class="type">NSMutableArray</span> <span class="operator">*</span>numberAArray <span class="operator">=</span> [<span class="type">NSMutableArray</span> new];</span><br><span class="line"><span class="keyword">for</span> (<span class="type">NSString</span> <span class="operator">*</span>number <span class="keyword">in</span> [numberA componentsSeparatedByString:@<span class="string">&quot;.&quot;</span>]) &#123;</span><br><span class="line">    [numberAArray addObject:number];</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/// 1.2数据B</span></span><br><span class="line"><span class="type">NSMutableArray</span> <span class="operator">*</span>numberBArray <span class="operator">=</span> [<span class="type">NSMutableArray</span> new];</span><br><span class="line"><span class="keyword">for</span> (<span class="type">NSString</span> <span class="operator">*</span>number <span class="keyword">in</span> [numberB componentsSeparatedByString:@<span class="string">&quot;.&quot;</span>]) &#123;</span><br><span class="line">    [numberBArray addObject:number];</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="comment">// 2.补0，整数部分补前面、小数部分补后面，使位数相等</span></span><br><span class="line"><span class="comment">/// 2.1整数位补0</span></span><br><span class="line">long flag <span class="operator">=</span> [numberAArray[<span class="number">0</span>] length] <span class="operator">-</span> [numberBArray[<span class="number">0</span>] length];</span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> (flag <span class="operator">&gt;</span> <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (int i <span class="operator">=</span> <span class="number">0</span>; i <span class="operator">&lt;</span> flag; i<span class="operator">++</span>) &#123;</span><br><span class="line">        numberBArray[<span class="number">0</span>] <span class="operator">=</span> [<span class="type">NSString</span> stringWithFormat:@<span class="string">&quot;0%@&quot;</span>,numberBArray[<span class="number">0</span>]];</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (flag <span class="operator">&lt;</span> <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (int i <span class="operator">=</span> <span class="number">0</span>; i <span class="operator">&lt;</span> labs(flag); i<span class="operator">++</span>) &#123;</span><br><span class="line">        numberAArray[<span class="number">0</span>] <span class="operator">=</span> [<span class="type">NSString</span> stringWithFormat:@<span class="string">&quot;0%@&quot;</span>,numberAArray[<span class="number">0</span>]];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/// 2.2小数位补0</span></span><br><span class="line">flag <span class="operator">=</span> [numberAArray[<span class="number">1</span>] length] <span class="operator">-</span> [numberBArray[<span class="number">1</span>] length];</span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> (flag <span class="operator">&gt;</span> <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (int i <span class="operator">=</span> <span class="number">0</span>; i <span class="operator">&lt;</span> flag; i<span class="operator">++</span>) &#123;</span><br><span class="line">        numberBArray[<span class="number">1</span>] <span class="operator">=</span> [<span class="type">NSString</span> stringWithFormat:@<span class="string">&quot;%@0&quot;</span>,numberBArray[<span class="number">1</span>]];</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (flag <span class="operator">&lt;</span> <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (int i <span class="operator">=</span> <span class="number">0</span>; i <span class="operator">&lt;</span> labs(flag); i<span class="operator">++</span>) &#123;</span><br><span class="line">        numberAArray[<span class="number">1</span>] <span class="operator">=</span> [<span class="type">NSString</span> stringWithFormat:@<span class="string">&quot;%@0&quot;</span>,numberAArray[<span class="number">1</span>]];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="comment">// 3.分开相加，先小数部分、后整数部分</span></span><br><span class="line"><span class="comment">/// 3.1小数位相加</span></span><br><span class="line"><span class="type">NSString</span> <span class="operator">*</span>temp1A <span class="operator">=</span> numberAArray[<span class="number">1</span>];</span><br><span class="line"><span class="type">NSString</span> <span class="operator">*</span>temp1B <span class="operator">=</span> numberBArray[<span class="number">1</span>];</span><br><span class="line"><span class="type">NSString</span> <span class="operator">*</span>temp1 <span class="operator">=</span> @<span class="string">&quot;&quot;</span>;</span><br><span class="line">int add <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (int i <span class="operator">=</span> <span class="number">0</span>; i <span class="operator">&lt;</span> [temp1A length]; i<span class="operator">++</span>) &#123;</span><br><span class="line">    <span class="type">NSRange</span> range <span class="operator">=</span> <span class="type">NSMakeRange</span>([temp1A length]<span class="operator">-</span>i<span class="operator">-</span><span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">    int tempA <span class="operator">=</span> [[temp1A substringWithRange:range] intValue];</span><br><span class="line">    int tempB <span class="operator">=</span> [[temp1B substringWithRange:range] intValue];</span><br><span class="line">    </span><br><span class="line">    int sum <span class="operator">=</span> tempA <span class="operator">+</span> tempB <span class="operator">+</span> add;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (sum <span class="operator">&gt;=</span> <span class="number">10</span>) &#123;</span><br><span class="line">        add <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        sum <span class="operator">-=</span> <span class="number">10</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        add <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    temp1 <span class="operator">=</span> [<span class="type">NSString</span> stringWithFormat:@<span class="string">&quot;%d%@&quot;</span>,sum, temp1];</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/// 3.2整数位相加</span></span><br><span class="line"><span class="type">NSString</span> <span class="operator">*</span>temp0A <span class="operator">=</span> numberAArray[<span class="number">0</span>];</span><br><span class="line"><span class="type">NSString</span> <span class="operator">*</span>temp0B <span class="operator">=</span> numberBArray[<span class="number">0</span>];</span><br><span class="line"><span class="type">NSString</span> <span class="operator">*</span>temp0 <span class="operator">=</span> @<span class="string">&quot;&quot;</span>;</span><br><span class="line"><span class="keyword">for</span> (int i <span class="operator">=</span> <span class="number">0</span>; i <span class="operator">&lt;</span> [temp0A length]; i<span class="operator">++</span>) &#123;</span><br><span class="line">    <span class="type">NSRange</span> range <span class="operator">=</span> <span class="type">NSMakeRange</span>([temp0A length]<span class="operator">-</span>i<span class="operator">-</span><span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">    int tempA <span class="operator">=</span> [[temp0A substringWithRange:range] intValue];</span><br><span class="line">    int tempB <span class="operator">=</span> [[temp0B substringWithRange:range] intValue];</span><br><span class="line">    </span><br><span class="line">    int sum <span class="operator">=</span> tempA <span class="operator">+</span> tempB <span class="operator">+</span> add;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (sum <span class="operator">&gt;=</span> <span class="number">10</span>) &#123;</span><br><span class="line">        add <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        sum <span class="operator">-=</span> <span class="number">10</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        add <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    temp0 <span class="operator">=</span> [<span class="type">NSString</span> stringWithFormat:@<span class="string">&quot;%d%@&quot;</span>,sum, temp0];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4.打印结果</span></span><br><span class="line"><span class="type">NSLog</span>(@<span class="string">&quot;%@ + %@ = %@.%@&quot;</span>, numberA, numberB, temp0, temp1);</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/iOSAboutMemoryManagement.html" rel="prev" title="iOS内存管理">
+      <i class="fa fa-chevron-left"></i> iOS内存管理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/iOSAboutESC.html" rel="next" title="关于转义、base64">
+      关于转义、base64 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%A7%E5%B8%81%E8%AE%A1%E7%AE%97"><span class="nav-number">1.</span> <span class="nav-text">货币计算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E7%B2%BE%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">高精度算法</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Hertz Wang</p>
+  <div class="site-description" itemprop="description">iOS developer from China.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hertz Wang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

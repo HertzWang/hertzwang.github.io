@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hertz.wang","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="实现ipa打包、上传环境：Mac OS 10.12、Xcode 8.3、Python 2.7.10反馈请联系hertz@hertzwang.com,谢谢  打包使用官方的 xcodebuild 命令 cd 到工程根目录（工程使用cocoapods管理）   清空缓存 clean  $ xcodebuild clean -workspace MyWorkspace.xcworkspace -sch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ipa打包、上传至pgyer.com">
+<meta property="og:url" content="https://hertz.wang/AutomaticDeploymentToPgyer.html">
+<meta property="og:site_name" content="Hertz Wang Blog">
+<meta property="og:description" content="实现ipa打包、上传环境：Mac OS 10.12、Xcode 8.3、Python 2.7.10反馈请联系hertz@hertzwang.com,谢谢  打包使用官方的 xcodebuild 命令 cd 到工程根目录（工程使用cocoapods管理）   清空缓存 clean  $ xcodebuild clean -workspace MyWorkspace.xcworkspace -sch">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-04-12T00:35:32.000Z">
+<meta property="article:modified_time" content="2022-01-20T02:57:15.313Z">
+<meta property="article:author" content="Hertz Wang">
+<meta property="article:tag" content="iOS">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://hertz.wang/AutomaticDeploymentToPgyer.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>ipa打包、上传至pgyer.com | Hertz Wang Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hertz Wang Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">https://hertz.wang</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/AutomaticDeploymentToPgyer.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ipa打包、上传至pgyer.com
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-04-12 08:35:32" itemprop="dateCreated datePublished" datetime="2017-04-12T08:35:32+08:00">2017-04-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT/" itemprop="url" rel="index"><span itemprop="name">IT</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>实现ipa打包、上传<br>环境：Mac OS 10.12、Xcode 8.3、Python 2.7.10<br>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+</blockquote>
+<h2 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h2><h3 id="使用官方的-xcodebuild-命令"><a href="#使用官方的-xcodebuild-命令" class="headerlink" title="使用官方的 xcodebuild 命令"></a>使用官方的 <code>xcodebuild</code> 命令</h3><blockquote>
+<p>cd 到工程根目录（工程使用cocoapods管理）</p>
+</blockquote>
+<ol>
+<li><p>清空缓存 clean</p>
+<pre><code> $ xcodebuild clean -workspace MyWorkspace.xcworkspace -scheme MyScheme
+ 
+</code></pre>
+</li>
+<li><p>归档 archive </p>
+<span id="more"></span>
+
+<pre><code> $ xcodebuild archive -workspace MyWorkspace.xcworkspace -scheme MyScheme -archivePath ./build/MyWorkspace.xcarchive
+ 
+</code></pre>
+<ul>
+<li><code>archive</code>：归档为 <code>.xcarchive</code>文件（*Archive a scheme from the build root (SYMROOT).  This requires specifying a scheme.*）</li>
+<li><code>-workspace</code>：当前目录下<code>.xcworkspace</code>文件路径（<em>Build the workspace name.xcworkspace</em></li>
+<li><code>-scheme</code>：项目的<code>scheme</code>（<em>Build the scheme specified by schemename.  Required if building a workspace</em>），可执行<code>xcodebuild -list</code>查看    </li>
+<li><code>-archivePath</code>：归档后文件位置（<em>Specifies the path for the archive produced by the archive action, or specifies the archive that should be exported when -exportArchive is passed</em>）</li>
+</ul>
+</li>
+<li><p>导出 ipa</p>
+<pre><code> $ xcodebuild -exportArchive -archivePath ./build/MyWorkspace.xcarchive -exportPath ./build/ -exportOptionsPlist ./build/export.plist
+ 
+</code></pre>
+<ul>
+<li><p><code>-exportArchive</code>：导出iad文件（<em>Specifies that an archive should be exported. Requires -archivePath, -exportPath, and -exportOptionsPlist.  Cannot be passed along with an action</em>）</p>
+</li>
+<li><p><code>-archivePath</code>：同上</p>
+</li>
+<li><p><code>-exportPath</code>：导出的路径（<em>Specifies the destination for the exported product, including the name of the exported file</em>），文件名默认为<code>MyWorkspace.ipa</code></p>
+</li>
+<li><p><code>-exportOptionsPlist</code>：指定一个<code>plist</code>文件（<em>Specifies options for -exportArchive.  xcodebuild -help can print the full set of available options</em>）</p>
+</li>
+<li><p><code>export.plist</code>：<strong>需要手动创建</strong>，注意修改<code>teamID</code>。了解更多执行 <code>xcodebuild -help</code>查看 <em>Available keys for -exportOptionsPlist</em></p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">plist</span> <span class="meta-keyword">PUBLIC</span> <span class="meta-string">&quot;-//Apple//DTD PLIST 1.0//EN&quot;</span> <span class="meta-string">&quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plist</span> <span class="attr">version</span>=<span class="string">&quot;1.0&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">key</span>&gt;</span>method<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">string</span>&gt;</span>ad-hoc<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">key</span>&gt;</span>teamID<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">string</span>&gt;</span>10位字符，你的teamId<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plist</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h3 id="使用三方的-fir-命令"><a href="#使用三方的-fir-命令" class="headerlink" title="使用三方的 fir 命令"></a>使用三方的 <code>fir</code> 命令</h3><p>准备：<a target="_blank" rel="noopener" href="https://github.com/FIRHQ/fir-cli/blob/master/doc/install.md">安装fir-cli</a></p>
+<pre><code>$ fir build_ipa path/to/workspace -w -S &lt;scheme name&gt;
+</code></pre>
+<p>执行完成后会生成<code>fir_build</code>文件夹，更多信息<a target="_blank" rel="noopener" href="https://github.com/FIRHQ/fir-cli/blob/master/doc/build_ipa.md">参考官方说明</a></p>
+<h2 id="上传（发布）"><a href="#上传（发布）" class="headerlink" title="上传（发布）"></a>上传（发布）</h2><blockquote>
+<p>将ipa包上传至pgyer.com，主要使用Web、<a target="_blank" rel="noopener" href="https://www.pgyer.com/apps/">桌面客户端</a>、<a target="_blank" rel="noopener" href="https://www.pgyer.com/doc/api#uploadApp">开放API</a>、<a target="_blank" rel="noopener" href="https://www.pgyer.com/doc/view/fastlane">FastLane</a>、<a target="_blank" rel="noopener" href="https://www.pgyer.com/doc/view/xcode_plugin">Xcode 插件</a>、<a target="_blank" rel="noopener" href="https://www.pgyer.com/doc/view/jenkins_ios">Jenkins</a></p>
+</blockquote>
+<h3 id="使用一条命令快速上传应用"><a href="#使用一条命令快速上传应用" class="headerlink" title="使用一条命令快速上传应用"></a>使用一条命令快速上传应用</h3><pre><code>curl -F &quot;file=@&#123;$filePath&#125;&quot; \
+-F &quot;uKey=&#123;$uKey&#125;&quot; \
+-F &quot;_api_key=&#123;$apiKey&#125;&quot; \
+https://www.pgyer.com/apiv1/app/upload
+</code></pre>
+<ul>
+<li>ilePath：是应用安装包文件的路径</li>
+<li>uKey：是开发者的用户 Key，在应用管理-API中查看</li>
+<li>apiKey：是开发者的 API Key，在应用管理-API中查看</li>
+</ul>
+<h2 id="Python-自动部署"><a href="#Python-自动部署" class="headerlink" title="Python 自动部署"></a>Python 自动部署</h2><blockquote>
+<p>脚本集成实现打包、上传、发邮件通知功能，注意阅读<strong>使用说明</strong></p>
+<p>以下代码有用拿走，有优化请 <a href="mailto:hertz@hertzwang.com"><strong>反馈</strong></a></p>
+</blockquote>
+<p>使用<code>Python</code> 封装 <code>xcodebuild</code> 自动布置 pgyer.com，支持邮件通知</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">from</span> email <span class="keyword">import</span> encoders</span><br><span class="line"><span class="keyword">from</span> email.header <span class="keyword">import</span> Header</span><br><span class="line"><span class="keyword">from</span> email.mime.text <span class="keyword">import</span> MIMEText</span><br><span class="line"><span class="keyword">from</span> email.mime.multipart  <span class="keyword">import</span> MIMEMultipart</span><br><span class="line"><span class="keyword">from</span> email.utils <span class="keyword">import</span> parseaddr, formataddr</span><br><span class="line"><span class="keyword">import</span> smtplib</span><br><span class="line">	</span><br><span class="line"><span class="comment">#  当前版本：v1.0.1</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">## 使用说明：</span></span><br><span class="line"><span class="comment">## 0.修改开发人员名称、测试人员名称、App名称，会在邮件中使用</span></span><br><span class="line"><span class="comment">## 1.将该文件放置工程根目录（与.xcworkspace同级）</span></span><br><span class="line"><span class="comment">## 2.修改以下相关信息：项目名称、scheme名称、teamId、pgyer Info相关和email相关</span></span><br><span class="line"><span class="comment">## 3.修改删除ipa标记</span></span><br><span class="line">	</span><br><span class="line"><span class="comment"># 项目相关设置</span></span><br><span class="line"><span class="comment">## 开发人员</span></span><br><span class="line">dev_name = <span class="string">&#x27;-&#x27;</span></span><br><span class="line"><span class="comment">## 测试人员</span></span><br><span class="line">tester_name = <span class="string">&#x27;-&#x27;</span></span><br><span class="line"><span class="comment">## 项目名称</span></span><br><span class="line">project_name = <span class="string">&quot;-&quot;</span></span><br><span class="line"><span class="comment">## 项目根目录,结尾不带 &quot;/&quot;，目前使用的是相对路径（可不修改）</span></span><br><span class="line">project_path = <span class="string">&quot;.&quot;</span></span><br><span class="line"><span class="comment">## scheme名称（终端进入工程根目录，执行 xcodebuild -list）</span></span><br><span class="line">scheme_name = <span class="string">&quot;-&quot;</span></span><br><span class="line"><span class="comment">## App 名称（邮件中使用）</span></span><br><span class="line">app_name = <span class="string">&quot;-&quot;</span></span><br><span class="line"><span class="comment">## teamId</span></span><br><span class="line">team_id = <span class="string">&quot;-&quot;</span></span><br><span class="line">	</span><br><span class="line"><span class="comment"># pgyer Info</span></span><br><span class="line">api_key = <span class="string">&quot;-&quot;</span></span><br><span class="line">user_key = <span class="string">&quot;-&quot;</span></span><br><span class="line">	</span><br><span class="line"><span class="comment"># email</span></span><br><span class="line"><span class="comment">## 发件人邮箱账号</span></span><br><span class="line">from_addr = <span class="string">&quot;-&quot;</span></span><br><span class="line"><span class="comment">## 发件人邮箱密码</span></span><br><span class="line">password = <span class="string">&quot;-&quot;</span></span><br><span class="line"><span class="comment">## 邮箱服务地址</span></span><br><span class="line">smtp_server = <span class="string">&quot;-&quot;</span></span><br><span class="line"><span class="comment">## 收件人，多个用&quot;,&quot;分开</span></span><br><span class="line">to_addr = <span class="string">&#x27;-&#x27;</span></span><br><span class="line">	</span><br><span class="line"><span class="comment"># 删除ipa标记，默认为 False</span></span><br><span class="line">clear_ipa = <span class="literal">False</span></span><br><span class="line">	</span><br><span class="line"><span class="comment"># 执行返回结果</span></span><br><span class="line">result_not_exist = <span class="number">256</span></span><br><span class="line">result_not_found = <span class="string">&quot;Not found&quot;</span></span><br><span class="line">	</span><br><span class="line"><span class="comment"># 清空缓存</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">xcb_clean</span>():</span></span><br><span class="line">    <span class="built_in">print</span> (<span class="string">&#x27;clean...&#x27;</span>)</span><br><span class="line">    os.system(<span class="string">&#x27;cd %s;xcodebuild clean -workspace %s/%s.xcworkspace -scheme %s&#x27;</span> % (project_path,project_path,project_name,scheme_name))</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line"><span class="comment"># 生成plist文件</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generate_plist_file</span>():</span></span><br><span class="line">    <span class="built_in">print</span> (<span class="string">&#x27;generate export.plist&#x27;</span>)</span><br><span class="line">    plistText = <span class="string">&quot;&quot;&quot;\</span></span><br><span class="line"><span class="string">        &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="string">        &lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;</span></span><br><span class="line"><span class="string">        &lt;plist version=&quot;1.0&quot;&gt;</span></span><br><span class="line"><span class="string">            &lt;dict&gt;</span></span><br><span class="line"><span class="string">                &lt;key&gt;method&lt;/key&gt;</span></span><br><span class="line"><span class="string">                &lt;string&gt;ad-hoc&lt;/string&gt;</span></span><br><span class="line"><span class="string">                &lt;key&gt;teamID&lt;/key&gt;</span></span><br><span class="line"><span class="string">                &lt;string&gt;%s&lt;/string&gt;</span></span><br><span class="line"><span class="string">            &lt;/dict&gt;</span></span><br><span class="line"><span class="string">        &lt;/plist&gt;</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span> % (team_id)</span><br><span class="line">    plist = <span class="built_in">open</span>(<span class="string">&quot;%s/build/export.plist&quot;</span> % project_path, <span class="string">&quot;w&quot;</span>)</span><br><span class="line">    plist.write(plistText)</span><br><span class="line">    plist.close()</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line"><span class="comment"># 归档为.xcarchive格式</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">xcb_archive</span>():</span></span><br><span class="line">    <span class="built_in">print</span> (<span class="string">&#x27;archive...&#x27;</span>)</span><br><span class="line">    build_path = <span class="string">&#x27;%s/build&#x27;</span> % project_path</span><br><span class="line">    <span class="keyword">if</span> os.path.exists(build_path) == <span class="literal">False</span>:</span><br><span class="line">        os.system(<span class="string">&#x27;mkdir %s&#x27;</span> % build_path)</span><br><span class="line">    os.system(<span class="string">&#x27;xcodebuild archive -workspace %s/%s.xcworkspace -scheme %s -archivePath %s/build/%s.xcarchive&#x27;</span> % (project_path,project_name,scheme_name,project_path,project_name))</span><br><span class="line">    <span class="comment"># 生成plist文件，用于打包</span></span><br><span class="line">    generate_plist_file()</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line"><span class="comment"># 执行命令，并返回输出值</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exec_cmd</span>(<span class="params">cmd</span>):</span></span><br><span class="line">    r = os.popen(cmd)</span><br><span class="line">    text = r.read()</span><br><span class="line">    r.close()</span><br><span class="line">    <span class="keyword">return</span> text</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line"><span class="comment"># 获取build版本号：使用正则</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_build_version</span>():</span></span><br><span class="line">    <span class="built_in">print</span> (<span class="string">&#x27;get build version...&#x27;</span>)</span><br><span class="line">    <span class="keyword">global</span> build_version</span><br><span class="line">    <span class="comment"># 通过Info.plist，查询build版本  </span></span><br><span class="line">    cmd = <span class="string">&quot;cat %s/%s/Info.plist&quot;</span> % (project_path,project_name)</span><br><span class="line">    cmdlog = exec_cmd(cmd)</span><br><span class="line">    regex = re.<span class="built_in">compile</span>(<span class="string">r&quot;\d+\.\d+\.\d+\.\d&quot;</span>)</span><br><span class="line">    build_version = regex.findall(cmdlog)[<span class="number">0</span>]</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line"><span class="comment"># 导出ipa</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">xcb_exportArchive</span>():</span></span><br><span class="line">    <span class="keyword">global</span> ipa_filename</span><br><span class="line">    <span class="built_in">print</span> (<span class="string">&#x27;exportArchive...&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;它没有停止，只是需要时间，请稍等&#x27;</span>)</span><br><span class="line">    os.system(<span class="string">&#x27;xcodebuild -exportArchive -archivePath %s/build/%s.xcarchive -exportPath %s/build/ -exportOptionsPlist %s/build/export.plist&#x27;</span> % (project_path,project_name,project_path,project_path))</span><br><span class="line">    <span class="comment"># 获取build版本号</span></span><br><span class="line">    get_build_version()</span><br><span class="line">    <span class="comment"># ipa包重命名</span></span><br><span class="line">    ipa_filename = <span class="string">&quot;%siPhone%s版本&quot;</span> % (app_name, build_version)</span><br><span class="line">    os.system(<span class="string">&#x27;mv %s/build/%s.ipa %s/build/%s.ipa&#x27;</span> % (project_path, project_name, project_path, ipa_filename))</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line"><span class="comment"># 获取短连接</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_short_link</span>(<span class="params">text</span>):</span></span><br><span class="line">    <span class="built_in">print</span> (<span class="string">&#x27;get short link&#x27;</span>)</span><br><span class="line">    <span class="keyword">global</span> qrcode_url</span><br><span class="line">    <span class="keyword">global</span> short_link</span><br><span class="line">    <span class="comment"># 初始化 short_link</span></span><br><span class="line">    short_link = result_not_found</span><br><span class="line">    <span class="comment"># json 解析上传返回结果</span></span><br><span class="line">    decodejson = json.loads(text)</span><br><span class="line">    shortcut_url = decodejson[<span class="string">&#x27;data&#x27;</span>][<span class="string">&#x27;appShortcutUrl&#x27;</span>]</span><br><span class="line">    qrcode_url = decodejson[<span class="string">&#x27;data&#x27;</span>][<span class="string">&#x27;appQRCodeURL&#x27;</span>]</span><br><span class="line">    qrcode_url = qrcode_url.encode(<span class="string">&#x27;UTF-8&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(shortcut_url) &gt; <span class="number">0</span>:</span><br><span class="line">        short_link = <span class="string">&quot;http://www.pgyer.com/%s&quot;</span> % (shortcut_url.encode(<span class="string">&#x27;UTF-8&#x27;</span>))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(result_not_found)</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line"><span class="comment"># 上传至 pgyer.com</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">upload_pgyer</span>():</span></span><br><span class="line">    <span class="built_in">print</span> (<span class="string">&#x27;pgyer upload&#x27;</span>)</span><br><span class="line">    filePath = <span class="string">&quot;%s/build/%s.ipa&quot;</span> % (project_path, ipa_filename)</span><br><span class="line">    <span class="keyword">if</span> os.path.exists(filePath):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;uploading...&#x27;</span>)</span><br><span class="line">        <span class="comment"># 使用curl命令上传</span></span><br><span class="line">        cmd = <span class="string">&quot;curl -F &#x27;file=@%s/build/%s.ipa&#x27; -F &#x27;uKey=%s&#x27; -F &#x27;_api_key=%s&#x27; https://qiniu-storage.pgyer.com/apiv1/app/upload&quot;</span> % (project_path,ipa_filename,user_key,api_key)</span><br><span class="line">        <span class="comment"># 获取终端打印信息</span></span><br><span class="line">        cmdlog = exec_cmd(cmd)</span><br><span class="line">        <span class="comment"># 过滤信息，查找短连接</span></span><br><span class="line">        get_short_link(cmdlog)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;没有找到ipa文件&quot;</span>)</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_format_addr</span>(<span class="params">s</span>):</span></span><br><span class="line">    name, addr = parseaddr(s)</span><br><span class="line">    <span class="keyword">return</span> formataddr((Header(name, <span class="string">&#x27;utf-8&#x27;</span>).encode(), addr))</span><br><span class="line">	</span><br><span class="line"><span class="comment"># 发邮件</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_mail</span>():</span></span><br><span class="line">    <span class="built_in">print</span> (<span class="string">&#x27;send mail&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> short_link == result_not_found:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="comment"># 技术参考：https://docs.python.org/2/library/email-examples.html</span></span><br><span class="line">    msg = MIMEMultipart(<span class="string">&#x27;alternative&#x27;</span>)</span><br><span class="line">    <span class="comment"># 邮件标题</span></span><br><span class="line">    msg[<span class="string">&#x27;Subject&#x27;</span>] = Header(<span class="string">&#x27;%siPhone%s版打包程序&#x27;</span> % (app_name,build_version), <span class="string">&#x27;utf-8&#x27;</span>).encode()</span><br><span class="line">    <span class="comment"># 发件人</span></span><br><span class="line">    msg[<span class="string">&#x27;From&#x27;</span>] = _format_addr(<span class="string">&#x27;开发人员（%s）&lt;%s&gt;&#x27;</span> % (dev_name,from_addr))</span><br><span class="line">    <span class="comment"># 收件人</span></span><br><span class="line">    msg[<span class="string">&#x27;To&#x27;</span>] = _format_addr(<span class="string">&#x27;测试人员（%s）&lt;%s&gt;&#x27;</span> % (tester_name,to_addr))</span><br><span class="line">    <span class="comment"># 正文</span></span><br><span class="line">    <span class="comment"># Create the body of the message (a plain-text and an HTML version).</span></span><br><span class="line">    html = <span class="string">&quot;&quot;&quot;\</span></span><br><span class="line"><span class="string">        &lt;html&gt;</span></span><br><span class="line"><span class="string">          &lt;head&gt;&lt;/head&gt;</span></span><br><span class="line"><span class="string">          &lt;body&gt;</span></span><br><span class="line"><span class="string">            &lt;p&gt;Hi!&lt;br&gt;</span></span><br><span class="line"><span class="string">              &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;%siPhone%s版本已经打包完毕，请前往&lt;a href=%s&gt;%s&lt;/a&gt;下载测试！&lt;br&gt;</span></span><br><span class="line"><span class="string">              &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;或扫描下方二维码：</span></span><br><span class="line"><span class="string">            &lt;/p&gt;</span></span><br><span class="line"><span class="string">            &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;img src=&quot;%s&quot;&gt;</span></span><br><span class="line"><span class="string">          &lt;/body&gt;</span></span><br><span class="line"><span class="string">        &lt;/html&gt;</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span> % (app_name,build_version,short_link,short_link,qrcode_url)</span><br><span class="line">    <span class="comment"># Record the MIME types of both parts - text/plain and text/html.</span></span><br><span class="line">    part = MIMEText(html, <span class="string">&#x27;html&#x27;</span>, <span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">	</span><br><span class="line">    <span class="comment"># Attach parts into message container.</span></span><br><span class="line">    <span class="comment"># According to RFC 2046, the last part of a multipart message, in this case</span></span><br><span class="line">    <span class="comment"># the HTML message, is best and preferred.</span></span><br><span class="line">    msg.attach(part)</span><br><span class="line">	</span><br><span class="line">    <span class="comment"># 其它设置</span></span><br><span class="line">    server = smtplib.SMTP(smtp_server, <span class="number">25</span>)</span><br><span class="line">    server.set_debuglevel(<span class="number">1</span>)</span><br><span class="line">    server.login(from_addr, password)</span><br><span class="line">    server.sendmail(from_addr, string.splitfields(to_addr, <span class="string">&quot;,&quot;</span>), msg.as_string())</span><br><span class="line">    server.quit()</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line"><span class="comment"># 清理归档文件</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">clear_archive_file</span>():</span></span><br><span class="line">    <span class="built_in">print</span> (<span class="string">&#x27;清理归档文件...&#x27;</span>)</span><br><span class="line">    os.system(<span class="string">&#x27;rm -rf %s/build/*.xcarchive&#x27;</span> % project_path)</span><br><span class="line">    <span class="keyword">if</span> clear_ipa == <span class="literal">True</span>:</span><br><span class="line">        os.system(<span class="string">&#x27;rm -rf %s/build/*.ipa&#x27;</span> % project_path)</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    begin_time = time.strftime(<span class="string">&#x27;%Y%m%d%H%M%S&#x27;</span>,time.localtime(time.time()))</span><br><span class="line">    <span class="comment"># 清理缓存</span></span><br><span class="line">    xcb_clean()</span><br><span class="line">    <span class="comment"># 归档为.xcarchive格式</span></span><br><span class="line">    xcb_archive()</span><br><span class="line">    <span class="comment"># 导出ipa</span></span><br><span class="line">    xcb_exportArchive()</span><br><span class="line">    <span class="comment"># 上传pgyer</span></span><br><span class="line">    upload_pgyer()</span><br><span class="line">    <span class="comment"># 发邮件</span></span><br><span class="line">    send_mail()</span><br><span class="line">    <span class="comment"># 清理归档文件</span></span><br><span class="line">    clear_archive_file()</span><br><span class="line">    end_time = time.strftime(<span class="string">&#x27;%Y%m%d%H%M%S&#x27;</span>,time.localtime(time.time()))</span><br><span class="line">    <span class="built_in">print</span> (<span class="string">&#x27;开始时间：%s \n结束时间：%s&#x27;</span> % (begin_time,end_time))</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line"><span class="comment"># 执行</span></span><br><span class="line">main()</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line"><span class="comment"># change log</span></span><br><span class="line">	</span><br><span class="line"><span class="comment"># 2017.04.11 v1.0.1</span></span><br><span class="line"><span class="comment"># 新增删除 .xcarchive 和 ipa 文件功能，ipa 文件可通过设置 clear_ipa 标记来删除</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 2017.04.11 release v1.0</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/AutomaticDeploymentToFir.html" rel="prev" title="ipa打包、上传至fir.im">
+      <i class="fa fa-chevron-left"></i> ipa打包、上传至fir.im
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/ECSPortUsed.html" rel="next" title="Windows端口被占用">
+      Windows端口被占用 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%8C%85"><span class="nav-number">1.</span> <span class="nav-text">打包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%AE%98%E6%96%B9%E7%9A%84-xcodebuild-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.1.</span> <span class="nav-text">使用官方的 xcodebuild 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E4%B8%89%E6%96%B9%E7%9A%84-fir-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.2.</span> <span class="nav-text">使用三方的 fir 命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E4%BC%A0%EF%BC%88%E5%8F%91%E5%B8%83%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">上传（发布）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E4%B8%80%E6%9D%A1%E5%91%BD%E4%BB%A4%E5%BF%AB%E9%80%9F%E4%B8%8A%E4%BC%A0%E5%BA%94%E7%94%A8"><span class="nav-number">2.1.</span> <span class="nav-text">使用一条命令快速上传应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2"><span class="nav-number">3.</span> <span class="nav-text">Python 自动部署</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Hertz Wang</p>
+  <div class="site-description" itemprop="description">iOS developer from China.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hertz Wang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

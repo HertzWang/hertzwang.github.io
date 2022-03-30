@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hertz.wang","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="iOS developer from China.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hertz Wang Blog">
+<meta property="og:url" content="https://hertz.wang/index.html">
+<meta property="og:site_name" content="Hertz Wang Blog">
+<meta property="og:description" content="iOS developer from China.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Hertz Wang">
+<meta property="article:tag" content="HertzWang 王海舟 海舟 Hertz Wang">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://hertz.wang/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Hertz Wang Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hertz Wang Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">https://hertz.wang</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/XcodeCodeSnippets.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/XcodeCodeSnippets.html" class="post-title-link" itemprop="url">Xcode Code Snippets 分析</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-06-22 16:17:36" itemprop="dateCreated datePublished" datetime="2021-06-22T16:17:36+08:00">2021-06-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT/" itemprop="url" rel="index"><span itemprop="name">IT</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<p> 源于 <a target="_blank" rel="noopener" href="https://github.com/tencentyun/qcloud-sdk-ios">qcloud-sdk-ios</a> 上的代码块描述，应用实例 <a target="_blank" rel="noopener" href="https://github.com/HertzWang/FastCode">Fast Code</a></p>
+<h2 id="文件内容"><a href="#文件内容" class="headerlink" title="文件内容"></a>文件内容</h2><p>.codesnippet结尾的xml文件，存放在<code>~/Library/Developer/Xcode/UserData/CodeSnippets</code>文件夹，完整示例如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;</span><br><span class="line">&lt;plist version=&quot;1.0&quot;&gt;</span><br><span class="line">&lt;dict&gt;</span><br><span class="line">	&lt;key&gt;IDECodeSnippetCompletionPrefix&lt;/key&gt;</span><br><span class="line">	&lt;string&gt;代码块前缀&lt;/string&gt;</span><br><span class="line">	&lt;key&gt;IDECodeSnippetCompletionScopes&lt;/key&gt;</span><br><span class="line">	&lt;array&gt;</span><br><span class="line">		&lt;string&gt;代码块作用域&lt;/string&gt;</span><br><span class="line">	&lt;/array&gt;</span><br><span class="line">	&lt;key&gt;IDECodeSnippetContents&lt;/key&gt;</span><br><span class="line">	&lt;string&gt;代码块内容&lt;/string&gt;</span><br><span class="line">	&lt;key&gt;IDECodeSnippetIdentifier&lt;/key&gt;</span><br><span class="line">	&lt;string&gt;代码块唯一标识符&lt;/string&gt;</span><br><span class="line">	&lt;key&gt;IDECodeSnippetLanguage&lt;/key&gt;</span><br><span class="line">	&lt;string&gt;Xcode.SourceCodeLanguage.Objective-C&lt;/string&gt;</span><br><span class="line">	&lt;key&gt;IDECodeSnippetSummary&lt;/key&gt;</span><br><span class="line">	&lt;string&gt;代码块概要&lt;/string&gt;</span><br><span class="line">	&lt;key&gt;IDECodeSnippetTitle&lt;/key&gt;</span><br><span class="line">	&lt;string&gt;代码块标题&lt;/string&gt;</span><br><span class="line">	&lt;key&gt;IDECodeSnippetUserSnippet&lt;/key&gt;</span><br><span class="line">	&lt;true/&gt;</span><br><span class="line">	&lt;key&gt;IDECodeSnippetVersion&lt;/key&gt;</span><br><span class="line">	&lt;integer&gt;2&lt;/integer&gt;</span><br><span class="line">&lt;/dict&gt;</span><br><span class="line">&lt;/plist&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Xcode中可修改条目有七项，分别是Title、Summary、Content、Language、Platform、Completion和Availability，下载后文件与Xcode生成的文件做对比差异如下：</p>
+<ol>
+<li>代码块前缀 IDECodeSnippetCompletionPrefix 对应的 string</li>
+<li>代码块作用域 IDECodeSnippetCompletionScopes 对应的 array<string>，目前已知有 All、CodeBlock</li>
+<li>代码块内容 IDECodeSnippetContents 对应的 string，其中填充部份以 &lt;#  开头并以 #&gt; 结尾，Xcode中是 &lt;#填充部分#&gt;</li>
+<li>代码块唯一标识符 IDECodeSnippetIdentifier 对应的 string，格式为 8位-4位-4位-4位-12位 的16进制，如：FF167DB4-0C2D-4F6D-9A2B-0C0785239FFB</li>
+<li>代码块概要 IDECodeSnippetSummary 对应的string，无内容可为空字符串</li>
+<li>代码块标题 IDECodeSnippetTitle 对应的 string</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/XcodeCodeSnippets.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/AddToHomeScreen.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/AddToHomeScreen.html" class="post-title-link" itemprop="url">iOS应用添加到主屏幕(支持iOS 14)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-23 15:32:13" itemprop="dateCreated datePublished" datetime="2020-11-23T15:32:13+08:00">2020-11-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<blockquote>
+<p>前言：用<code>Safari</code>的访问一个网址，然后将网址添加到主屏幕，这时会在主屏幕上生成一个书签（带有Icon和标题），点击该书签后会访问指定的网址，在指定的网址中使用“scheme://”的方式打开应用，关于iOS 14上的使用参考底部的<b>iOS 14 示例</b></p>
+</blockquote>
+<h2 id="使用远程Web"><a href="#使用远程Web" class="headerlink" title="使用远程Web"></a>使用远程Web</h2><p>使用<code>Safari</code>打开链接并添加到主屏幕从而得到桌面快捷方式，通过<code>window.navigator.standalone</code>来区分状态，在<code>Safari</code>中加载时显示引导信息，独立全屏运行（点击主屏幕的快捷图标）时使用<code>scheme</code>来打开App，例如:<code>scheme://modules?id=1</code></p>
+<h3 id="HTML示例代码："><a href="#HTML示例代码：" class="headerlink" title="HTML示例代码："></a>HTML示例代码：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">	&lt;head&gt;</span><br><span class="line">		&lt;meta name=&quot;apple-mobile-web-app-capable&quot; content=&quot;yes&quot; &gt;</span><br><span class="line">		&lt;meta name=&quot;apple-mobile-web-app-status-bar-style&quot; content=&quot;black&quot;&gt;</span><br><span class="line">		&lt;meta content=&quot;text/html charset=UTF-8&quot; http-equiv=&quot;Content-Type&quot;/&gt;</span><br><span class="line">		&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0,user-scalable=no&quot;/&gt;</span><br><span class="line">		&lt;link rel=&#x27;apple-touch-icon&#x27; href=&#x27;https://xxx.png&#x27;&gt;</span><br><span class="line">		&lt;title&gt;主屏幕显示的名称&lt;/title&gt;</span><br><span class="line">	&lt;/head&gt;</span><br><span class="line">	&lt;body&gt;</span><br><span class="line">		&lt;a id=&quot;startApp&quot; style=&quot;display:none&quot;&gt;&lt;/a&gt;</span><br><span class="line">		&lt;div id=&quot;msg&quot;&gt;</span><br><span class="line">			&lt;div class=&quot;main&quot;&gt;</span><br><span class="line">				&lt;div&gt;点击下方工具栏上\n并点击添加到主屏幕&lt;/div&gt;</span><br><span class="line">			&lt;/div&gt;</span><br><span class="line">		&lt;/div&gt;</span><br><span class="line">	&lt;/body&gt;</span><br><span class="line">	&lt;script&gt;</span><br><span class="line">		var url = location.search; // 获取url中&quot;?&quot;符后的字串</span><br><span class="line">			if (window.navigator.standalone ==  true) &#123;</span><br><span class="line">				document.getElementById(&quot;msg&quot;).innerHTML= &#x27;&#x27;;</span><br><span class="line">				document.getElementById(&quot;startApp&quot;).href = url.substring(1);</span><br><span class="line">				document.getElementById(&quot;startApp&quot;).click();</span><br><span class="line">			&#125; </span><br><span class="line">	&lt;/script&gt;</span><br><span class="line">	&lt;style&gt;</span><br><span class="line">		.main &#123;</span><br><span class="line">			color: #333;</span><br><span class="line">			text-align: center;</span><br><span class="line">			width: auto;</span><br><span class="line">		&#125;</span><br><span class="line">	&lt;/style&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li><code>apple-mobile-web-app-capable</code> ：仅支持Safari浏览器，以独立进程运行时全屏显示（Safari中输入网址打开链接称之为浏览器内打开，添加到主屏幕后，在主屏幕中点击生成的书签运行称之为独立进程运行）</li>
+<li><code>apple-mobile-web-app-status-bar-style</code> ：仅支持Safari浏览器，设置状态栏颜色，apple-mobile-web-app-capable为YES时且独立进程运行时生效</li>
+<li><code>apple-touch-icon</code>：书签图标</li>
+<li><code>title</code>：标签内容为书签的名称</li>
+<li><code>window.navigator.standalone</code>：独立进行状态</li>
+</ul>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html#//apple_ref/doc/uid/TP40008193-SW1">Safari Supported Meta Tags</a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/AddToHomeScreen.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/ChangeLaunchScreenIniOS13.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/ChangeLaunchScreenIniOS13.html" class="post-title-link" itemprop="url">iOS 13修改启动图未生效</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-18 15:12:33" itemprop="dateCreated datePublished" datetime="2020-11-18T15:12:33+08:00">2020-11-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<blockquote>
+<p>前言：由于业务要求需要更新应用启动图，拿到新图时分分钟替换完事儿，经测试在iOS 13系统上未生效</p>
+</blockquote>
+<h3 id="问题排查"><a href="#问题排查" class="headerlink" title="问题排查"></a>问题排查</h3><p>启动图使用 <code>LaunchScreen.storyboard</code> 的方式，在查阅资料与实践后得出结论：</p>
+<ul>
+<li>系统会根据<code>LaunchScreen.stroboard</code>的内容生成屏幕快照（@2x和@3x）</li>
+<li>快照存放在<code>Library/SplashBoard/Snapshots</code>下</li>
+<li>第次运行时都会生成新的快照图片，根据屏幕倍数显示相应的快照图片</li>
+<li>在 iOS 13 系统中，更新图片名称、内容，并删除快照图片缓存后，下次启动时启动图才更新</li>
+</ul>
+<p>也就是说在 iOS 13 上，更新启动图需要改图片名称、删除快照图片缓存，在下次启动时才生效！！！</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>在 iOS 13 上冷启动时校验缓存图片与当前图片是否一致，若缓存图片不存在或图片不一致则删除快照缓存并更新缓存图片，图片一致时不处理</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/ChangeLaunchScreenIniOS13.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/DuplicateSymbolForStaticLibrary.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/DuplicateSymbolForStaticLibrary.html" class="post-title-link" itemprop="url">Duplicate symbol for .a</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-25 10:23:08" itemprop="dateCreated datePublished" datetime="2020-09-25T10:23:08+08:00">2020-09-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-03-30 15:03:20" itemprop="dateModified" datetime="2022-03-30T15:03:20+08:00">2022-03-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT/" itemprop="url" rel="index"><span itemprop="name">IT</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><blockquote>
+<p><code>ibmtasdk.a</code> 和 <code>libWeChatSDK.a</code> 中都包含 <code>MTASocket.o</code>，从而出现重复的法名<code>_responseErrorKey</code>导致编辑失败<br>Log:<br>duplicate symbol ‘_responseErrorKey’ in:<br>TXUGCVideoUpload/COSSDK/libmtasdk.a(MTASocket.o)<br>UnifyPay/WeChat/libWeChatSDK.a(MTASocket.o)<br>ld: 1 duplicate symbol for architecture arm64<br>clang: error: linker command failed with exit code 1 (use -v to see invocation)</p>
+</blockquote>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="方案一：删除-libmtasdk-a-中MTASocket-o（失败）"><a href="#方案一：删除-libmtasdk-a-中MTASocket-o（失败）" class="headerlink" title="方案一：删除 libmtasdk.a 中MTASocket.o（失败）"></a>方案一：删除 <code>libmtasdk.a</code> 中<code>MTASocket.o</code>（失败）</h3><p>步骤：</p>
+<ol>
+<li>查看<code>libmtasdk.a</code>支持的架构类型<br> <code>$ lipo -info libmtasdk.a</code><br> 信息<code>Architectures in the fat file: libmtasdk.a are: i386 x86_64 arm64 armv7 armv7s</code>，表示该静态库支持i386、x86_64rm64、armv7、armv7s平台</li>
+<li>获取各架构的动态库<br> <code>$ lipo -extract_family i386 -o libmtasdk_i386.a libmtasdk.a</code><br> 其它架构类型也是，最后得到libmtasdk_i386.a、libmtasdk_x86_64.a、libmtasdk_arm64.a、……</li>
+<li>删除重复的<code>MTASocket.o</code><br> <code>$ ar -d libmtasdk_i386.a MTASocket.o </code><br> 其它架构类型也是<blockquote>
+<p>如果报错</p>
+<pre><code> ar: libmtasdk_armv7.a is a fat file (use libtool(1) or lipo(1) and ar(1) on it)
+</code></pre>
+<p>ar: libmtasdk_armv7.a: Inappropriate file type or format<br> 则需要执行<code>$ lipo libmtasdk_armv7.a -thin armv7 -o libmtasdk_armv7_new.a</code>,然后使用<code>libmtasdk_armv7_new.a</code>继续操作</p>
+</blockquote>
+</li>
+<li>合并所有架构类型的静态库<br> <code>$ lipo -create -output libmtasdk_xxx.a libmtasdk_i386.a libmtasdk_x86_64.a libmtasdk_arm64.a armv7.a armv7s.a</code></li>
+<li>使用新的静态库<code>libmtasdk_xxx.a</code><br> 工程中删除<code>libmtasdk.a</code>并导入<code>libmtasdk_xxx.a</code></li>
+</ol>
+<p>结束失败了，运行时报错</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/DuplicateSymbolForStaticLibrary.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/CleanMacDisk.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/CleanMacDisk.html" class="post-title-link" itemprop="url">解决Mac提示磁盘已满</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-14 16:37:48" itemprop="dateCreated datePublished" datetime="2020-09-14T16:37:48+08:00">2020-09-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT/" itemprop="url" rel="index"><span itemprop="name">IT</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<blockquote>
+<p>通过删除缓存和无用的工具来实现腾空间</p>
+</blockquote>
+<h2 id="应用缓存"><a href="#应用缓存" class="headerlink" title="应用缓存"></a>应用缓存</h2><ul>
+<li><p>企业微信<br><code>~/Library/Containers/com.tencent.WeWorkMac/Data/Library/Application\ Support/WXWork/Data</code></p>
+</li>
+<li><p>微信<br><code>~/Library/Containers/com.tencent.xinWeChat/Data/Library/Caches</code></p>
+</li>
+<li><p>QQ:<br><code>~/Library/Containers/com.tencent.qq/Data/Library/Caches</code></p>
+</li>
+<li><p>网易云音乐<br><code>~/Library/Containers/com.netease.163music/Data/Library/Caches</code></p>
+</li>
+</ul>
+<h2 id="开发工具"><a href="#开发工具" class="headerlink" title="开发工具"></a>开发工具</h2><ul>
+<li>~/Library/Developer/<ul>
+<li>Xcode<ul>
+<li>Archives（Xcode Archive后文件夹，无用时可删除）</li>
+<li>watchOS DeviceSupport（watchOS 模拟器SDK，非watch开发可删除）</li>
+<li>iOS DeviceSupport（iOS 模拟器SDK，可将用不着的iOS版本删除）</li>
+<li>DerivedData（所有用Xcode Build的项目文件，可根据工程删除）</li>
+</ul>
+</li>
+<li>CoreSimulator<ul>
+<li>Caches（SimRuntime文件，可删除无用平台，如watch、tv）</li>
+<li>Devices（Xcode运行时选的模拟器，可在<code>Xcode-&gt;Window-&gt;Devices and Simulators</code>中删除）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/libwebp.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/libwebp.html" class="post-title-link" itemprop="url">libwebp Pod超时处理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-31 11:44:40" itemprop="dateCreated datePublished" datetime="2020-08-31T11:44:40+08:00">2020-08-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<blockquote>
+<p>业务中需要支持WebP图片，然后在Pod时提示超时，解决思路是先fork一份libwebp项目，然后添加<code>libwebp.podspec</code>文件，最后在Podfile中指定源</p>
+</blockquote>
+<h2 id="Fork项目"><a href="#Fork项目" class="headerlink" title="Fork项目"></a>Fork项目</h2><ol>
+<li><p>终端执行 <code>pod search libwebp</code>查看仓库地址，或使用Github上找到的<code>https://github.com/webmproject/libwebp</code></p>
+<pre><code> -&gt; libwebp (1.1.0)
+    Library to encode and decode images in WebP format.
+    pod &#39;libwebp&#39;, &#39;~&gt; 1.1.0&#39;
+    - Homepage: https://developers.google.com/speed/webp/
+    - Source:   https://chromium.googlesource.com/webm/libwebp
+    - Versions: 1.1.0, 1.1.0-rc2, 1.0.3, 1.0.2, 1.0.1, 1.0.0, 0.6.1, 0.6.0,
+    0.5.2, 0.5.1, 0.5.0, 0.4.4, 0.4.3, 0.4.2, 0.4.1 [trunk repo]
+    - Subspecs:
+      - libwebp/webp (1.1.0)
+      - libwebp/demux (1.1.0)
+      - libwebp/mux (1.1.0)
+</code></pre>
+</li>
+<li><p>新建Git仓库并上传</p>
+</li>
+</ol>
+<h2 id="添加-libwebp-podspec"><a href="#添加-libwebp-podspec" class="headerlink" title="添加 libwebp.podspec"></a>添加 libwebp.podspec</h2><p>在Git根目录新建文件<code>libwebp.podspec</code>，格式参考<a target="_blank" rel="noopener" href="https://guides.cocoapods.org/syntax/podspec.html">Podspec Syntax Reference</a>，大体如下：</p>
+<pre><code>Pod::Spec.new do |s|
+  s.name             = &#39;libwebp&#39;
+  s.version          = &#39;1.1.0&#39;
+  s.summary          = &#39;Library to encode and decode images in WebP format.&#39;
+
+  s.description      = &lt;&lt;-DESC
+Library to encode and decode images in WebP format.
+                       DESC
+
+  s.homepage         = &#39;https://developers.google.com/speed/webp/&#39;
+  s.license          = &#123; :type =&gt; &#39;BSD&#39;, :file =&gt; &#39;COPYING&#39; &#125;
+  s.author           = &#123; &#39;Google Inc.&#39; =&gt; &#39;mail@google.com&#39; &#125;
+  s.source           = &#123; :git =&gt; &#39;https://example/libwebp.git&#39;, :tag =&gt; s.version.to_s &#125;
+  s.compiler_flags   = &#39;-D_THREAD_SAFE&#39;
+  s.requires_arc     = false
+  s.platforms        = &#123; :ios =&gt; &#39;6.0&#39; &#125;
+  s.pod_target_xcconfig = &#123; &quot;USER_HEADER_SEARCH_PATHS&quot;: &quot;$(inherited) $&#123;PODS_ROOT&#125;/libwebp/ $&#123;PODS_TARGET_SRCROOT&#125;/&quot; &#125;
+  s.preserve_paths   = &#39;src&#39;
+
+  s.ios.deployment_target = &#39;6.0&#39;
+
+  s.source_files = &#39;src/webp/decode.h&#39;, &#39;src/webp/encode.h&#39;, &#39;src/webp/types.h&#39;, &#39;src/webp/mux_types.h&#39;, &#39;src/webp/format_constants.h&#39;, &#39;src/utils/*.&#123;h,c&#125;&#39;, &#39;src/dsp/*.&#123;h,c&#125;&#39;, &#39;src/dec/*.&#123;h,c&#125;&#39;, &#39;src/enc/*.&#123;h,c&#125;&#39;
+  
+end
+</code></pre>
+<p>注意：</p>
+<ol>
+<li><code>libwebp.podspec</code>中的信息源于<code>libwebp.podspec.json</code>文件</li>
+<li><code>s.source</code>中的<code>git</code>为fork后的新地址</li>
+<li>由于使用的是tag，所以需要新建名为<code>s.version</code>对应的tag</li>
+<li><code>s.source_files</code>这块的写法是只用到了<code>webp</code></li>
+</ol>
+<h2 id="指定源"><a href="#指定源" class="headerlink" title="指定源"></a>指定源</h2><p>指定Git库及分支，在<code>Podfile</code>文件中添加如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod &#x27;libwebp&#x27;, :git =&gt; &#x27;https://example/libwebp.git&#x27;, :branch =&gt; &#x27;master&#x27;</span><br></pre></td></tr></table></figure>
+
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><p><a target="_blank" rel="noopener" href="http://littlesvr.ca/apng/gif_apng_webp5.html">GIF vs APNG vs WebP</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/UseWDS.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/UseWDS.html" class="post-title-link" itemprop="url">路由无线桥接（WDS）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-07-07 10:18:33" itemprop="dateCreated datePublished" datetime="2019-07-07T10:18:33+08:00">2019-07-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT/" itemprop="url" rel="index"><span itemprop="name">IT</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<h2 id="记录WDS"><a href="#记录WDS" class="headerlink" title="记录WDS"></a>记录WDS</h2><ol>
+<li>修改登录口令</li>
+<li>设置无线密码</li>
+<li>开启WDS（信道与桥接的SSID一致）</li>
+<li>关闭<code>DHCP服务器</code></li>
+<li>修改路由IP（LAN口设置-IP地址）</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/YAPIHelper.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/YAPIHelper.html" class="post-title-link" itemprop="url">YAPI助手</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-13 23:31:47" itemprop="dateCreated datePublished" datetime="2019-05-13T23:31:47+08:00">2019-05-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<blockquote>
+<p>前言：</p>
+</blockquote>
+<h3 id="安装xlrd"><a href="#安装xlrd" class="headerlink" title="安装xlrd"></a>安装<code>xlrd</code></h3><p>执行 <code>pip install xlrd</code>安装</p>
+<ul>
+<li>注：提示<code>-bash: pip: command not found</code>，执行<code>sudo easy_install pip</code> 安装pip</li>
+</ul>
+<h3 id="执行Python"><a href="#执行Python" class="headerlink" title="执行Python"></a>执行Python</h3><pre><code># -*- coding: utf-8 -*-
+import xdrlib ,sys
+import xlrd
+import os
+
+# 文件名
+fileName = &#39;yapi.xlsx&#39;
+# 属性名称列
+propertyNameCol = 0
+# 属性类型列
+propertyTypeCol = 1
+# 属性注释列
+propertyDescCol = 4
+
+#打开excel文件
+def open_excel():
+    try:
+        data = xlrd.open_workbook(fileName)
+        return data
+    except Exception,e:
+        print str(e)
+
+def print_excel():
+    data = open_excel() #打开excel文件
+    sheet1 = data.sheet_by_index(0) #选择第1个Sheet
+    nrows = sheet1.nrows
+    os.system(&#39;clear&#39;)
+    for rownum in range(0, nrows):
+        name = sheet1.cell_value(rownum, propertyNameCol)
+        type = sheet1.cell_value(rownum, propertyTypeCol)
+        desc = sheet1.cell_value(rownum, propertyDescCol)
+        nstype = &#39;NSNumber&#39;
+        if type == &#39;string&#39;:
+            nstype = &#39;NSString&#39;
+        print (&#39;/// %s&#39; % (desc))
+        print (&#39;@property (nonatomic, copy) %s* %s;&#39; % (nstype, name))
+
+    print(&#39;&#39;)
+
+#主函数
+def main():
+    print_excel()
+
+if __name__==&quot;__main__&quot;:
+    main()
+</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/iOSRuntimeProperty.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/iOSRuntimeProperty.html" class="post-title-link" itemprop="url">Runtime获取Class属性列表及属性类型</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-13 23:31:47" itemprop="dateCreated datePublished" datetime="2019-05-13T23:31:47+08:00">2019-05-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<h3 id="属性类型"><a href="#属性类型" class="headerlink" title="属性类型"></a>属性类型</h3><blockquote>
+<p><code>property_getAttributes</code>获取至的结构：<code>数据类型,修饰词...,V_属性名称，如：T@,R,C,N,V_idValue</code></p>
+</blockquote>
+<ul>
+<li>数据类型，以”T”开始至第一个”,”<ul>
+<li><code>@</code> -&gt; <code>id</code></li>
+<li>@”XXX” -&gt; <code>XXX</code>，如：@”NSString”、@”NSArray”</li>
+<li><code>i</code> -&gt; <code>int</code></li>
+<li><code>d</code> -&gt; <code>double</code></li>
+<li><code>f</code> -&gt; <code>float</code></li>
+</ul>
+</li>
+<li>修饰词，以第一个”,”开始至最后一个”,”<ul>
+<li><code>N</code> -&gt; <code>nonatomic</code></li>
+<li><code>R</code> -&gt; <code>reonly</code></li>
+<li><code>C</code> -&gt; <code>copy</code></li>
+<li><code>&amp;</code> -&gt; <code>strong</code>、<code>retain</code></li>
+<li><code>W</code> -&gt; <code>weak</code></li>
+</ul>
+</li>
+<li><code>V_属性名称，以&quot;V_&quot;开始至结尾，&quot;V_&quot;后面的就是属性名称</code></li>
+</ul>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><ul>
+<li><p>属性声名</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@property (nonatomic, copy, readonly, nullable) id idValue;</span><br><span class="line">@property (nonatomic, copy) NSNumber *numberValue;</span><br><span class="line">@property (nonatomic, strong) NSString *stringValue;</span><br><span class="line">@property (nonatomic, copy) NSArray *arrayValue;</span><br><span class="line">@property (nonatomic, copy) NSDictionary *dictionaryValue;</span><br><span class="line">@property (nonatomic, assign) int intValue;</span><br><span class="line">@property (nonatomic, assign) double doubleValue;</span><br><span class="line">@property (nonatomic, assign) float floatValue;</span><br><span class="line">@property (nonatomic, assign, readwrite) CGFloat cgfloatValue;</span><br><span class="line">@property (nonatomic, retain) NSString *retainStringValue;</span><br><span class="line">@property (nonatomic, weak) NSString *weakStringValue;</span><br><span class="line">@property (nonatomic, strong) NSString *__weakStringValue;</span><br></pre></td></tr></table></figure></li>
+<li><p>获取属性列表及属性类型</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;objc/runtime.h&gt;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">uint count;</span><br><span class="line">objc_property_t *propertys = class_copyPropertyList(ObjectClass.class, &amp;count);</span><br><span class="line">@try &#123;</span><br><span class="line">	for (int i = 0; i &lt; count; i++) &#123;</span><br><span class="line">		objc_property_t property = propertys[i];</span><br><span class="line">		NSLog(@&quot;%s -&gt; %s&quot;, property_getName(property), property_getAttributes(property));</span><br><span class="line">	&#125;</span><br><span class="line">&#125; @finally &#123;</span><br><span class="line">	free(propertys);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打印结果</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">idValue -&gt; T@,R,C,N,V_idValue</span><br><span class="line">numberValue -&gt; T@&quot;NSNumber&quot;,C,N,V_numberValue</span><br><span class="line">stringValue -&gt; T@&quot;NSString&quot;,&amp;,N,V_stringValue</span><br><span class="line">arrayValue -&gt; T@&quot;NSArray&quot;,C,N,V_arrayValue</span><br><span class="line">dictionaryValue -&gt; T@&quot;NSDictionary&quot;,C,N,V_dictionaryValue</span><br><span class="line">intValue -&gt; Ti,N,V_intValue</span><br><span class="line">doubleValue -&gt; Td,N,V_doubleValue</span><br><span class="line">floatValue -&gt; Tf,N,V_floatValue</span><br><span class="line">cgfloatValue -&gt; Td,N,V_cgfloatValue</span><br><span class="line">retainStringValue -&gt; T@&quot;NSString&quot;,&amp;,N,V_retainStringValue</span><br><span class="line">weakStringValue -&gt; T@&quot;NSString&quot;,W,N,V_weakStringValue</span><br><span class="line">__weakStringValue -&gt; T@&quot;NSString&quot;,&amp;,N,V___weakStringValue</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/iOSOTA.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/iOSOTA.html" class="post-title-link" itemprop="url">iOS OTA 搭建</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-11 12:22:20" itemprop="dateCreated datePublished" datetime="2019-05-11T12:22:20+08:00">2019-05-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT/" itemprop="url" rel="index"><span itemprop="name">IT</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<h2 id="搭建OTA"><a href="#搭建OTA" class="headerlink" title="搭建OTA"></a>搭建OTA</h2><blockquote>
+<p>前言：我使用阿里的ECS，万网购买的域名，赛门铁克签发的证书，使用Nginx做的反向代理及Web服务</p>
+</blockquote>
+<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><pre><code>-&gt; xxx.ipa
+-&gt; manifest.plist
+-&gt; xxx.crt
+-&gt; index.html
+-&gt; images
+    -&gt; 57x57.png
+    -&gt; 512x512.png
+</code></pre>
+<h3 id="xxx-ipa"><a href="#xxx-ipa" class="headerlink" title="xxx.ipa"></a>xxx.ipa</h3><p>打包略</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/iOSOTA.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Hertz Wang</p>
+  <div class="site-description" itemprop="description">iOS developer from China.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hertz Wang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

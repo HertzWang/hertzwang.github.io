@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hertz.wang","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="反馈请联系hertz@hertzwang.com,谢谢 安装 fir-cli参考官方文档：https:&#x2F;&#x2F;github.com&#x2F;FIRHQ&#x2F;fir-cli&#x2F;blob&#x2F;master&#x2F;doc&#x2F;install.md fir-cli 使用 Ruby 构建, 无需编译, 只要安装相应 gem 即可. $ ruby -v $ gem install fir-cli  安装错误 出现 You don&#39;t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ipa打包、上传至fir.im">
+<meta property="og:url" content="https://hertz.wang/AutomaticDeploymentToFir.html">
+<meta property="og:site_name" content="Hertz Wang Blog">
+<meta property="og:description" content="反馈请联系hertz@hertzwang.com,谢谢 安装 fir-cli参考官方文档：https:&#x2F;&#x2F;github.com&#x2F;FIRHQ&#x2F;fir-cli&#x2F;blob&#x2F;master&#x2F;doc&#x2F;install.md fir-cli 使用 Ruby 构建, 无需编译, 只要安装相应 gem 即可. $ ruby -v $ gem install fir-cli  安装错误 出现 You don&#39;t">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-04-08T11:36:53.000Z">
+<meta property="article:modified_time" content="2022-01-20T02:57:15.313Z">
+<meta property="article:author" content="Hertz Wang">
+<meta property="article:tag" content="iOS">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://hertz.wang/AutomaticDeploymentToFir.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>ipa打包、上传至fir.im | Hertz Wang Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hertz Wang Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">https://hertz.wang</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/AutomaticDeploymentToFir.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ipa打包、上传至fir.im
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-04-08 19:36:53" itemprop="dateCreated datePublished" datetime="2017-04-08T19:36:53+08:00">2017-04-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT/" itemprop="url" rel="index"><span itemprop="name">IT</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<h2 id="安装-fir-cli"><a href="#安装-fir-cli" class="headerlink" title="安装 fir-cli"></a>安装 fir-cli</h2><p>参考官方文档：<a target="_blank" rel="noopener" href="https://github.com/FIRHQ/fir-cli/blob/master/doc/install.md">https://github.com/FIRHQ/fir-cli/blob/master/doc/install.md</a></p>
+<p>fir-cli 使用 Ruby 构建, 无需编译, 只要安装相应 gem 即可.</p>
+<pre><code>$ ruby -v
+$ gem install fir-cli
+</code></pre>
+<h3 id="安装错误"><a href="#安装错误" class="headerlink" title="安装错误"></a>安装错误</h3><ul>
+<li><p>出现 <code>You don&#39;t have write permissions</code> ：</p>
+<pre><code>  Fetching: thor-0.19.4.gem (100%)
+  ERROR:  While executing gem ... (Gem::FilePermissionError)
+      You don&#39;t have write permissions for the /Library/Ruby/Gems/2.0.0 directory.
+      
+</code></pre>
+<p>  解决：在命令前加上 <code>sudo</code></p>
+</li>
+</ul>
+<span id="more"></span>
+
+<ul>
+<li><p>出现 <code>Errno::EPERM</code>：</p>
+<pre><code>  ERROR:  While executing gem ... (Errno::EPERM)
+      Operation not permitted - /usr/bin/thor
+</code></pre>
+<p>  解决：重写 Ruby Gem 的 bindir, 执行 <code>echo &#39;gem: --bindir /usr/local/bin&#39; &gt;&gt; ~/.gemrc</code></p>
+</li>
+<li><p>其它错误参考官方文档</p>
+</li>
+</ul>
+<h2 id="编译打包ipa文件"><a href="#编译打包ipa文件" class="headerlink" title="编译打包ipa文件"></a>编译打包ipa文件</h2><p>参考官方文档：<a target="_blank" rel="noopener" href="https://github.com/FIRHQ/fir-cli/blob/master/doc/build_ipa.md">https://github.com/FIRHQ/fir-cli/blob/master/doc/build_ipa.md</a></p>
+<p>用 CocoaPods 做依赖管理，打包使用 </p>
+<p><code>fir build_ipa path/to/workspace -w -S &lt;scheme name&gt;</code></p>
+<ul>
+<li>其它方法参考官方文档，也可使用Apple 官方的<code>xcodebuild</code>命令操作，查看文章<a href="./AutomaticDeploymentToPgyer.html">ipa打包、上传至pgyer.com</a></li>
+</ul>
+<h2 id="上传-发布"><a href="#上传-发布" class="headerlink" title="上传(发布)"></a>上传(发布)</h2><p>参考官方文档：<a target="_blank" rel="noopener" href="https://github.com/FIRHQ/fir-cli/blob/master/doc/publish.md">https://github.com/FIRHQ/fir-cli/blob/master/doc/publish.md</a> </p>
+<h2 id="Python-自动部署"><a href="#Python-自动部署" class="headerlink" title="Python 自动部署"></a>Python 自动部署</h2><blockquote>
+<p>脚本集成实现打包、上传、发邮件通知功能，注意阅读<strong>使用说明</strong></p>
+<p>以下代码有用拿走，有优化请 <a href="mailto:hertz@hertzwang.com"><strong>反馈</strong></a></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"><span class="keyword">from</span> email <span class="keyword">import</span> encoders</span><br><span class="line"><span class="keyword">from</span> email.header <span class="keyword">import</span> Header</span><br><span class="line"><span class="keyword">from</span> email.mime.text <span class="keyword">import</span> MIMEText</span><br><span class="line"><span class="keyword">from</span> email.utils <span class="keyword">import</span> parseaddr, formataddr</span><br><span class="line"><span class="keyword">import</span> smtplib</span><br><span class="line">	</span><br><span class="line"><span class="comment"># 使用说明：</span></span><br><span class="line"><span class="comment">## 0.修改开发人员名称和测试人员名称，会在邮件中使用</span></span><br><span class="line"><span class="comment">## 1.将该文件放置工程根目录（与.xcworkspace同级）</span></span><br><span class="line"><span class="comment">## 2.修改以下相关信息：项目名称、scheme名称、fir token和email相关</span></span><br><span class="line"><span class="comment">## 3.build 版本号必需是四段，否则查不出来（也可修改正则）</span></span><br><span class="line">	</span><br><span class="line"><span class="comment"># 项目相关设置</span></span><br><span class="line"><span class="comment">## 开发人员</span></span><br><span class="line">dev_name = <span class="string">&#x27;-&#x27;</span></span><br><span class="line"><span class="comment">## 测试人员</span></span><br><span class="line">tester_name = <span class="string">&#x27;-&#x27;</span></span><br><span class="line"><span class="comment">## 项目名称</span></span><br><span class="line">project_name = <span class="string">&quot;-&quot;</span></span><br><span class="line"><span class="comment">## 项目根目录,结尾不带 &quot;/&quot;，目前使用的是相对路径（可不修改）</span></span><br><span class="line">project_path = <span class="string">&quot;.&quot;</span></span><br><span class="line"><span class="comment">## scheme名称（终端进入工程根目录，执行 xcodebuild -list）</span></span><br><span class="line">scheme_name = <span class="string">&quot;-&quot;</span></span><br><span class="line"><span class="comment">## App 名称（邮件中使用）</span></span><br><span class="line">app_name = <span class="string">&quot;-&quot;</span></span><br><span class="line">	</span><br><span class="line"><span class="comment"># fir token</span></span><br><span class="line">fir_api_token = <span class="string">&quot;-&quot;</span></span><br><span class="line">	</span><br><span class="line"><span class="comment"># email</span></span><br><span class="line"><span class="comment">## 发件人邮箱账号</span></span><br><span class="line">from_addr = <span class="string">&quot;-&quot;</span></span><br><span class="line"><span class="comment">## 发件人邮箱密码</span></span><br><span class="line">password = <span class="string">&quot;-&quot;</span></span><br><span class="line"><span class="comment">## 邮箱服务地址，使用 smtp</span></span><br><span class="line">smtp_server = <span class="string">&quot;smtp.-&quot;</span></span><br><span class="line"><span class="comment">## 收件人，多个用&quot;,&quot;分开</span></span><br><span class="line">to_addr = <span class="string">&#x27;-&#x27;</span></span><br><span class="line">	</span><br><span class="line"><span class="comment"># 执行返回结果</span></span><br><span class="line">result_not_exist = <span class="number">256</span></span><br><span class="line">result_not_found = <span class="string">&quot;Not found&quot;</span></span><br><span class="line">	</span><br><span class="line"><span class="comment"># 打包ipa</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">build_ipa</span>():</span></span><br><span class="line">    <span class="keyword">global</span> ipa_filename</span><br><span class="line">    <span class="comment"># ipa包名，之后会重命名</span></span><br><span class="line">    ipa_filename = <span class="string">&quot;%s&quot;</span> % (project_name)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;building...&#x27;</span>)</span><br><span class="line">    os.system (<span class="string">&#x27;/usr/local/bin/fir build_ipa %s -w -S %s -n %s&#x27;</span> % (project_path,scheme_name,ipa_filename))</span><br><span class="line">    <span class="comment"># 获取build版本</span></span><br><span class="line">    get_build_version()</span><br><span class="line">    <span class="comment"># ipa包重命名</span></span><br><span class="line">    ipa_filename = <span class="string">&quot;%siPhone%s版本&quot;</span> % (app_name, build_version)</span><br><span class="line">    os.system (<span class="string">&#x27;mv %s/fir_build/%s.ipa %s/fir_build/%s.ipa&#x27;</span> % (project_path,project_name,project_path,ipa_filename))</span><br><span class="line">	</span><br><span class="line"><span class="comment"># 上传至 fir.im</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">upload_fir</span>():</span></span><br><span class="line">    filePath = <span class="string">&quot;%s/fir_build/%s.ipa&quot;</span> % (project_path, ipa_filename)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;filePath:%s&#x27;</span> % filePath)</span><br><span class="line">    <span class="keyword">if</span> os.path.exists(filePath):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;uploading...&#x27;</span>)</span><br><span class="line">        <span class="comment"># 直接使用fir 有问题 这里使用了绝对地址 在终端通过 which fir 获得</span></span><br><span class="line">        cmd = <span class="string">&quot;/usr/local/bin/fir publish &#x27;%s&#x27; -T &#x27;%s&#x27;&quot;</span> % (filePath,fir_api_token)</span><br><span class="line">        <span class="comment"># 获取终端打印信息</span></span><br><span class="line">        cmdlog = execCmd(cmd)</span><br><span class="line">        <span class="comment"># 过滤信息，查找短连接</span></span><br><span class="line">        ret = get_short_link(cmdlog)</span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;没有找到ipa文件&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> result_not_found</span><br><span class="line">	</span><br><span class="line"><span class="comment"># execute command, and return the output</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">execCmd</span>(<span class="params">cmd</span>):</span></span><br><span class="line">    r = os.popen(cmd)</span><br><span class="line">    text = r.read()</span><br><span class="line">    r.close()</span><br><span class="line">    <span class="keyword">return</span> text</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_format_addr</span>(<span class="params">s</span>):</span></span><br><span class="line">    name, addr = parseaddr(s)</span><br><span class="line">    <span class="keyword">return</span> formataddr((Header(name, <span class="string">&#x27;utf-8&#x27;</span>).encode(), addr))</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line"><span class="comment"># 发邮件</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_mail</span>(<span class="params">short_link</span>):</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 邮件内容</span></span><br><span class="line">    msg = MIMEText(<span class="string">&#x27;Hi:\n    %siPhone%s版本已经打包完毕，请前往%s下载测试！&#x27;</span> % (app_name, build_version, short_link), <span class="string">&#x27;plain&#x27;</span>, <span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    <span class="comment"># 邮件标题</span></span><br><span class="line">    msg[<span class="string">&#x27;Subject&#x27;</span>] = Header(<span class="string">&#x27;%siPhone%s版打包程序&#x27;</span> % (app_name,build_version), <span class="string">&#x27;utf-8&#x27;</span>).encode()</span><br><span class="line">    <span class="comment"># 发件人</span></span><br><span class="line">    msg[<span class="string">&#x27;From&#x27;</span>] = _format_addr(<span class="string">&#x27;开发人员（%s）&lt;%s&gt;&#x27;</span> % (dev_name,from_addr))</span><br><span class="line">    <span class="comment"># 收件人</span></span><br><span class="line">    msg[<span class="string">&#x27;To&#x27;</span>] = _format_addr(<span class="string">&#x27;测试人员（%s）&lt;%s&gt;&#x27;</span> % (tester_name,to_addr))</span><br><span class="line">    <span class="comment"># 其它设置</span></span><br><span class="line">    server = smtplib.SMTP(smtp_server, <span class="number">25</span>)</span><br><span class="line">    server.set_debuglevel(<span class="number">1</span>)</span><br><span class="line">    server.login(from_addr, password)</span><br><span class="line">    server.sendmail(from_addr, string.splitfields(to_addr, <span class="string">&quot;,&quot;</span>), msg.as_string())</span><br><span class="line">    server.quit()</span><br><span class="line">	</span><br><span class="line"><span class="comment"># 获取短连接</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_short_link</span>(<span class="params">text</span>):</span></span><br><span class="line">    urls = re.findall(<span class="string">r&quot;http://fir.im/+\w+&quot;</span>, text)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(urls) &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="built_in">print</span>(urls)</span><br><span class="line">        <span class="keyword">return</span> urls[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(result_not_found)</span><br><span class="line">        <span class="keyword">return</span> result_not_found</span><br><span class="line">	</span><br><span class="line"><span class="comment"># 获取build版本号：使用正则</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_build_version</span>():</span></span><br><span class="line">    <span class="keyword">global</span> build_version</span><br><span class="line">    <span class="comment"># 查询build版本, fir_build 文件夹是 fir 打包生成的</span></span><br><span class="line">    cmd = <span class="string">&quot;fir i ./fir_build/%s.ipa&quot;</span> % (project_name)</span><br><span class="line">    cmdlog = execCmd(cmd)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;cmdlog:%s&#x27;</span> % cmdlog)</span><br><span class="line">    regex = re.<span class="built_in">compile</span>(<span class="string">r&quot;\d+\.\d+\.\d+\.\d&quot;</span>)</span><br><span class="line">    build_version = regex.findall(cmdlog)[<span class="number">0</span>]</span><br><span class="line">	</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    begin_time = time.strftime(<span class="string">&#x27;%Y%m%d%H%M%S&#x27;</span>,time.localtime(time.time()))</span><br><span class="line">    <span class="comment"># 使用fir-cli打包ipa</span></span><br><span class="line">    build_ipa()</span><br><span class="line">    <span class="comment"># 上传fir</span></span><br><span class="line">    short_link = upload_fir()</span><br><span class="line">    <span class="comment"># 发邮件</span></span><br><span class="line">    <span class="keyword">if</span> short_link &gt; result_not_found:</span><br><span class="line">        send_mail(short_link)</span><br><span class="line">    end_time = time.strftime(<span class="string">&#x27;%Y%m%d%H%M%S&#x27;</span>,time.localtime(time.time()))</span><br><span class="line">    <span class="built_in">print</span> (<span class="string">&#x27;开始时间：%s \n结束时间：%s&#x27;</span> % (begin_time,end_time))</span><br><span class="line">	</span><br><span class="line"><span class="comment"># 执行</span></span><br><span class="line">main()</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/AboutCocoaPodsCMD.html" rel="prev" title="CocoaPods周边">
+      <i class="fa fa-chevron-left"></i> CocoaPods周边
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/AutomaticDeploymentToPgyer.html" rel="next" title="ipa打包、上传至pgyer.com">
+      ipa打包、上传至pgyer.com <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-fir-cli"><span class="nav-number">1.</span> <span class="nav-text">安装 fir-cli</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E9%94%99%E8%AF%AF"><span class="nav-number">1.1.</span> <span class="nav-text">安装错误</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E6%89%93%E5%8C%85ipa%E6%96%87%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">编译打包ipa文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E4%BC%A0-%E5%8F%91%E5%B8%83"><span class="nav-number">3.</span> <span class="nav-text">上传(发布)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2"><span class="nav-number">4.</span> <span class="nav-text">Python 自动部署</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Hertz Wang</p>
+  <div class="site-description" itemprop="description">iOS developer from China.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hertz Wang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

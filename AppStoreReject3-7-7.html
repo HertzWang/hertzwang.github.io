@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hertz.wang","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="反馈请联系hertz@hertzwang.com,谢谢  前言： 苹果审核变严之时，“糖护士”发布3.7.7版本时多次被拒，本文主要记录问题及解决识方案。  总结 苹果终结了prefs:私有方法的使用； Info.plist中准确描述授权的用途，不能含糊描述了，不要请求用不到的授权； 应用截图要符合实际； App IDs Identifiers中不要开启用不到的功能。  2018年9月21日2.5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AppStoreReject3.7.7">
+<meta property="og:url" content="https://hertz.wang/AppStoreReject3-7-7.html">
+<meta property="og:site_name" content="Hertz Wang Blog">
+<meta property="og:description" content="反馈请联系hertz@hertzwang.com,谢谢  前言： 苹果审核变严之时，“糖护士”发布3.7.7版本时多次被拒，本文主要记录问题及解决识方案。  总结 苹果终结了prefs:私有方法的使用； Info.plist中准确描述授权的用途，不能含糊描述了，不要请求用不到的授权； 应用截图要符合实际； App IDs Identifiers中不要开启用不到的功能。  2018年9月21日2.5">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-10-01T09:56:51.000Z">
+<meta property="article:modified_time" content="2022-01-20T02:57:15.313Z">
+<meta property="article:author" content="Hertz Wang">
+<meta property="article:tag" content="IT">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://hertz.wang/AppStoreReject3-7-7.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>AppStoreReject3.7.7 | Hertz Wang Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hertz Wang Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">https://hertz.wang</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/AppStoreReject3-7-7.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AppStoreReject3.7.7
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-10-01 17:56:51" itemprop="dateCreated datePublished" datetime="2018-10-01T17:56:51+08:00">2018-10-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<blockquote>
+<p>前言：</p>
+<p>苹果审核变严之时，“糖护士”发布<code>3.7.7</code>版本时多次被拒，本文主要记录问题及解决识方案。</p>
+</blockquote>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
+<li>苹果终结了<code>prefs:</code>私有方法的使用；</li>
+<li><code>Info.plist</code>中准确描述授权的用途，不能含糊描述了，不要请求用不到的授权；</li>
+<li>应用截图要符合实际；</li>
+<li><code>App IDs Identifiers</code>中不要开启用不到的功能。</li>
+</ol>
+<h3 id="2018年9月21日"><a href="#2018年9月21日" class="headerlink" title="2018年9月21日"></a>2018年9月21日</h3><p>2.5.1：由于使用了苹果私有方法<code>prefs:root=</code>被拒，项目中删除<code>prefs:root=</code>相关代码。</p>
+<p>5.1.1：有个图片附件，是说请求授权描述不够清晰，如“点击允许使用相机”，应该写为“允许后可使用扫一扫功能”，需要明确告知用户，更新<code>Info.plist</code>文件中的描述。</p>
+<span id="more"></span>
+
+<blockquote>
+<p>信息如下：</p>
+</blockquote>
+<pre><code>2.5 Performance: Software Requirements 
+5.1.1 Legal: Privacy - Data Collection and Storage
+---------------------------------------------
+
+Guideline 2.5.1 - Performance - Software Requirements
+
+
+Your app uses the &quot;prefs:root=&quot; non-public URL scheme, which is a private entity. The use of non-public APIs is not permitted on the App Store because it can lead to a poor user experience should these APIs change.
+
+Continuing to use or conceal non-public APIs in future submissions of this app may result in the termination of your Apple Developer account, as well as removal of all associated apps from the App Store.
+
+Next Steps
+
+To resolve this issue, please revise your app to provide the associated functionality using public APIs or remove the functionality using the &quot;prefs:root&quot; or &quot;App-Prefs:root&quot; URL scheme.
+
+If there are no alternatives for providing the functionality your app requires, you can file an enhancement request.
+
+Guideline 5.1.1 - Legal - Privacy - Data Collection and Storage
+
+
+We noticed that your app requests the user’s consent to access their camera but does not clarify the use of this feature in the permission modal alert.
+
+Next Steps
+
+To resolve this issue, please revise the permission modal alert to specify why the app is requesting access to the user&#39;s camera.
+
+The permission request alert should specify how your app will use this feature to help users understand why your app is requesting access to their personal data.
+
+Resources
+
+For additional information and instructions on configuring and presenting an alert, please review the Requesting Permission section of the iOS Human Interface Guidelines and the Information Property List Key Reference. You may also want to review the Technical Q&amp;A QA1937: Resolving the Privacy-Sensitive Data App Rejection page for details on how to provide a usage description for permission request alerts.
+
+Learn more about Protecting the User’s Privacy.
+
+Please see attached screenshot for details.
+</code></pre>
+<h3 id="2018年9月23日"><a href="#2018年9月23日" class="headerlink" title="2018年9月23日"></a>2018年9月23日</h3><p>2.3.3：说是在 <code>iPad（9.7寸）</code> 的 <code>App Sotre</code> 中显示的截图与实际不符，因为是有iPad截图的，所以登录<a target="_blank" rel="noopener" href="https://itunesconnect.apple.com/">App Store Connect</a>后，打开准备提交应用<code>App 预览和屏幕快照</code>的<code>在媒体管理中查看所有尺寸</code>，勾选9.7英寸显示屏后面的<code>使用12.9英寸显示屏</code>。</p>
+<p>2.5.1：是说我用了 <code>HealthKit</code> ，视频中未明确显示是如何使用的，在描述的不够清晰，我的处理是更新 <code>Info.plist</code> 中的描述说明，删除了多余的授权请求（更新健康数据），重新录制了视频并更新了链接（审核备注中）。 然而并没有解决，伏笔！！！</p>
+<blockquote>
+<p>信息如下：</p>
+</blockquote>
+<pre><code>2.3 Performance: Accurate Metadata
+2.5 Performance: Software Requirements
+---------------------------------------------
+
+Guideline 2.3.3 - Performance - Accurate Metadata
+
+
+We noticed that your screenshots do not sufficiently reflect your app in use.
+
+Specifically, your 9.7-inch iPad screenshots do not display the app in the correct device frame.
+
+Next Steps
+
+To resolve this issue, please revise your screenshots to ensure that they accurately reflect the app in use on the supported devices. For iPhone, you need a set of 5.5-inch display screenshots and for iPad, you need a set for 12.9-inch display. This set will be scaled appropriately down to other device sizes when viewed on the App Store in each territory.
+
+Note that 6.5-inch display assets for iPhone Xs Max are optional, and can scale down to iPhone Xr, iPhone Xs, and iPhone X. Screenshots that include features like rounded corners or sensor housing should only be used for the 6.5-inch or 5.8-inch display.
+
+Resources
+
+For resources on creating great screenshots for the App Store, you may want to review the App Store Product Page information available on the Apple developer portal.
+
+Please ensure you have made any screenshot modifications using Media Manager. You should confirm your app looks and behaves identically in all languages and on all supported devices. Learn how to use Media Manager to add custom screenshots for each display size and localization.
+
+Guideline 2.5.1 - Performance - Software Requirements
+
+
+Your app uses the HealthKit or CareKit APIs but does not indicate integration with the Health app in your app description and clearly identify the HealthKit and CareKit functionality in your app&#39;s user interface.
+
+Next Step
+
+￼ To resolve this issue, please clearly identify the HealthKit functionality in app&#39;s user interface to avoid confusion.
+
+Specifically, the provided demo video: http://v.youku.com/xxx.html, did not showcase HealthKit functionality in app&#39;s user interface. 
+
+Please see attached screenshots for details.
+</code></pre>
+<h3 id="2018年9月27日"><a href="#2018年9月27日" class="headerlink" title="2018年9月27日"></a>2018年9月27日</h3><p>2.5：说是我用了 <code>HealthKit</code> 却没有相应的界面说明（指得是授权），健康的授权是 present 出一个ViewController，是像通知、相机那样。检查了代码，发现获取步数用的记步器（CMStepCounter），果断删除 <code>HealthKit</code> 相关代码、授权请求描述，使用新的记步器（CMPedometer iOS 8+）。这就是伏笔之一！！！</p>
+<blockquote>
+<p>信息如下：</p>
+</blockquote>
+<pre><code>2.5 Performance: Software Requirements
+--------------------------------------
+
+Your app uses the HealthKit or CareKit APIs but does not indicate integration with the Health app in your app description and clearly identify the HealthKit and CareKit functionality in your app&#39;s user interface.
+
+Specifically, please provide instructions to locate the HealthKit functionality within the app. 
+
+Next Steps
+
+To resolve this issue, please clearly identify the HealthKit functionality in app&#39;s user interface to avoid confusion.
+</code></pre>
+<h3 id="2018年9月28日"><a href="#2018年9月28日" class="headerlink" title="2018年9月28日"></a>2018年9月28日</h3><p>2.5.1：这会儿有点崩溃，因 <code>HealthKit</code> 的问题被拒了三回，每次大同小异，在同事的帮助下看出了端倪，因为<code>App IDs Identifiers</code> 中开启了健康功能，关掉健康功能后，重新下载描述文件就好了。一般需要先删除描述文件，路径在<code>~/Library/MobileDevice/Provisioning\ Profiles</code></p>
+<blockquote>
+<p>信息如下：</p>
+</blockquote>
+<pre><code>2.5 Performance: Software Requirements
+--------------------------------------
+
+Guideline 2.5.1 - Performance - Software Requirements
+
+
+Thank you for your resubmission. 
+
+Your app uses the HealthKit or CareKit APIs but does not indicate integration with the Health app in your app description and clearly identify the HealthKit and CareKit functionality in your app&#39;s user interface.
+
+Next Steps
+
+To resolve this issue, please clearly identify the HealthKit functionality in app&#39;s user interface to avoid confusion.
+</code></pre>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/IT/" rel="tag"># IT</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/XcodeUsePlugins.html" rel="prev" title="Xcode 8+ 插件安装">
+      <i class="fa fa-chevron-left"></i> Xcode 8+ 插件安装
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/iOSOTA.html" rel="next" title="iOS OTA 搭建">
+      iOS OTA 搭建 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018%E5%B9%B49%E6%9C%8821%E6%97%A5"><span class="nav-number">2.</span> <span class="nav-text">2018年9月21日</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018%E5%B9%B49%E6%9C%8823%E6%97%A5"><span class="nav-number">3.</span> <span class="nav-text">2018年9月23日</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018%E5%B9%B49%E6%9C%8827%E6%97%A5"><span class="nav-number">4.</span> <span class="nav-text">2018年9月27日</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018%E5%B9%B49%E6%9C%8828%E6%97%A5"><span class="nav-number">5.</span> <span class="nav-text">2018年9月28日</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Hertz Wang</p>
+  <div class="site-description" itemprop="description">iOS developer from China.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hertz Wang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
