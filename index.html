@@ -887,111 +887,6 @@ end
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hertz.wang/iOSRuntimeProperty.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Hertz Wang">
-      <meta itemprop="description" content="iOS developer from China.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hertz Wang Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/iOSRuntimeProperty.html" class="post-title-link" itemprop="url">Runtime获取Class属性列表及属性类型</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-05-13 23:31:47" itemprop="dateCreated datePublished" datetime="2019-05-13T23:31:47+08:00">2019-05-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
-<h3 id="属性类型"><a href="#属性类型" class="headerlink" title="属性类型"></a>属性类型</h3><blockquote>
-<p><code>property_getAttributes</code>获取至的结构：<code>数据类型,修饰词...,V_属性名称，如：T@,R,C,N,V_idValue</code></p>
-</blockquote>
-<ul>
-<li>数据类型，以”T”开始至第一个”,”<ul>
-<li><code>@</code> -&gt; <code>id</code></li>
-<li>@”XXX” -&gt; <code>XXX</code>，如：@”NSString”、@”NSArray”</li>
-<li><code>i</code> -&gt; <code>int</code></li>
-<li><code>d</code> -&gt; <code>double</code></li>
-<li><code>f</code> -&gt; <code>float</code></li>
-</ul>
-</li>
-<li>修饰词，以第一个”,”开始至最后一个”,”<ul>
-<li><code>N</code> -&gt; <code>nonatomic</code></li>
-<li><code>R</code> -&gt; <code>reonly</code></li>
-<li><code>C</code> -&gt; <code>copy</code></li>
-<li><code>&amp;</code> -&gt; <code>strong</code>、<code>retain</code></li>
-<li><code>W</code> -&gt; <code>weak</code></li>
-</ul>
-</li>
-<li><code>V_属性名称，以&quot;V_&quot;开始至结尾，&quot;V_&quot;后面的就是属性名称</code></li>
-</ul>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><ul>
-<li><p>属性声名</p>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@property (nonatomic, copy, readonly, nullable) id idValue;</span><br><span class="line">@property (nonatomic, copy) NSNumber *numberValue;</span><br><span class="line">@property (nonatomic, strong) NSString *stringValue;</span><br><span class="line">@property (nonatomic, copy) NSArray *arrayValue;</span><br><span class="line">@property (nonatomic, copy) NSDictionary *dictionaryValue;</span><br><span class="line">@property (nonatomic, assign) int intValue;</span><br><span class="line">@property (nonatomic, assign) double doubleValue;</span><br><span class="line">@property (nonatomic, assign) float floatValue;</span><br><span class="line">@property (nonatomic, assign, readwrite) CGFloat cgfloatValue;</span><br><span class="line">@property (nonatomic, retain) NSString *retainStringValue;</span><br><span class="line">@property (nonatomic, weak) NSString *weakStringValue;</span><br><span class="line">@property (nonatomic, strong) NSString *__weakStringValue;</span><br></pre></td></tr></table></figure></li>
-<li><p>获取属性列表及属性类型</p>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;objc/runtime.h&gt;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">uint count;</span><br><span class="line">objc_property_t *propertys = class_copyPropertyList(ObjectClass.class, &amp;count);</span><br><span class="line">@try &#123;</span><br><span class="line">	for (int i = 0; i &lt; count; i++) &#123;</span><br><span class="line">		objc_property_t property = propertys[i];</span><br><span class="line">		NSLog(@&quot;%s -&gt; %s&quot;, property_getName(property), property_getAttributes(property));</span><br><span class="line">	&#125;</span><br><span class="line">&#125; @finally &#123;</span><br><span class="line">	free(propertys);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>打印结果</p>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">idValue -&gt; T@,R,C,N,V_idValue</span><br><span class="line">numberValue -&gt; T@&quot;NSNumber&quot;,C,N,V_numberValue</span><br><span class="line">stringValue -&gt; T@&quot;NSString&quot;,&amp;,N,V_stringValue</span><br><span class="line">arrayValue -&gt; T@&quot;NSArray&quot;,C,N,V_arrayValue</span><br><span class="line">dictionaryValue -&gt; T@&quot;NSDictionary&quot;,C,N,V_dictionaryValue</span><br><span class="line">intValue -&gt; Ti,N,V_intValue</span><br><span class="line">doubleValue -&gt; Td,N,V_doubleValue</span><br><span class="line">floatValue -&gt; Tf,N,V_floatValue</span><br><span class="line">cgfloatValue -&gt; Td,N,V_cgfloatValue</span><br><span class="line">retainStringValue -&gt; T@&quot;NSString&quot;,&amp;,N,V_retainStringValue</span><br><span class="line">weakStringValue -&gt; T@&quot;NSString&quot;,W,N,V_weakStringValue</span><br><span class="line">__weakStringValue -&gt; T@&quot;NSString&quot;,&amp;,N,V___weakStringValue</span><br></pre></td></tr></table></figure></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://hertz.wang/YAPIHelper.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1091,6 +986,111 @@ def main():
 if __name__==&quot;__main__&quot;:
     main()
 </code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/iOSRuntimeProperty.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/iOSRuntimeProperty.html" class="post-title-link" itemprop="url">Runtime获取Class属性列表及属性类型</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-13 23:31:47" itemprop="dateCreated datePublished" datetime="2019-05-13T23:31:47+08:00">2019-05-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<h3 id="属性类型"><a href="#属性类型" class="headerlink" title="属性类型"></a>属性类型</h3><blockquote>
+<p><code>property_getAttributes</code>获取至的结构：<code>数据类型,修饰词...,V_属性名称，如：T@,R,C,N,V_idValue</code></p>
+</blockquote>
+<ul>
+<li>数据类型，以”T”开始至第一个”,”<ul>
+<li><code>@</code> -&gt; <code>id</code></li>
+<li>@”XXX” -&gt; <code>XXX</code>，如：@”NSString”、@”NSArray”</li>
+<li><code>i</code> -&gt; <code>int</code></li>
+<li><code>d</code> -&gt; <code>double</code></li>
+<li><code>f</code> -&gt; <code>float</code></li>
+</ul>
+</li>
+<li>修饰词，以第一个”,”开始至最后一个”,”<ul>
+<li><code>N</code> -&gt; <code>nonatomic</code></li>
+<li><code>R</code> -&gt; <code>reonly</code></li>
+<li><code>C</code> -&gt; <code>copy</code></li>
+<li><code>&amp;</code> -&gt; <code>strong</code>、<code>retain</code></li>
+<li><code>W</code> -&gt; <code>weak</code></li>
+</ul>
+</li>
+<li><code>V_属性名称，以&quot;V_&quot;开始至结尾，&quot;V_&quot;后面的就是属性名称</code></li>
+</ul>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><ul>
+<li><p>属性声名</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@property (nonatomic, copy, readonly, nullable) id idValue;</span><br><span class="line">@property (nonatomic, copy) NSNumber *numberValue;</span><br><span class="line">@property (nonatomic, strong) NSString *stringValue;</span><br><span class="line">@property (nonatomic, copy) NSArray *arrayValue;</span><br><span class="line">@property (nonatomic, copy) NSDictionary *dictionaryValue;</span><br><span class="line">@property (nonatomic, assign) int intValue;</span><br><span class="line">@property (nonatomic, assign) double doubleValue;</span><br><span class="line">@property (nonatomic, assign) float floatValue;</span><br><span class="line">@property (nonatomic, assign, readwrite) CGFloat cgfloatValue;</span><br><span class="line">@property (nonatomic, retain) NSString *retainStringValue;</span><br><span class="line">@property (nonatomic, weak) NSString *weakStringValue;</span><br><span class="line">@property (nonatomic, strong) NSString *__weakStringValue;</span><br></pre></td></tr></table></figure></li>
+<li><p>获取属性列表及属性类型</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;objc/runtime.h&gt;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">uint count;</span><br><span class="line">objc_property_t *propertys = class_copyPropertyList(ObjectClass.class, &amp;count);</span><br><span class="line">@try &#123;</span><br><span class="line">	for (int i = 0; i &lt; count; i++) &#123;</span><br><span class="line">		objc_property_t property = propertys[i];</span><br><span class="line">		NSLog(@&quot;%s -&gt; %s&quot;, property_getName(property), property_getAttributes(property));</span><br><span class="line">	&#125;</span><br><span class="line">&#125; @finally &#123;</span><br><span class="line">	free(propertys);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打印结果</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">idValue -&gt; T@,R,C,N,V_idValue</span><br><span class="line">numberValue -&gt; T@&quot;NSNumber&quot;,C,N,V_numberValue</span><br><span class="line">stringValue -&gt; T@&quot;NSString&quot;,&amp;,N,V_stringValue</span><br><span class="line">arrayValue -&gt; T@&quot;NSArray&quot;,C,N,V_arrayValue</span><br><span class="line">dictionaryValue -&gt; T@&quot;NSDictionary&quot;,C,N,V_dictionaryValue</span><br><span class="line">intValue -&gt; Ti,N,V_intValue</span><br><span class="line">doubleValue -&gt; Td,N,V_doubleValue</span><br><span class="line">floatValue -&gt; Tf,N,V_floatValue</span><br><span class="line">cgfloatValue -&gt; Td,N,V_cgfloatValue</span><br><span class="line">retainStringValue -&gt; T@&quot;NSString&quot;,&amp;,N,V_retainStringValue</span><br><span class="line">weakStringValue -&gt; T@&quot;NSString&quot;,W,N,V_weakStringValue</span><br><span class="line">__weakStringValue -&gt; T@&quot;NSString&quot;,&amp;,N,V___weakStringValue</span><br></pre></td></tr></table></figure></li>
+</ul>
 
       
     </div>

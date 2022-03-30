@@ -179,6 +179,19 @@
     
     
     <entry>
+      <title>YAPI助手</title>
+      <link href="/YAPIHelper.html"/>
+      <url>/YAPIHelper.html</url>
+      
+        <content type="html"><![CDATA[<p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p><blockquote><p>前言：</p></blockquote><h3 id="安装xlrd"><a href="#安装xlrd" class="headerlink" title="安装xlrd"></a>安装<code>xlrd</code></h3><p>执行 <code>pip install xlrd</code>安装</p><ul><li>注：提示<code>-bash: pip: command not found</code>，执行<code>sudo easy_install pip</code> 安装pip</li></ul><h3 id="执行Python"><a href="#执行Python" class="headerlink" title="执行Python"></a>执行Python</h3><pre><code># -*- coding: utf-8 -*-import xdrlib ,sysimport xlrdimport os# 文件名fileName = &#39;yapi.xlsx&#39;# 属性名称列propertyNameCol = 0# 属性类型列propertyTypeCol = 1# 属性注释列propertyDescCol = 4#打开excel文件def open_excel():    try:        data = xlrd.open_workbook(fileName)        return data    except Exception,e:        print str(e)def print_excel():    data = open_excel() #打开excel文件    sheet1 = data.sheet_by_index(0) #选择第1个Sheet    nrows = sheet1.nrows    os.system(&#39;clear&#39;)    for rownum in range(0, nrows):        name = sheet1.cell_value(rownum, propertyNameCol)        type = sheet1.cell_value(rownum, propertyTypeCol)        desc = sheet1.cell_value(rownum, propertyDescCol)        nstype = &#39;NSNumber&#39;        if type == &#39;string&#39;:            nstype = &#39;NSString&#39;        print (&#39;/// %s&#39; % (desc))        print (&#39;@property (nonatomic, copy) %s* %s;&#39; % (nstype, name))    print(&#39;&#39;)#主函数def main():    print_excel()if __name__==&quot;__main__&quot;:    main()</code></pre>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Runtime获取Class属性列表及属性类型</title>
       <link href="/iOSRuntimeProperty.html"/>
       <url>/iOSRuntimeProperty.html</url>
@@ -198,19 +211,6 @@
             <tag> iOS </tag>
             
         </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>YAPI助手</title>
-      <link href="/YAPIHelper.html"/>
-      <url>/YAPIHelper.html</url>
-      
-        <content type="html"><![CDATA[<p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p><blockquote><p>前言：</p></blockquote><h3 id="安装xlrd"><a href="#安装xlrd" class="headerlink" title="安装xlrd"></a>安装<code>xlrd</code></h3><p>执行 <code>pip install xlrd</code>安装</p><ul><li>注：提示<code>-bash: pip: command not found</code>，执行<code>sudo easy_install pip</code> 安装pip</li></ul><h3 id="执行Python"><a href="#执行Python" class="headerlink" title="执行Python"></a>执行Python</h3><pre><code># -*- coding: utf-8 -*-import xdrlib ,sysimport xlrdimport os# 文件名fileName = &#39;yapi.xlsx&#39;# 属性名称列propertyNameCol = 0# 属性类型列propertyTypeCol = 1# 属性注释列propertyDescCol = 4#打开excel文件def open_excel():    try:        data = xlrd.open_workbook(fileName)        return data    except Exception,e:        print str(e)def print_excel():    data = open_excel() #打开excel文件    sheet1 = data.sheet_by_index(0) #选择第1个Sheet    nrows = sheet1.nrows    os.system(&#39;clear&#39;)    for rownum in range(0, nrows):        name = sheet1.cell_value(rownum, propertyNameCol)        type = sheet1.cell_value(rownum, propertyTypeCol)        desc = sheet1.cell_value(rownum, propertyDescCol)        nstype = &#39;NSNumber&#39;        if type == &#39;string&#39;:            nstype = &#39;NSString&#39;        print (&#39;/// %s&#39; % (desc))        print (&#39;@property (nonatomic, copy) %s* %s;&#39; % (nstype, name))    print(&#39;&#39;)#主函数def main():    print_excel()if __name__==&quot;__main__&quot;:    main()</code></pre>]]></content>
-      
-      
       
     </entry>
     
