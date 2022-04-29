@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Xcode新建低目标版本项目</title>
+      <link href="/CreatLowDeploymentInXcode.html"/>
+      <url>/CreatLowDeploymentInXcode.html</url>
+      
+        <content type="html"><![CDATA[<p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p><blockquote><p>记录使用Xcode 13新建项目，Deployment iOS 13以下无法运行的处理方案</p></blockquote><p>删除 Scene 相关</p><ol><li>SceneDelegate.swift、SceneDelegate.h/SceneDelegate.m</li><li><code>AppDelegate.swift</code>/<code>AppDelegate.m</code>中的<code>configurationForConnecting</code>和<code>didDiscardSceneSessions</code>方法</li><li>Info.plist中删除 <code>Application Scene Manifest</code></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> IT </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> iOS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Appium搭建笔记</title>
       <link href="/AppiumNotes.html"/>
       <url>/AppiumNotes.html</url>

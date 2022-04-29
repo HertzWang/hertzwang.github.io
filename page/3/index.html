@@ -187,6 +187,112 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/ssserverForUbuntu.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/ssserverForUbuntu.html" class="post-title-link" itemprop="url">在Ubuntu中搭建ss服务端</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-11-10 09:49:49" itemprop="dateCreated datePublished" datetime="2017-11-10T09:49:49+08:00">2017-11-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-25 15:07:04" itemprop="dateModified" datetime="2022-01-25T15:07:04+08:00">2022-01-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT/" itemprop="url" rel="index"><span itemprop="name">IT</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<blockquote>
+<p>前提：有一个非位于大陆的云主机</p>
+<p>示例环境：Ubuntu 20.04.2 LTS (GNU/Linux 5.4.0-1045-aws x86_64)</p>
+</blockquote>
+<h2 id="安装-Shadowsocks"><a href="#安装-Shadowsocks" class="headerlink" title="安装 Shadowsocks"></a>安装 Shadowsocks</h2><p>在<code>Ubuntu</code>下安装<code>SS</code>比较简单，执行以下命令即可：</p>
+<ol>
+<li>更新软件包： <code>$ sudo apt-get update</code> </li>
+<li>安装 python-pip 运行 环境：<code>$ sudo apt-get install python3-pip</code></li>
+<li>安装 shadowsocks 服务端： <code>$ sudo pip3 install https://github.com/shadowsocks/shadowsocks/archive/master.zip</code></li>
+</ol>
+<h2 id="配置信息"><a href="#配置信息" class="headerlink" title="配置信息"></a>配置信息</h2><p>开放端口：<code>$ sudo ufw allow 8389</code></p>
+<p>执行 <code>sudo vi /etc/shadowsocks.json</code>，并输入以下信息：</p>
+<!---->
+
+<pre><code>&#123;
+    &quot;server&quot;:&quot;0.0.0.0&quot;,
+    &quot;local_address&quot;: &quot;127.0.0.1&quot;,
+    &quot;local_port&quot;:1081,
+    &quot;timeout&quot;:300,
+    &quot;method&quot;:&quot;aes-256-gcm&quot;,
+    &quot;port_password&quot;:&#123;
+        &quot;8380&quot;:&quot;Ss@8380&quot;,
+        &quot;8381&quot;:&quot;Ss@8381&quot;,
+        &quot;8382&quot;:&quot;Ss@8382&quot;,
+        &quot;8383&quot;:&quot;Ss@8383&quot;,
+        &quot;8384&quot;:&quot;Ss@8384&quot;,
+        &quot;8385&quot;:&quot;Ss@8385&quot;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="启动与停止"><a href="#启动与停止" class="headerlink" title="启动与停止"></a>启动与停止</h2><p><code>$ sudo ssserver -c /etc/shadowsocks.json -d start</code><br><code>$ sudo ssserver -c /etc/shadowsocks.json -d stop</code></p>
+<h2 id="ping-IP-Request-timeout"><a href="#ping-IP-Request-timeout" class="headerlink" title="ping IP Request timeout"></a>ping IP Request timeout</h2><p>AWS 安全组编辑入站规则，添加“所有流量”</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://hertz.wang/Hackintosh-EFI.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1260,98 +1366,6 @@ sudo rm -rf /var/db/receipts/com.mysql.*
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hertz.wang/iOSAboutESC.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Hertz Wang">
-      <meta itemprop="description" content="iOS developer from China.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hertz Wang Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/iOSAboutESC.html" class="post-title-link" itemprop="url">关于转义、base64</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-06-20 22:19:37" itemprop="dateCreated datePublished" datetime="2017-06-20T22:19:37+08:00">2017-06-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/IT/" itemprop="url" rel="index"><span itemprop="name">IT</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/IT/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
-<blockquote>
-<p>前言：最近在搞一些东东，html中一堆堆的<code>%20</code>、<code>%3A</code>看着头大，然后硬着头皮去分析……</p>
-</blockquote>
-<p><em>持续更新中…</em></p>
-<h2 id="URL编码-解码"><a href="#URL编码-解码" class="headerlink" title="URL编码/解码"></a>URL编码/解码</h2><p>首先推荐一个网站：<a target="_blank" rel="noopener" href="http://tool.chinaz.com/tools/urlencode.aspx">站长工具-URL编码/解码</a></p>
-<p>Objective-C 中使用以下方法对URL编码、解码：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 编码</span></span><br><span class="line"><span class="operator">-</span> (nullable <span class="type">NSString</span> <span class="operator">*</span>)stringByAddingPercentEncodingWithAllowedCharacters:(<span class="type">NSCharacterSet</span> <span class="operator">*</span>)allowedCharacters <span class="type">NS_AVAILABLE</span>(<span class="number">10_9</span>, <span class="number">7_0</span>);</span><br><span class="line">	</span><br><span class="line"><span class="comment">// 解码 例：NSString *newStr = str.stringByRemovingPercentEncoding;</span></span><br><span class="line"><span class="meta">@property</span> (nullable, readonly, copy) <span class="type">NSString</span> <span class="operator">*</span>stringByRemovingPercentEncoding <span class="type">NS_AVAILABLE</span>(<span class="number">10_9</span>, <span class="number">7_0</span>);</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/iOSAboutESC.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1421,7 +1435,7 @@ sudo rm -rf /var/db/receipts/com.mysql.*
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-count">67</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
