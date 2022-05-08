@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>检查断网重启Mac</title>
+      <link href="/RebootWithoutNet.html"/>
+      <url>/RebootWithoutNet.html</url>
+      
+        <content type="html"><![CDATA[<p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p><blockquote><p>用Python脚本来检查Mac联网状态，在达到条件后重启Mac</p></blockquote><h2 id="Python-脚本"><a href="#Python-脚本" class="headerlink" title="Python 脚本"></a>Python 脚本</h2><pre><code># -*- coding: utf-8 -*-import osimport asyncioimport timefrom enum import Enum# 策略enum：1-重启电脑 2-启动网卡class RunActionType(Enum):    reboot = 1    restart_net = 2    # root密码root_pwd = &#39;&#39;# 策略run_action_type = RunActionType.restart_net.value# 退出循环标记allow_loop = True# 时间间隔tiem_sleep_interval = 3# 失败次数failed_count = 0# 失败最大次数failed_max_count = 2# 终端命令command_reboot = &#39;echo %s | sudo -S reboot&#39; % root_pwdcommand_network_down = &#39;echo %s | sudo -S ifconfig en0 down&#39; % root_pwdcommand_network_up = &#39;echo %s | sudo -S ifconfig en0 up&#39; % root_pwd# 检查网络状态async def loop_ping():    global allow_loop, failed_count        while allow_loop:        result = os.system(&#39;curl baidu.com&#39;)        if result:            failed_count += 1            print(result)        else:            failed_count = 0                    if failed_count &gt;= failed_max_count:            allow_loop = False            failed_count = 0            run_action()        else:            time.sleep(tiem_sleep_interval)        # 策略def run_action():    if run_action_type == RunActionType.reboot.value:        reboot_action()    elif run_action_type == RunActionType.restart_net.value:        restart_net_action()# 启动电脑def reboot_action():    print(&quot;启动电脑&quot;)    os.system(command_reboot)    # 启动网卡def restart_net_action():    print(&quot;重启网卡&quot;)    os.system(command_network_down)    time.sleep(5)    os.system(command_network_up)    print(&quot;网卡重启结束&quot;)if __name__ == &#39;__main__&#39;:    print(&quot;开始监听网络连接&quot;)    loop = asyncio.get_event_loop()    loop.run_until_complete(loop_ping())</code></pre><h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><ol><li>将整个文件夹放到当前用户目录下，即<code>cd ~</code>目录下</li><li>制作启动程序，参考链接<a href="https://jingyan.baidu.com/article/9c69d48fe7a2c913c9024eb6.html">https://jingyan.baidu.com/article/9c69d48fe7a2c913c9024eb6.html</a> <ol><li>打开    <code>自动操作.app</code>-&gt;新建文稿-&gt;应用程序-&gt;选取，或者文件-&gt;新建-&gt;应用程序-&gt;选取</li><li>搜索<code>shell</code>,将<code>运行Shell脚本</code>拖动到右边的</li><li>运行Shell脚本的Shell路径选择<code>/bin/bash</code></li><li>内容输入 <code>pythonBinPath pyFilePath</code>，例如：<code>/usr/bin/python3 ~/Script/reboot.py</code><ul><li>pythonBinPath：python命令路径，终端执行<code>which python</code>查看</li><li>pyFilePath：python脚本路径</li></ul></li><li>执行文件-&gt;存储保存应用程序</li></ol></li><li>添加启动项<ol><li>打开系统偏好设置-&gt;用户与群组</li><li>选择当前用户-&gt;登录项-&gt; + ，选择制作的启动程序</li></ol></li><li>配置参数<ol><li>打开<code>reboot.py</code></li><li>修改<code>root_pwd</code></li><li>修改<code>run_action_type</code></li><li>修改其它参数</li></ol></li><li>双击制作的启动程序，启动成功后会在Mac上的菜单栏中显示图标（旋转的⚙️）</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> IT </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Tools </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>记录对MVC的理解</title>
+      <link href="/CocoaMVC.html"/>
+      <url>/CocoaMVC.html</url>
+      
+        <content type="html"><![CDATA[<p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p><blockquote><p>Apple官方文档<a href="https://developer.apple.com/library/archive/documentation/General/Conceptual/CocoaEncyclopedia/Model-View-Controller/Model-View-Controller.html">Model-View-Controller</a></p><p>Apple官方Demo<a href="https://developer.apple.com/library/archive/samplecode/MVCNetworking/Introduction/Intro.html#//apple_ref/doc/uid/DTS40010443">MVCNetworking</a></p></blockquote><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>MVC即Model-View-Controller，是一个复合设计模式，由于一些基本的设计模式组成，这些基本模式一直工作，定义功能分离和通信路径，将整体分为了三个角色Model、View、Controller各司其职</p><ul><li>Model：数据模型，并具有基本行为能力，例如数据解析<!-- 即数据请求、数据解析、数据持久化，是数据的提供者和管理者--></li><li>View：视图，用于展示和编辑Model中的数据</li><li>Controller：控制器，将Model绑定到View<!-- 并处理View的事件、控制View刷新、控制Model修改--></li></ul><p>组合角色，例如<em>Model Controller</em>、<em>View Controller</em></p><ul><li>Model Controller：模型控制器，主要关注Model层控制，“拥有”该Model，主要职责是管理Model并与View通信，例如<code>NSDocument</code>自动处理与保存文件相关的操作</li><li>View Controller：视图控制器，主要关注View层的控制，”拥有”该View，主要职责是管理界面并与Model通信，实现根据Model显示View的相关处理，例如<code>NSWindowController</code></li></ul><h3 id="传统的MVC"><a href="#传统的MVC" class="headerlink" title="传统的MVC"></a>传统的MVC</h3><p>在最初的概念（Smalltalk）中，由于组合模式、策略模式和观察者模式组成，View与Model有通信</p><ul><li>组合模式：View实际上是一组嵌套View的组合，按照设定的层次结构显示，这些View可以是组合视图（UITableView）也可以是单个视图（UIButton），任意View都可以被用户编辑和显示</li><li> 策略模式：Controller为一个或多个View实现策略，View只管展示（视角方面），并委托Controller去决策所有View特定的接口行为，例如<em>Controller</em>通过<em>UITableView</em>的<em>data source</em>和<em>delegate</em>来控制数据及处理响应事件</li><li> 观察者模式：View观察Model的状态变化，收到通知后更新外观</li></ul><p>用户在<strong>View</strong>上操作生成事件，<strong>Controller</strong>接收事件并根据策略处理事件，这个策略可以是更新<strong>Model</strong>或者更新<strong>View</strong>，当<strong>Model</strong>状态变化时通知<strong>View</strong>更新外观</p><p><img src="https://developer.apple.com/library/archive/documentation/General/Conceptual/CocoaEncyclopedia/Art/traditional_mvc.gif" alt="Traditional version of MVC as a compound pattern"></p><span id="more"></span><h3 id="Cocoa-MVC-vs-传统MVC"><a href="#Cocoa-MVC-vs-传统MVC" class="headerlink" title="Cocoa MVC vs 传统MVC"></a>Cocoa MVC vs 传统MVC</h3><p>Cocoa MVC与传统MVC有一些相似之处，不同于Controller观察Model而不是View，分离了View与Model之间的通信，增强了它们的可重用性。</p><ul><li>Model：状态变化通知Controller传到View</li><li>View：在原有的<strong>组合模式</strong>基础上增加了<strong>命令模式</strong></li><li>Controller：在原有的<strong>策略模式</strong>基础上增加了<strong>中介者模式</strong>，在Model与View之间双向协调数据流</li></ul><p><img src="https://developer.apple.com/library/archive/documentation/General/Conceptual/CocoaEncyclopedia/Art/cocoa_mvc.gif" alt="Cocoa version of MVC as a compound design pattern"></p><h3 id="nib中的Cocoa-MVC"><a href="#nib中的Cocoa-MVC" class="headerlink" title="nib中的Cocoa MVC"></a>nib中的Cocoa MVC</h3><p>使用 Cocoa MVC设计一个良好的应用程序，协调控制器通常具有中介控制器，这些控制器存档在nib文件，如图所示：</p><p><img src="https://developer.apple.com/library/archive/documentation/General/Conceptual/CocoaEncyclopedia/Art/cocoa_mvc_coord.gif" alt="Coordinating controller as the owner of a nib file"></p><h3 id="MIT-描述的-Cocoa-MVC"><a href="#MIT-描述的-Cocoa-MVC" class="headerlink" title="MIT 描述的 Cocoa MVC"></a>MIT 描述的 Cocoa MVC</h3><p>Apple将组合模式分为了3个角色，即<strong>Model</strong>、<strong>View</strong>、<strong>Controller</strong></p><p><strong>Controller</strong>拥有<strong>Movel</strong>和<strong>View</strong></p><ul><li>数据绑定：直接绑定（set）或通过<code>data source</code>来绑定（UITableView）</li><li>事件绑定：通过<code>Target-Action</code>、<code>delegate</code>来绑定（UITableView）、KVO</li></ul><p>用户编辑<strong>View</strong>时<strong>Controller</strong>更新<strong>View</strong>或者<strong>Model</strong></p><p><strong>Model</strong>状态变化时通知<strong>Controller</strong></p><p><img src="../images/CocoaMVC.JPG" alt="MIT"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> IT </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> iOS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Xcode新建低目标版本项目</title>
       <link href="/CreatLowDeploymentInXcode.html"/>
       <url>/CreatLowDeploymentInXcode.html</url>

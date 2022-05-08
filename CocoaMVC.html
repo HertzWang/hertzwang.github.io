@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hertz.wang","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="反馈请联系hertz@hertzwang.com,谢谢  Apple官方文档Model-View-Controller Apple官方DemoMVCNetworking  概述MVC即Model-View-Controller，是一个复合设计模式，由于一些基本的设计模式组成，这些基本模式一直工作，定义功能分离和通信路径，将整体分为了三个角色Model、View、Controller各司其职  Mo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记录对MVC的理解">
+<meta property="og:url" content="https://hertz.wang/CocoaMVC.html">
+<meta property="og:site_name" content="Hertz Wang Blog">
+<meta property="og:description" content="反馈请联系hertz@hertzwang.com,谢谢  Apple官方文档Model-View-Controller Apple官方DemoMVCNetworking  概述MVC即Model-View-Controller，是一个复合设计模式，由于一些基本的设计模式组成，这些基本模式一直工作，定义功能分离和通信路径，将整体分为了三个角色Model、View、Controller各司其职  Mo">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://developer.apple.com/library/archive/documentation/General/Conceptual/CocoaEncyclopedia/Art/traditional_mvc.gif">
+<meta property="og:image" content="https://developer.apple.com/library/archive/documentation/General/Conceptual/CocoaEncyclopedia/Art/cocoa_mvc.gif">
+<meta property="og:image" content="https://developer.apple.com/library/archive/documentation/General/Conceptual/CocoaEncyclopedia/Art/cocoa_mvc_coord.gif">
+<meta property="og:image" content="https://hertz.wang/images/CocoaMVC.JPG">
+<meta property="article:published_time" content="2022-05-02T13:38:14.000Z">
+<meta property="article:modified_time" content="2022-05-08T04:01:23.214Z">
+<meta property="article:author" content="Hertz Wang">
+<meta property="article:tag" content="iOS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://developer.apple.com/library/archive/documentation/General/Conceptual/CocoaEncyclopedia/Art/traditional_mvc.gif">
+
+<link rel="canonical" href="https://hertz.wang/CocoaMVC.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>记录对MVC的理解 | Hertz Wang Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hertz Wang Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">https://hertz.wang</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/CocoaMVC.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          记录对MVC的理解
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-05-02 21:38:14" itemprop="dateCreated datePublished" datetime="2022-05-02T21:38:14+08:00">2022-05-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-05-08 12:01:23" itemprop="dateModified" datetime="2022-05-08T12:01:23+08:00">2022-05-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT/" itemprop="url" rel="index"><span itemprop="name">IT</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<blockquote>
+<p>Apple官方文档<a target="_blank" rel="noopener" href="https://developer.apple.com/library/archive/documentation/General/Conceptual/CocoaEncyclopedia/Model-View-Controller/Model-View-Controller.html">Model-View-Controller</a></p>
+<p>Apple官方Demo<a target="_blank" rel="noopener" href="https://developer.apple.com/library/archive/samplecode/MVCNetworking/Introduction/Intro.html#//apple_ref/doc/uid/DTS40010443">MVCNetworking</a></p>
+</blockquote>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>MVC即Model-View-Controller，是一个复合设计模式，由于一些基本的设计模式组成，这些基本模式一直工作，定义功能分离和通信路径，将整体分为了三个角色Model、View、Controller各司其职</p>
+<ul>
+<li>Model：数据模型，并具有基本行为能力，例如数据解析<!-- 即数据请求、数据解析、数据持久化，是数据的提供者和管理者--></li>
+<li>View：视图，用于展示和编辑Model中的数据</li>
+<li>Controller：控制器，将Model绑定到View<!-- 并处理View的事件、控制View刷新、控制Model修改--></li>
+</ul>
+<p>组合角色，例如<em>Model Controller</em>、<em>View Controller</em></p>
+<ul>
+<li>Model Controller：模型控制器，主要关注Model层控制，“拥有”该Model，主要职责是管理Model并与View通信，例如<code>NSDocument</code>自动处理与保存文件相关的操作</li>
+<li>View Controller：视图控制器，主要关注View层的控制，”拥有”该View，主要职责是管理界面并与Model通信，实现根据Model显示View的相关处理，例如<code>NSWindowController</code></li>
+</ul>
+<h3 id="传统的MVC"><a href="#传统的MVC" class="headerlink" title="传统的MVC"></a>传统的MVC</h3><p>在最初的概念（Smalltalk）中，由于组合模式、策略模式和观察者模式组成，View与Model有通信</p>
+<ul>
+<li>组合模式：View实际上是一组嵌套View的组合，按照设定的层次结构显示，这些View可以是组合视图（UITableView）也可以是单个视图（UIButton），任意View都可以被用户编辑和显示</li>
+<li> 策略模式：Controller为一个或多个View实现策略，View只管展示（视角方面），并委托Controller去决策所有View特定的接口行为，例如<em>Controller</em>通过<em>UITableView</em>的<em>data source</em>和<em>delegate</em>来控制数据及处理响应事件</li>
+<li> 观察者模式：View观察Model的状态变化，收到通知后更新外观</li>
+</ul>
+<p>用户在<strong>View</strong>上操作生成事件，<strong>Controller</strong>接收事件并根据策略处理事件，这个策略可以是更新<strong>Model</strong>或者更新<strong>View</strong>，当<strong>Model</strong>状态变化时通知<strong>View</strong>更新外观</p>
+<p><img src="https://developer.apple.com/library/archive/documentation/General/Conceptual/CocoaEncyclopedia/Art/traditional_mvc.gif" alt="Traditional version of MVC as a compound pattern"></p>
+<span id="more"></span>
+
+<h3 id="Cocoa-MVC-vs-传统MVC"><a href="#Cocoa-MVC-vs-传统MVC" class="headerlink" title="Cocoa MVC vs 传统MVC"></a>Cocoa MVC vs 传统MVC</h3><p>Cocoa MVC与传统MVC有一些相似之处，不同于Controller观察Model而不是View，分离了View与Model之间的通信，增强了它们的可重用性。</p>
+<ul>
+<li>Model：状态变化通知Controller传到View</li>
+<li>View：在原有的<strong>组合模式</strong>基础上增加了<strong>命令模式</strong></li>
+<li>Controller：在原有的<strong>策略模式</strong>基础上增加了<strong>中介者模式</strong>，在Model与View之间双向协调数据流</li>
+</ul>
+<p><img src="https://developer.apple.com/library/archive/documentation/General/Conceptual/CocoaEncyclopedia/Art/cocoa_mvc.gif" alt="Cocoa version of MVC as a compound design pattern"></p>
+<h3 id="nib中的Cocoa-MVC"><a href="#nib中的Cocoa-MVC" class="headerlink" title="nib中的Cocoa MVC"></a>nib中的Cocoa MVC</h3><p>使用 Cocoa MVC设计一个良好的应用程序，协调控制器通常具有中介控制器，这些控制器存档在nib文件，如图所示：</p>
+<p><img src="https://developer.apple.com/library/archive/documentation/General/Conceptual/CocoaEncyclopedia/Art/cocoa_mvc_coord.gif" alt="Coordinating controller as the owner of a nib file"></p>
+<h3 id="MIT-描述的-Cocoa-MVC"><a href="#MIT-描述的-Cocoa-MVC" class="headerlink" title="MIT 描述的 Cocoa MVC"></a>MIT 描述的 Cocoa MVC</h3><p>Apple将组合模式分为了3个角色，即<strong>Model</strong>、<strong>View</strong>、<strong>Controller</strong></p>
+<p><strong>Controller</strong>拥有<strong>Movel</strong>和<strong>View</strong></p>
+<ul>
+<li>数据绑定：直接绑定（set）或通过<code>data source</code>来绑定（UITableView）</li>
+<li>事件绑定：通过<code>Target-Action</code>、<code>delegate</code>来绑定（UITableView）、KVO</li>
+</ul>
+<p>用户编辑<strong>View</strong>时<strong>Controller</strong>更新<strong>View</strong>或者<strong>Model</strong></p>
+<p><strong>Model</strong>状态变化时通知<strong>Controller</strong></p>
+<p><img src="../images/CocoaMVC.JPG" alt="MIT"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/CreatLowDeploymentInXcode.html" rel="prev" title="Xcode新建低目标版本项目">
+      <i class="fa fa-chevron-left"></i> Xcode新建低目标版本项目
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/RebootWithoutNet.html" rel="next" title="检查断网重启Mac">
+      检查断网重启Mac <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E7%BB%9F%E7%9A%84MVC"><span class="nav-number">2.</span> <span class="nav-text">传统的MVC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cocoa-MVC-vs-%E4%BC%A0%E7%BB%9FMVC"><span class="nav-number">3.</span> <span class="nav-text">Cocoa MVC vs 传统MVC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nib%E4%B8%AD%E7%9A%84Cocoa-MVC"><span class="nav-number">4.</span> <span class="nav-text">nib中的Cocoa MVC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MIT-%E6%8F%8F%E8%BF%B0%E7%9A%84-Cocoa-MVC"><span class="nav-number">5.</span> <span class="nav-text">MIT 描述的 Cocoa MVC</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Hertz Wang</p>
+  <div class="site-description" itemprop="description">iOS developer from China.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hertz Wang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
