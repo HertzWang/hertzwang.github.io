@@ -187,6 +187,102 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/iOSCoreGraphics.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/iOSCoreGraphics.html" class="post-title-link" itemprop="url">Core Graphics</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-01-19 16:54:11" itemprop="dateCreated datePublished" datetime="2018-01-19T16:54:11+08:00">2018-01-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT/" itemprop="url" rel="index"><span itemprop="name">IT</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<blockquote>
+<p>本文参考</p>
+<p> <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/27798398">iOS绘图技术（一、简单介绍和绘制视图）</a></p>
+<p> <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MjM5OTM0MzIwMQ==&mid=2652551125&idx=3&sn=d664030238d0d8f29ce42e1e08833ce4&chksm=bcd2f2db8ba57bcd173aa7a823b8043c4798d3e0a6e6d800e0f845ef76dff5930ba9904d1bd1&scene=27&open_source=weibo_search">iOS绘图框架CoreGraphics分析</a></p>
+</blockquote>
+<h2 id="简要说明"><a href="#简要说明" class="headerlink" title="简要说明"></a>简要说明</h2><ul>
+<li>iOS 在运行循环中会整合所有的绘图请求，并一次性将它们绘制出来</li>
+<li>不能在子线程中绘制，也不能进行复杂操作，否则会造成主线程卡顿</li>
+<li>调用 UIView 的 drawRect: / draw(_:) 方法进行绘制</li>
+<li><code>setNeedsDisplay</code> 该方法标记为<strong>整个视图</strong>重新绘制，并且会在下一次绘制周期中重新绘制，自动调用 drawRect: / draw(_:)方法</li>
+<li><code>setNeedsDisplayInRect:</code> 该方法标记为<strong>视图部分区域</strong>重新绘制，周期同上。从绘制带来的开销角度，不推荐整个视图的重新绘制。</li>
+</ul>
+<h2 id="UIKit部分"><a href="#UIKit部分" class="headerlink" title="UIKit部分"></a>UIKit部分</h2><blockquote>
+<p>UIKit是高级的图形接口，它的 API 都是基于 Objective-C的。它能够访问绘图、动画、字体、图片等内容。</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/iOSCoreGraphics.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://hertz.wang/iOSDeviceExtension.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1296,102 +1392,6 @@ sudo rm -rf /var/db/receipts/com.mysql.*
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hertz.wang/InstallNginxFormMac.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Hertz Wang">
-      <meta itemprop="description" content="iOS developer from China.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hertz Wang Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/InstallNginxFormMac.html" class="post-title-link" itemprop="url">Mac OS 上安装 Niginx</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-07-07 17:47:40" itemprop="dateCreated datePublished" datetime="2017-07-07T17:47:40+08:00">2017-07-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/IT/" itemprop="url" rel="index"><span itemprop="name">IT</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
-<blockquote>
-<p>参考<a target="_blank" rel="noopener" href="http://www.jianshu.com/p/6c7cb820a020">Mac下用brew安装nginx</a></p>
-</blockquote>
-<h2 id="安装brew-Homebrew"><a href="#安装brew-Homebrew" class="headerlink" title="安装brew(Homebrew)"></a>安装brew(Homebrew)</h2><p>一般默认装有<code>brew</code></p>
-<pre><code>/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
-</code></pre>
-<p><code>brew</code>常用命令：</p>
-<ul>
-<li>搜索软件：<code>brew search nginx</code></li>
-<li>卸载软件：<code>brew uninstall nginx</code></li>
-<li>升级brew：<code>sodu brew update</code></li>
-<li>查看安装信息：<code>sodu brew info nginx</code></li>
-<li>查看已经安装的软件：<code>brew list</code></li>
-<li>注：脚本会在执行前暂停，按下回车并输入管理员密码。更多信息<a target="_blank" rel="noopener" href="https://brew.sh/index_zh-cn.html">查看官方网站</a></li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/InstallNginxFormMac.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1461,7 +1461,7 @@ sudo rm -rf /var/db/receipts/com.mysql.*
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-count">70</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>AWS EC2实例迁移</title>
+      <link href="/AWSEC2.html"/>
+      <url>/AWSEC2.html</url>
+      
+        <content type="html"><![CDATA[<p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p><h3 id="选择区域"><a href="#选择区域" class="headerlink" title="选择区域"></a>选择区域</h3><ol><li>打开<a href="https://aws.amazon.com/cn/">AWS官网</a>，点击右上角的<b>登录控制台</b> <!-- ss202207 --></li><li>登录成功点击右上角-Account进入到账号主页</li><li>向下滑动到<b>AWS 区域</b>部分，确认目标区域状态已开启</li><li>点击页面左上角的<b>Services</b>，选择<b>计算</b>-<b>EC2</b></li><li>点击右上角的“地区名”切换服务器地区</li></ol><h3 id="创建EC2实例"><a href="#创建EC2实例" class="headerlink" title="创建EC2实例"></a>创建EC2实例</h3><h3 id="Windows-Server-2012-R2"><a href="#Windows-Server-2012-R2" class="headerlink" title="Windows Server 2012 R2"></a>Windows Server 2012 R2</h3><p>创建实例:</p><ol><li>按照以上操作选择好EC2的区域，例如：Services-计算-EC2，右上角地区选择香港</li><li>点击左侧菜单的<b>实例</b>-<b>实例</b></li><li>点击右上角的<b>启动新实例</b></li><li>快速启动中选择<b>Windows - Microsoft Windows Server 2012 R2 Base</b>，</li><li>确认有明显的<b>“支持免费套餐”</b>字样后并点击右侧的<b>启动实例</b></li><li>创建密钥对，选择创建新密钥对并输入名称，模式使用默认的.pem，然后点击<b>创建密钥对</b>自动下载（获取Administer密码时需要）</li><li>最后再次点击<b>启动实例</b></li></ol><p>调整安全组：</p><ol><li>Services-计算-EC2，右上角地区选择香港</li><li>点击左边菜单<b>实例-实例</b>，并点击实例ID，如: i-01ab02cd03ef04gh</li><li>实例摘要中切换至<b>安全</b>标签，并点击安全组ID，如：sg-00cd03ef04gh(launch-xxxx-x)</li><li>安全组详细信息页面点击<b>入站规则-编辑入站规则</b></li><li>添加规则：<table><thead><tr><th align="left">类型</th><th align="center">协议</th><th align="right">端口范围</th><th align="right">源</th></tr></thead><tbody><tr><td align="left">RDP</td><td align="center">TCP</td><td align="right">3389</td><td align="right">0.0.0.0/0</td></tr><tr><td align="left">HTTPS</td><td align="center">TCP</td><td align="right">443</td><td align="right">0.0.0.0/0</td></tr><tr><td align="left">自定义TCP</td><td align="center">TCP</td><td align="right">80</td><td align="right">0.0.0.0/0</td></tr><tr><td align="left">自定义TCP</td><td align="center">TCP</td><td align="right">6612</td><td align="right">0.0.0.0/0</td></tr><tr><td align="left">自定义TCP</td><td align="center">TCP</td><td align="right">8000</td><td align="right">0.0.0.0/0</td></tr><tr><td align="left">自定义TCP</td><td align="center">TCP</td><td align="right">8191</td><td align="right">0.0.0.0/0</td></tr><tr><td align="left">自定义TCP</td><td align="center">TCP</td><td align="right">8192</td><td align="right">0.0.0.0/0</td></tr><tr><td align="left">自定义TCP</td><td align="center">TCP</td><td align="right">9000</td><td align="right">0.0.0.0/0</td></tr></tbody></table></li></ol><span id="more"></span><p>远程桌面连接：</p><blockquote><p>MacOS下载<a href="https://apps.apple.com/cn/app/parallels-client/id600925318?mt=12">Parallels Client</a></p></blockquote><ol><li>Services-计算-EC2，右上角地区选择香港</li><li>点击左边菜单<b>实例-实例</b>，并点击实例ID，如: i-01ab02cd03ef04gh</li><li>点击右上角的<b>连接</b></li><li>切换至 <b>RDP 客户端</b>，并点击下面的<b>获取密码</b>，操作浏览密钥对（创建实例时下载的.pem文件）获取Windows密码</li><li>打开软件Parallels Client，新建连接-改为创建RDP连接：<ul><li>服务器：Public DNS <!-- ec2-18-166-176-42.ap-east-1.compute.amazonaws.com --></li><li>密码：查询后的密码 <!--*mz25r5%49% --></li></ul></li></ol><p>服务器设置：</p><ol><li>设置IE浏览器<ul><li>信任站点：设置 - Internet options - Security - Trusted sites - Sites - Add</li><li>下载文件：设置 - Internet options - Security - Internet - Custom Level - Downloads - File download</li></ul></li><li>阿里云盘下载Nginx、MySQL、PHP，安装至<code>C:\Program Files</code>，并设置环境变量</li><li>设置防火墙(添加安全组对应的端口号)：<ol><li>打开防火墙界面：Windows - Control Panel - System and Security - Windows Firewall</li><li>进入设置访问端口界面：Advanced settings - Inbound Rules - New Rule…</li><li>设置入站端口：Port - TCP &amp; Specific local ports: 80,443,8000,… - Allow the connection - 勾选Domain、Private、Public - 输入名称和描述 - Finish</li></ol></li><li>安装数据库（MySQL）<ol><li>安装<code>mysql-5.5.62-winx64</code></li><li>配置向导，选择<code>Detailed Configuration</code> - <code>Server Machine</code> - <code>Multifuncational Database</code> - <code>Next</code> - <code>Decision Support(DSS)/OLAP</code> - <code>调整端口号</code> - <code>Standard Character Set</code> - <code>设置root密码</code> - <code>Excute</code> - <code>Finish</code></li><li>安装<code>mysql-workbench-community-8.0.28-winx64</code></li></ol></li><li>部署应用程序</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> IT </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Tools </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>检查断网重启Mac</title>
       <link href="/RebootWithoutNet.html"/>
       <url>/RebootWithoutNet.html</url>
@@ -1654,9 +1679,9 @@
       
         <tags>
             
-            <tag> Bookmarks </tag>
-            
             <tag> Tools </tag>
+            
+            <tag> Bookmarks </tag>
             
             <tag> Links </tag>
             

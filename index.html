@@ -187,6 +187,170 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/AWSEC2.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/AWSEC2.html" class="post-title-link" itemprop="url">AWS EC2实例迁移</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-08-25 15:20:14" itemprop="dateCreated datePublished" datetime="2022-08-25T15:20:14+08:00">2022-08-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-09-01 10:25:37" itemprop="dateModified" datetime="2022-09-01T10:25:37+08:00">2022-09-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT/" itemprop="url" rel="index"><span itemprop="name">IT</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<h3 id="选择区域"><a href="#选择区域" class="headerlink" title="选择区域"></a>选择区域</h3><ol>
+<li>打开<a target="_blank" rel="noopener" href="https://aws.amazon.com/cn/">AWS官网</a>，点击右上角的<b>登录控制台</b> <!-- ss202207 --></li>
+<li>登录成功点击右上角-Account进入到账号主页</li>
+<li>向下滑动到<b>AWS 区域</b>部分，确认目标区域状态已开启</li>
+<li>点击页面左上角的<b>Services</b>，选择<b>计算</b>-<b>EC2</b></li>
+<li>点击右上角的“地区名”切换服务器地区</li>
+</ol>
+<h3 id="创建EC2实例"><a href="#创建EC2实例" class="headerlink" title="创建EC2实例"></a>创建EC2实例</h3><h3 id="Windows-Server-2012-R2"><a href="#Windows-Server-2012-R2" class="headerlink" title="Windows Server 2012 R2"></a>Windows Server 2012 R2</h3><p>创建实例:</p>
+<ol>
+<li>按照以上操作选择好EC2的区域，例如：Services-计算-EC2，右上角地区选择香港</li>
+<li>点击左侧菜单的<b>实例</b>-<b>实例</b></li>
+<li>点击右上角的<b>启动新实例</b></li>
+<li>快速启动中选择<b>Windows - Microsoft Windows Server 2012 R2 Base</b>，</li>
+<li>确认有明显的<b>“支持免费套餐”</b>字样后并点击右侧的<b>启动实例</b></li>
+<li>创建密钥对，选择创建新密钥对并输入名称，模式使用默认的.pem，然后点击<b>创建密钥对</b>自动下载（获取Administer密码时需要）</li>
+<li>最后再次点击<b>启动实例</b></li>
+</ol>
+<p>调整安全组：</p>
+<ol>
+<li>Services-计算-EC2，右上角地区选择香港</li>
+<li>点击左边菜单<b>实例-实例</b>，并点击实例ID，如: i-01ab02cd03ef04gh</li>
+<li>实例摘要中切换至<b>安全</b>标签，并点击安全组ID，如：sg-00cd03ef04gh(launch-xxxx-x)</li>
+<li>安全组详细信息页面点击<b>入站规则-编辑入站规则</b></li>
+<li>添加规则：<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="center">协议</th>
+<th align="right">端口范围</th>
+<th align="right">源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">RDP</td>
+<td align="center">TCP</td>
+<td align="right">3389</td>
+<td align="right">0.0.0.0/0</td>
+</tr>
+<tr>
+<td align="left">HTTPS</td>
+<td align="center">TCP</td>
+<td align="right">443</td>
+<td align="right">0.0.0.0/0</td>
+</tr>
+<tr>
+<td align="left">自定义TCP</td>
+<td align="center">TCP</td>
+<td align="right">80</td>
+<td align="right">0.0.0.0/0</td>
+</tr>
+<tr>
+<td align="left">自定义TCP</td>
+<td align="center">TCP</td>
+<td align="right">6612</td>
+<td align="right">0.0.0.0/0</td>
+</tr>
+<tr>
+<td align="left">自定义TCP</td>
+<td align="center">TCP</td>
+<td align="right">8000</td>
+<td align="right">0.0.0.0/0</td>
+</tr>
+<tr>
+<td align="left">自定义TCP</td>
+<td align="center">TCP</td>
+<td align="right">8191</td>
+<td align="right">0.0.0.0/0</td>
+</tr>
+<tr>
+<td align="left">自定义TCP</td>
+<td align="center">TCP</td>
+<td align="right">8192</td>
+<td align="right">0.0.0.0/0</td>
+</tr>
+<tr>
+<td align="left">自定义TCP</td>
+<td align="center">TCP</td>
+<td align="right">9000</td>
+<td align="right">0.0.0.0/0</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/AWSEC2.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://hertz.wang/RebootWithoutNet.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1117,138 +1281,6 @@ if __name__ == &#39;__main__&#39;:
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hertz.wang/libwebp.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Hertz Wang">
-      <meta itemprop="description" content="iOS developer from China.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hertz Wang Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/libwebp.html" class="post-title-link" itemprop="url">libwebp Pod超时处理</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-31 11:44:40" itemprop="dateCreated datePublished" datetime="2020-08-31T11:44:40+08:00">2020-08-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
-<blockquote>
-<p>业务中需要支持WebP图片，然后在Pod时提示超时，解决思路是先fork一份libwebp项目，然后添加<code>libwebp.podspec</code>文件，最后在Podfile中指定源</p>
-</blockquote>
-<h2 id="Fork项目"><a href="#Fork项目" class="headerlink" title="Fork项目"></a>Fork项目</h2><ol>
-<li><p>终端执行 <code>pod search libwebp</code>查看仓库地址，或使用Github上找到的<code>https://github.com/webmproject/libwebp</code></p>
-<pre><code> -&gt; libwebp (1.1.0)
-    Library to encode and decode images in WebP format.
-    pod &#39;libwebp&#39;, &#39;~&gt; 1.1.0&#39;
-    - Homepage: https://developers.google.com/speed/webp/
-    - Source:   https://chromium.googlesource.com/webm/libwebp
-    - Versions: 1.1.0, 1.1.0-rc2, 1.0.3, 1.0.2, 1.0.1, 1.0.0, 0.6.1, 0.6.0,
-    0.5.2, 0.5.1, 0.5.0, 0.4.4, 0.4.3, 0.4.2, 0.4.1 [trunk repo]
-    - Subspecs:
-      - libwebp/webp (1.1.0)
-      - libwebp/demux (1.1.0)
-      - libwebp/mux (1.1.0)
-</code></pre>
-</li>
-<li><p>新建Git仓库并上传</p>
-</li>
-</ol>
-<h2 id="添加-libwebp-podspec"><a href="#添加-libwebp-podspec" class="headerlink" title="添加 libwebp.podspec"></a>添加 libwebp.podspec</h2><p>在Git根目录新建文件<code>libwebp.podspec</code>，格式参考<a target="_blank" rel="noopener" href="https://guides.cocoapods.org/syntax/podspec.html">Podspec Syntax Reference</a>，大体如下：</p>
-<pre><code>Pod::Spec.new do |s|
-  s.name             = &#39;libwebp&#39;
-  s.version          = &#39;1.1.0&#39;
-  s.summary          = &#39;Library to encode and decode images in WebP format.&#39;
-
-  s.description      = &lt;&lt;-DESC
-Library to encode and decode images in WebP format.
-                       DESC
-
-  s.homepage         = &#39;https://developers.google.com/speed/webp/&#39;
-  s.license          = &#123; :type =&gt; &#39;BSD&#39;, :file =&gt; &#39;COPYING&#39; &#125;
-  s.author           = &#123; &#39;Google Inc.&#39; =&gt; &#39;mail@google.com&#39; &#125;
-  s.source           = &#123; :git =&gt; &#39;https://example/libwebp.git&#39;, :tag =&gt; s.version.to_s &#125;
-  s.compiler_flags   = &#39;-D_THREAD_SAFE&#39;
-  s.requires_arc     = false
-  s.platforms        = &#123; :ios =&gt; &#39;6.0&#39; &#125;
-  s.pod_target_xcconfig = &#123; &quot;USER_HEADER_SEARCH_PATHS&quot;: &quot;$(inherited) $&#123;PODS_ROOT&#125;/libwebp/ $&#123;PODS_TARGET_SRCROOT&#125;/&quot; &#125;
-  s.preserve_paths   = &#39;src&#39;
-
-  s.ios.deployment_target = &#39;6.0&#39;
-
-  s.source_files = &#39;src/webp/decode.h&#39;, &#39;src/webp/encode.h&#39;, &#39;src/webp/types.h&#39;, &#39;src/webp/mux_types.h&#39;, &#39;src/webp/format_constants.h&#39;, &#39;src/utils/*.&#123;h,c&#125;&#39;, &#39;src/dsp/*.&#123;h,c&#125;&#39;, &#39;src/dec/*.&#123;h,c&#125;&#39;, &#39;src/enc/*.&#123;h,c&#125;&#39;
-  
-end
-</code></pre>
-<p>注意：</p>
-<ol>
-<li><code>libwebp.podspec</code>中的信息源于<code>libwebp.podspec.json</code>文件</li>
-<li><code>s.source</code>中的<code>git</code>为fork后的新地址</li>
-<li>由于使用的是tag，所以需要新建名为<code>s.version</code>对应的tag</li>
-<li><code>s.source_files</code>这块的写法是只用到了<code>webp</code></li>
-</ol>
-<h2 id="指定源"><a href="#指定源" class="headerlink" title="指定源"></a>指定源</h2><p>指定Git库及分支，在<code>Podfile</code>文件中添加如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod &#x27;libwebp&#x27;, :git =&gt; &#x27;https://example/libwebp.git&#x27;, :branch =&gt; &#x27;master&#x27;</span><br></pre></td></tr></table></figure>
-
-<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><p><a target="_blank" rel="noopener" href="http://littlesvr.ca/apng/gif_apng_webp5.html">GIF vs APNG vs WebP</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1318,7 +1350,7 @@ end
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-count">70</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

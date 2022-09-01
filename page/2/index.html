@@ -187,6 +187,138 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/libwebp.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hertz Wang">
+      <meta itemprop="description" content="iOS developer from China.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hertz Wang Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/libwebp.html" class="post-title-link" itemprop="url">libwebp Pod超时处理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-31 11:44:40" itemprop="dateCreated datePublished" datetime="2020-08-31T11:44:40+08:00">2020-08-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<blockquote>
+<p>业务中需要支持WebP图片，然后在Pod时提示超时，解决思路是先fork一份libwebp项目，然后添加<code>libwebp.podspec</code>文件，最后在Podfile中指定源</p>
+</blockquote>
+<h2 id="Fork项目"><a href="#Fork项目" class="headerlink" title="Fork项目"></a>Fork项目</h2><ol>
+<li><p>终端执行 <code>pod search libwebp</code>查看仓库地址，或使用Github上找到的<code>https://github.com/webmproject/libwebp</code></p>
+<pre><code> -&gt; libwebp (1.1.0)
+    Library to encode and decode images in WebP format.
+    pod &#39;libwebp&#39;, &#39;~&gt; 1.1.0&#39;
+    - Homepage: https://developers.google.com/speed/webp/
+    - Source:   https://chromium.googlesource.com/webm/libwebp
+    - Versions: 1.1.0, 1.1.0-rc2, 1.0.3, 1.0.2, 1.0.1, 1.0.0, 0.6.1, 0.6.0,
+    0.5.2, 0.5.1, 0.5.0, 0.4.4, 0.4.3, 0.4.2, 0.4.1 [trunk repo]
+    - Subspecs:
+      - libwebp/webp (1.1.0)
+      - libwebp/demux (1.1.0)
+      - libwebp/mux (1.1.0)
+</code></pre>
+</li>
+<li><p>新建Git仓库并上传</p>
+</li>
+</ol>
+<h2 id="添加-libwebp-podspec"><a href="#添加-libwebp-podspec" class="headerlink" title="添加 libwebp.podspec"></a>添加 libwebp.podspec</h2><p>在Git根目录新建文件<code>libwebp.podspec</code>，格式参考<a target="_blank" rel="noopener" href="https://guides.cocoapods.org/syntax/podspec.html">Podspec Syntax Reference</a>，大体如下：</p>
+<pre><code>Pod::Spec.new do |s|
+  s.name             = &#39;libwebp&#39;
+  s.version          = &#39;1.1.0&#39;
+  s.summary          = &#39;Library to encode and decode images in WebP format.&#39;
+
+  s.description      = &lt;&lt;-DESC
+Library to encode and decode images in WebP format.
+                       DESC
+
+  s.homepage         = &#39;https://developers.google.com/speed/webp/&#39;
+  s.license          = &#123; :type =&gt; &#39;BSD&#39;, :file =&gt; &#39;COPYING&#39; &#125;
+  s.author           = &#123; &#39;Google Inc.&#39; =&gt; &#39;mail@google.com&#39; &#125;
+  s.source           = &#123; :git =&gt; &#39;https://example/libwebp.git&#39;, :tag =&gt; s.version.to_s &#125;
+  s.compiler_flags   = &#39;-D_THREAD_SAFE&#39;
+  s.requires_arc     = false
+  s.platforms        = &#123; :ios =&gt; &#39;6.0&#39; &#125;
+  s.pod_target_xcconfig = &#123; &quot;USER_HEADER_SEARCH_PATHS&quot;: &quot;$(inherited) $&#123;PODS_ROOT&#125;/libwebp/ $&#123;PODS_TARGET_SRCROOT&#125;/&quot; &#125;
+  s.preserve_paths   = &#39;src&#39;
+
+  s.ios.deployment_target = &#39;6.0&#39;
+
+  s.source_files = &#39;src/webp/decode.h&#39;, &#39;src/webp/encode.h&#39;, &#39;src/webp/types.h&#39;, &#39;src/webp/mux_types.h&#39;, &#39;src/webp/format_constants.h&#39;, &#39;src/utils/*.&#123;h,c&#125;&#39;, &#39;src/dsp/*.&#123;h,c&#125;&#39;, &#39;src/dec/*.&#123;h,c&#125;&#39;, &#39;src/enc/*.&#123;h,c&#125;&#39;
+  
+end
+</code></pre>
+<p>注意：</p>
+<ol>
+<li><code>libwebp.podspec</code>中的信息源于<code>libwebp.podspec.json</code>文件</li>
+<li><code>s.source</code>中的<code>git</code>为fork后的新地址</li>
+<li>由于使用的是tag，所以需要新建名为<code>s.version</code>对应的tag</li>
+<li><code>s.source_files</code>这块的写法是只用到了<code>webp</code></li>
+</ol>
+<h2 id="指定源"><a href="#指定源" class="headerlink" title="指定源"></a>指定源</h2><p>指定Git库及分支，在<code>Podfile</code>文件中添加如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod &#x27;libwebp&#x27;, :git =&gt; &#x27;https://example/libwebp.git&#x27;, :branch =&gt; &#x27;master&#x27;</span><br></pre></td></tr></table></figure>
+
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><p><a target="_blank" rel="noopener" href="http://littlesvr.ca/apng/gif_apng_webp5.html">GIF vs APNG vs WebP</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://hertz.wang/UseWDS.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1119,102 +1251,6 @@ if __name__==&quot;__main__&quot;:
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hertz.wang/iOSCoreGraphics.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Hertz Wang">
-      <meta itemprop="description" content="iOS developer from China.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hertz Wang Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/iOSCoreGraphics.html" class="post-title-link" itemprop="url">Core Graphics</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-01-19 16:54:11" itemprop="dateCreated datePublished" datetime="2018-01-19T16:54:11+08:00">2018-01-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-01-20 10:57:15" itemprop="dateModified" datetime="2022-01-20T10:57:15+08:00">2022-01-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/IT/" itemprop="url" rel="index"><span itemprop="name">IT</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
-<blockquote>
-<p>本文参考</p>
-<p> <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/27798398">iOS绘图技术（一、简单介绍和绘制视图）</a></p>
-<p> <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MjM5OTM0MzIwMQ==&mid=2652551125&idx=3&sn=d664030238d0d8f29ce42e1e08833ce4&chksm=bcd2f2db8ba57bcd173aa7a823b8043c4798d3e0a6e6d800e0f845ef76dff5930ba9904d1bd1&scene=27&open_source=weibo_search">iOS绘图框架CoreGraphics分析</a></p>
-</blockquote>
-<h2 id="简要说明"><a href="#简要说明" class="headerlink" title="简要说明"></a>简要说明</h2><ul>
-<li>iOS 在运行循环中会整合所有的绘图请求，并一次性将它们绘制出来</li>
-<li>不能在子线程中绘制，也不能进行复杂操作，否则会造成主线程卡顿</li>
-<li>调用 UIView 的 drawRect: / draw(_:) 方法进行绘制</li>
-<li><code>setNeedsDisplay</code> 该方法标记为<strong>整个视图</strong>重新绘制，并且会在下一次绘制周期中重新绘制，自动调用 drawRect: / draw(_:)方法</li>
-<li><code>setNeedsDisplayInRect:</code> 该方法标记为<strong>视图部分区域</strong>重新绘制，周期同上。从绘制带来的开销角度，不推荐整个视图的重新绘制。</li>
-</ul>
-<h2 id="UIKit部分"><a href="#UIKit部分" class="headerlink" title="UIKit部分"></a>UIKit部分</h2><blockquote>
-<p>UIKit是高级的图形接口，它的 API 都是基于 Objective-C的。它能够访问绘图、动画、字体、图片等内容。</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/iOSCoreGraphics.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1284,7 +1320,7 @@ if __name__==&quot;__main__&quot;:
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-count">70</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
