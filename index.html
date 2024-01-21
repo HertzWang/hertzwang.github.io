@@ -187,6 +187,91 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hertz.wang/WVJBLearn.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="海舟，王">
+      <meta itemprop="description" content="iOS开发者，新能源车企">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="海舟，王">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/WVJBLearn.html" class="post-title-link" itemprop="url">WebViewJavascriptBridge学习</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-10-28 10:22:50 / 修改时间：14:27:02" itemprop="dateCreated datePublished" datetime="2022-10-28T10:22:50+08:00">2022-10-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT/" itemprop="url" rel="index"><span itemprop="name">IT</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><a target="_blank" rel="noopener" href="https://github.com/marcuswestin/WebViewJavascriptBridge">WebViewJavascriptBridge</a>可用于iOS原生（以下简称原生）与JavaScript（以下简称JS）交互，集成和使用参考<code>README.md</code></p>
+<p>Bridge通过WebView初始化后加载网页，html首次加载时新建一个隐藏的iframe，通过设置scr来触发原生URL拦截从而达到注入JS的目的</p>
+<p>原生注册方法供JS调用：JS调用时先将方法名和传参缓存（至<code>sendMessageQueue</code>），再更新<code>iframe.scr</code>触发原生URL拦截（<code>-webView:decidePolicyForNavigationAction:decisionHandler:</code>），原生调用JS方法（<code>WebViewJavascriptBridge._fetchQueue();</code>）获取方法名和传参，解析后从<code>bridge.base.messageHandlers</code>取出对应的<code>Block</code>然后执行</p>
+<p>JS注册方法供原生调用：原生通过<code>bridge</code>可直接调用JS方法</p>
+<h2 id="文件目录"><a href="#文件目录" class="headerlink" title="文件目录"></a>文件目录</h2><ul>
+<li>WebViewJavascriptBridge：适用于UIWebView的Bridge，操作系统在<code>MAC_10_9</code>以上或设备为<code>IPHONE_7_1</code>及上中，使用<code>WebViewJavascriptBridgeBase</code>对象做为Bridge</li>
+<li>WKWebViewJavascriptBridge：适用于WKWebView的Bridge</li>
+<li>WebViewJavascriptBridgeBase：Bridge的基于组件，用于存储原生注册的方法、封装JS方法的调用等</li>
+<li>WebViewJavascriptBridge_JS：声名的C方法，内部有注入WebView中的JS代码</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/WVJBLearn.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://hertz.wang/AWSEC2.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -218,7 +303,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-09-01 15:48:39" itemprop="dateModified" datetime="2022-09-01T15:48:39+08:00">2022-09-01</time>
+                <time title="修改时间：2022-11-22 16:03:12" itemprop="dateModified" datetime="2022-11-22T16:03:12+08:00">2022-11-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1084,105 +1169,6 @@ if __name__ == &#39;__main__&#39;:
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hertz.wang/DuplicateSymbolForStaticLibrary.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="海舟，王">
-      <meta itemprop="description" content="iOS开发者，新能源车企">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="海舟，王">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/DuplicateSymbolForStaticLibrary.html" class="post-title-link" itemprop="url">Duplicate symbol for .a</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-09-25 10:23:08" itemprop="dateCreated datePublished" datetime="2020-09-25T10:23:08+08:00">2020-09-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-30 15:03:20" itemprop="dateModified" datetime="2022-03-30T15:03:20+08:00">2022-03-30</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/IT/" itemprop="url" rel="index"><span itemprop="name">IT</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p>
-<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><blockquote>
-<p><code>ibmtasdk.a</code> 和 <code>libWeChatSDK.a</code> 中都包含 <code>MTASocket.o</code>，从而出现重复的法名<code>_responseErrorKey</code>导致编辑失败<br>Log:<br>duplicate symbol ‘_responseErrorKey’ in:<br>TXUGCVideoUpload/COSSDK/libmtasdk.a(MTASocket.o)<br>UnifyPay/WeChat/libWeChatSDK.a(MTASocket.o)<br>ld: 1 duplicate symbol for architecture arm64<br>clang: error: linker command failed with exit code 1 (use -v to see invocation)</p>
-</blockquote>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="方案一：删除-libmtasdk-a-中MTASocket-o（失败）"><a href="#方案一：删除-libmtasdk-a-中MTASocket-o（失败）" class="headerlink" title="方案一：删除 libmtasdk.a 中MTASocket.o（失败）"></a>方案一：删除 <code>libmtasdk.a</code> 中<code>MTASocket.o</code>（失败）</h3><p>步骤：</p>
-<ol>
-<li>查看<code>libmtasdk.a</code>支持的架构类型<br> <code>$ lipo -info libmtasdk.a</code><br> 信息<code>Architectures in the fat file: libmtasdk.a are: i386 x86_64 arm64 armv7 armv7s</code>，表示该静态库支持i386、x86_64rm64、armv7、armv7s平台</li>
-<li>获取各架构的动态库<br> <code>$ lipo -extract_family i386 -o libmtasdk_i386.a libmtasdk.a</code><br> 其它架构类型也是，最后得到libmtasdk_i386.a、libmtasdk_x86_64.a、libmtasdk_arm64.a、……</li>
-<li>删除重复的<code>MTASocket.o</code><br> <code>$ ar -d libmtasdk_i386.a MTASocket.o </code><br> 其它架构类型也是<blockquote>
-<p>如果报错</p>
-<pre><code> ar: libmtasdk_armv7.a is a fat file (use libtool(1) or lipo(1) and ar(1) on it)
-</code></pre>
-<p>ar: libmtasdk_armv7.a: Inappropriate file type or format<br> 则需要执行<code>$ lipo libmtasdk_armv7.a -thin armv7 -o libmtasdk_armv7_new.a</code>,然后使用<code>libmtasdk_armv7_new.a</code>继续操作</p>
-</blockquote>
-</li>
-<li>合并所有架构类型的静态库<br> <code>$ lipo -create -output libmtasdk_xxx.a libmtasdk_i386.a libmtasdk_x86_64.a libmtasdk_arm64.a armv7.a armv7s.a</code></li>
-<li>使用新的静态库<code>libmtasdk_xxx.a</code><br> 工程中删除<code>libmtasdk.a</code>并导入<code>libmtasdk_xxx.a</code></li>
-</ol>
-<p>结束失败了，运行时报错</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/DuplicateSymbolForStaticLibrary.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1252,7 +1238,7 @@ if __name__ == &#39;__main__&#39;:
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-count">71</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1288,7 +1274,7 @@ if __name__ == &#39;__main__&#39;:
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
