@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>记录Apple M系列安装Ubuntu桌面版</title>
+      <link href="/AppleMInstallUbuntuDesktop.html"/>
+      <url>/AppleMInstallUbuntuDesktop.html</url>
+      
+        <content type="html"><![CDATA[<p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p><blockquote><p>未找到ARM框架的Ubuntu桌面系统，查找资料中在知乎看找到一篇文章醍醐灌顶，以下为个人记录，建议参考原文 <a href="https://zhuanlan.zhihu.com/p/656654128">Parallels Desktop 19 安装Ubuntu桌面版(m芯片arm架构)</a>。</p><p>按照原文的思路，先安装<a href="https://cn.ubuntu.com/download/server/arm">适用于ARM的Ubuntu Server</a>，再安装桌面环境和应用商店</p></blockquote><p>笔记：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt update</span><br><span class="line">$ sudo apt install ubuntu-desktop</span><br><span class="line">$ sudo snap install snap-store</span><br><span class="line">$ sudo snap install flutter --classic</span><br><span class="line">$ sudo apt install openjdk-17-jdk</span><br><span class="line">$ sudo apt install openjdk-17-jre</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> It </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Tools </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>通过设置hosts正常访问GitHub</title>
+      <link href="/VisitGithub.html"/>
+      <url>/VisitGithub.html</url>
+      
+        <content type="html"><![CDATA[<p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p><ol><li>打开网站 <a href="https://ping.eu/ping">https://ping.eu/ping</a></li><li><code>IP address or host name: </code> 中输入 <code>github.com</code> ，输入 <code>Enter code</code> 并点击 <strong>Go</strong> 之后可以得到一个IP</li><li>打开终端执行 <code>$ sudo vi /etc/hosts</code>，在底部添加 <code>xxx.xx.xxx.xx github.com</code>，保存退出（<code>ESC</code> - <code>Shift + ;</code> - <code>wq</code> - 回车）</li><li>打开浏览器访问<a href="https://github.com/">Github</a></li></ol><p><img src="./images/VisitGithub.png" alt="ping.eu ping" title="ping.eu ping">    </p>]]></content>
+      
+      
+      <categories>
+          
+          <category> IT </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Tools </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>WebViewJavascriptBridge学习</title>
       <link href="/WVJBLearn.html"/>
       <url>/WVJBLearn.html</url>
@@ -336,6 +386,18 @@
         <content type="html"><![CDATA[<p>反馈请联系<a href="mailto:hertz@hertzwang.com"><strong>hertz@hertzwang.com</strong></a>,谢谢</p><blockquote><p>前言：</p></blockquote><h3 id="安装xlrd"><a href="#安装xlrd" class="headerlink" title="安装xlrd"></a>安装<code>xlrd</code></h3><p>执行 <code>pip install xlrd</code>安装</p><ul><li>注：提示<code>-bash: pip: command not found</code>，执行<code>sudo easy_install pip</code> 安装pip</li></ul><h3 id="执行Python"><a href="#执行Python" class="headerlink" title="执行Python"></a>执行Python</h3><pre><code># -*- coding: utf-8 -*-import xdrlib ,sysimport xlrdimport os# 文件名fileName = &#39;yapi.xlsx&#39;# 属性名称列propertyNameCol = 0# 属性类型列propertyTypeCol = 1# 属性注释列propertyDescCol = 4#打开excel文件def open_excel():    try:        data = xlrd.open_workbook(fileName)        return data    except Exception,e:        print str(e)def print_excel():    data = open_excel() #打开excel文件    sheet1 = data.sheet_by_index(0) #选择第1个Sheet    nrows = sheet1.nrows    os.system(&#39;clear&#39;)    for rownum in range(0, nrows):        name = sheet1.cell_value(rownum, propertyNameCol)        type = sheet1.cell_value(rownum, propertyTypeCol)        desc = sheet1.cell_value(rownum, propertyDescCol)        nstype = &#39;NSNumber&#39;        if type == &#39;string&#39;:            nstype = &#39;NSString&#39;        print (&#39;/// %s&#39; % (desc))        print (&#39;@property (nonatomic, copy) %s* %s;&#39; % (nstype, name))    print(&#39;&#39;)#主函数def main():    print_excel()if __name__==&quot;__main__&quot;:    main()</code></pre>]]></content>
       
       
+      <categories>
+          
+          <category> IT </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Tools </tag>
+            
+        </tags>
       
     </entry>
     
